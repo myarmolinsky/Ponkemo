@@ -27,6 +27,7 @@ public class OwnedPokemon {
 	
 	public OwnedPokemon(Pokemon pokemon) {
 		this.pokemon = pokemon;
+		nickname = pokemon.getName();
 		level = new Random().nextInt(50) + 1;
 		int temp = new Random().nextInt(1000);
 		if (temp == 0)
