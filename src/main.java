@@ -8,7 +8,7 @@ public class Main {
 	}
 
 	private static void fillPossibilities(ArrayList<Pokemon> pokedex) {
-		pokedex.add(new Pokemon("Bulbasaur", "Grass", "Poison", 45, 49, 49, 65, 65, 45, 27, null, 0, null, null, null));
+		pokedex.add(new Pokemon("Bulbasaur", "Grass", "Poison", 45, 49, 49, 65, 65, 45, 27, new String[] {"monster", "grass"}, 0.875));
 	}
 	
 }

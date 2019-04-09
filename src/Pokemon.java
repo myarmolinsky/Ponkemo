@@ -12,15 +12,12 @@ public class Pokemon {
 	private int baseSpecialDefense;
 	private int baseSpeed;
 	private int spawnRate; //32 possible
-	private String eggGroup;
-	private int genderRatio;
-	private ArrayList<Move> levelUpMoves;
-	private ArrayList<Move> breedingMoves;
-	private ArrayList<Move> tutorMoves;
+	private String[] eggGroup;
+	private double genderRatio;
 
 
-	public Pokemon(String name, String type1, String type2, int hp, int atk, int def, int spa, int spd, int spe, int spawnRate, 
-			String egg, int genderRatio, Move[] lUpMoves, Move[] breedMoves, Move[] tutorMoves) {
+	public Pokemon(String name, String type1, String type2, int hp, int atk, int def, int spa, int spd, int spe, 
+			int spawnRate, String[] eggGroup, double genderRatio) {
 		this.name = name;
 		this.type1 = type1;
 		this.type2 = type2;
@@ -31,11 +28,8 @@ public class Pokemon {
 		baseSpecialDefense = spd;
 		baseSpeed = spe;
 		this.spawnRate = spawnRate;
-		eggGroup = egg;
+		this.eggGroup = eggGroup;
 		this.genderRatio = genderRatio;
-		levelUpMoves.addAll(Arrays.asList(lUpMoves));
-		breedingMoves.addAll(Arrays.asList(breedMoves));
-		this.tutorMoves.addAll(Arrays.asList(tutorMoves));
 	}
 
 	public String getName() {
@@ -70,24 +64,12 @@ public class Pokemon {
 		return spawnRate;
 	}
 
-	public String getEggGroup() {
+	public String[] getEggGroup() {
 		return eggGroup;
 	}
 
-	public int getGenderRatio() {
+	public double getGenderRatio() {
 		return genderRatio;
-	}
-
-	public ArrayList<Move> getLevelUpMoves(){
-		return levelUpMoves;
-	}
-	
-	public ArrayList<Move> getBreedingMoves(){
-		return breedingMoves;
-	}
-	
-	public ArrayList<Move> getTutorMoves(){
-		return tutorMoves;
 	}
 
 	public String getType1() {
