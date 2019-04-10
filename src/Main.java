@@ -16,14 +16,14 @@ public class Main {
 			System.out.println("3) Breed Pokemon");
 			System.out.println("4) Quit");
 			System.out.println();
-			switch(input.nextLine().charAt(0)){
+			switch(input.next().charAt(0)){
 			case '1':
 				System.out.println();
 				search(pokedex, p, spawnRateCounter);
 				break;
 			case '2':
 				System.out.println();
-				viewOwnedPokemon(p);
+				viewOwnedPokemon(p, input);
 				break;
 			case '3':
 				System.out.println();
@@ -77,21 +77,37 @@ public class Main {
 			System.out.println(i + 1 + ") " + p.getPC().get(i).getNickname());
 		}
 		System.out.println();
+		viewAnotherOwnedPokemon(p, sc);
+	}
+
+	private static void viewAnotherOwnedPokemon(Player p, Scanner sc) {
 		System.out.println("Would you like to view any pokemon in particular?");
 		System.out.println("1) Enter the number correlating to a pokemon in your PC.");
 		System.out.println("2) Enter \"0\" to go back to the previous menu.");
 		System.out.println();
 		String temp = sc.next();
-		while(!isNumeric(temp)) {
-			System.out.println("Input does not match an avalable choice");
+		if (!isNumeric(temp)) {
 			System.out.println();
-			System.out.println("Would you like to view any pokemon in particular?");
-			System.out.println("1) Enter the number correlating to a pokemon in your PC.");
-			System.out.println("2) Enter \"0\" to go back to the previous menu.");
+			System.out.println("Input does not match an avalable choice.");
 			System.out.println();
-		}
-		while(Integer.parseInt(temp) != 0) {
-			
+			viewOwnedPokemon(p, sc);
+		} else {
+			int num = Integer.parseInt(temp);
+			if (num < 0 || num >= p.getPC().size() + 1) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+				viewOwnedPokemon(p, sc);
+			} else {
+				if (num != 0) {
+					System.out.println();
+					System.out.println(p.getPC().get(num - 1));
+					System.out.println();
+					viewAnotherOwnedPokemon(p, sc);
+				} else {
+					System.out.println();
+				}
+			}
 		}
 	}
 

@@ -46,6 +46,12 @@ public class OwnedPokemon {
 		specialAttackEV = 0;
 		specialDefenseEV = 0;
 		speedEV = 0;
+		healthStat = 0;
+		attackStat = 0;
+		defenseStat = 0;
+		specialAttackStat = 0;
+		specialDefenseStat = 0;
+		speedStat = 0;
 		calculateStats();
 	}
 
@@ -167,6 +173,17 @@ public class OwnedPokemon {
 
 	public int getSpeedStat() {
 		return speedStat;
+	}
+	
+	public String toString() {
+		return String.format("Name: " + pokemon.getName() + "\n"
+				+ "Nickname: " + nickname + "\n"
+				+ "Health IVs: " + healthIV + "\n"
+				+ "Attack IVs: " + attackIV + "\n"
+				+ "Defense IVs: " + defenseIV + "\n"
+				+ "Special Attack IVs: " + specialAttackIV + "\n"
+				+ "Special Defense IVs: " + specialDefenseIV + "\n"
+				+ "Speed IVs: " + speedIV + "\n");
 	}
 
 }
