@@ -27,7 +27,7 @@ public class Main {
 				break;
 			case '3':
 				System.out.println();
-				breed();
+				breed(p, input);
 				break;
 			case '4':
 				finished = true;
@@ -72,12 +72,16 @@ public class Main {
 	}
 
 	private static void viewOwnedPokemon(Player p, Scanner sc) {
+		printOwnedPokemon(p);
+		viewAnotherOwnedPokemon(p, sc);
+	}
+
+	private static void printOwnedPokemon(Player p) {
 		System.out.println("Your Pokemon:");
 		for (int i = 0; i < p.getPC().size(); i++) {
 			System.out.println(i + 1 + ") " + p.getPC().get(i).getNickname());
 		}
 		System.out.println();
-		viewAnotherOwnedPokemon(p, sc);
 	}
 
 	private static void viewAnotherOwnedPokemon(Player p, Scanner sc) {
@@ -120,8 +124,133 @@ public class Main {
 		}
 	}
 
-	private static void breed() {
-		// to be implemented
+	private static void breed(Player p, Scanner sc) {
+		printOwnedPokemon(p);
+		breedOne(p, sc);
+	}
+
+	private static void breedOne(Player p, Scanner sc) {
+		System.out.println("Enter the number corresponding to the first pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
+		System.out.println();
+		String temp = sc.next();
+		if (!isNumeric(temp)) {
+			System.out.println();
+			System.out.println("Input does not match an avalable choice.");
+			System.out.println();
+			breed(p, sc);
+		} else {
+			int num = Integer.parseInt(temp);
+			if (num < 0 || num >= p.getPC().size() + 1) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+				breed(p, sc);
+			} else {
+				if (num != 0) {
+					breedTwo(p, sc, num);
+				} else {
+					System.out.println();
+				}
+			}
+		}
+	}
+
+	private static void breedTwo(Player p, Scanner sc, int num) {
+		System.out.println("Enter the number corresponding to the first pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
+		System.out.println();
+		String temp = sc.next();
+		if (!isNumeric(temp)) {
+			System.out.println();
+			System.out.println("Input does not match an avalable choice.");
+			System.out.println();
+			breed(p, sc);
+		} else {
+			int numTwo = Integer.parseInt(temp);
+			if (numTwo < 0 || numTwo >= p.getPC().size() + 1 || num == numTwo) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+				breed(p, sc);
+			} else {
+				if (numTwo != 0) {
+					if (breedable(p, num, numTwo)) {
+						OwnedPokemon oldOne = new OwnedPokemon(p.getPC().get(num));
+						OwnedPokemon oldTwo = new OwnedPokemon(p.getPC().get(numTwo));
+						Pokemon pokemon;
+						String name = "";
+						if (oldOne.getGender().equals("genderless")) {
+							int choose = new Random().nextInt(2);
+							if (choose == 0) {
+								name = oldOne.getName();
+								pokemon = oldOne.getPokemon();
+							} else {
+								name = oldTwo.getName();
+								pokemon = oldTwo.getPokemon();
+							}
+						} else 
+							if (oldOne.getGender().equals("female")) {
+								name = oldOne.getName();
+								pokemon = oldOne.getPokemon();
+							} else {
+								name = oldTwo.getName();
+								pokemon = oldTwo.getPokemon();
+							}
+						int healthIV;
+						int attackIV;
+						int defenseIV;
+						int specialAttackIV;
+						int specialDefenseIV;
+						int speedIV;
+						if (oldOne.getHealthIV() > oldTwo.getHealthIV())
+							healthIV = oldOne.getHealthIV();
+						else
+							healthIV = oldTwo.getHealthIV();
+						if (oldOne.getAttackIV() > oldTwo.getAttackIV())
+							attackIV = oldOne.getAttackIV();
+						else
+							attackIV = oldTwo.getAttackIV();
+						if (oldOne.getDefenseIV() > oldTwo.getDefenseIV())
+							defenseIV = oldOne.getDefenseIV();
+						else
+							defenseIV = oldTwo.getDefenseIV();
+						if (oldOne.getSpecialAttackIV() > oldTwo.getSpecialAttackIV())
+							specialAttackIV = oldOne.getSpecialAttackIV();
+						else
+							specialAttackIV = oldTwo.getSpecialAttackIV();
+						if (oldOne.getSpecialDefenseIV() > oldTwo.getSpecialDefenseIV())
+							specialDefenseIV = oldOne.getSpecialDefenseIV();
+						else
+							specialDefenseIV = oldTwo.getSpecialDefenseIV();
+						if (oldOne.getSpeedIV() > oldTwo.getSpeedIV())
+							speedIV = oldOne.getSpeedIV();
+						else
+							speedIV = oldTwo.getSpeedIV();
+						p.getPC().remove(num);
+						p.getPC().remove(numTwo);
+						p.catchPokemon(new OwnedPokemon(pokemon, healthIV, attackIV, defenseIV, specialAttackIV, specialDefenseIV, speedIV));
+					} else
+						System.out.println();
+				} else
+					System.out.println();
+			}
+		}
+	}
+
+	private static boolean breedable(Player p, int num, int numTwo) {
+		boolean temp = false;
+		for (int i = 0; i < p.getPC().get(num).getEggGroup().length; i++) {
+			for (int j = 0; j < p.getPC().get(numTwo).getEggGroup().length; j++) {
+				if (p.getPC().get(num).getEggGroup()[i].equals(p.getPC().get(numTwo).getEggGroup()[j]))
+					temp = true;
+			}
+		}
+		if (temp) {
+			if ((p.getPC().get(num).getGender().equals("male") && p.getPC().get(num).getGender().equals("female"))
+					|| (p.getPC().get(num).getGender().equals("female") && p.getPC().get(num).getGender().equals("male"))
+					|| (p.getPC().get(num).getGender().equals("genderless") && p.getPC().get(num).getGender().equals("genderless")))
+				return true;
+		}
+		return false;
 	}
 
 }

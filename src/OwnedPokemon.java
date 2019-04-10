@@ -6,7 +6,7 @@ public class OwnedPokemon {
 	private boolean shiny;
 	private String nickname;
 	private String gender;
-//	private int level;
+	//	private int level;
 	private int healthIV;
 	private int attackIV;
 	private int defenseIV;
@@ -29,15 +29,15 @@ public class OwnedPokemon {
 	public OwnedPokemon(Pokemon pokemon) {
 		this.pokemon = pokemon;
 		nickname = pokemon.getName();
-//		level = new Random().nextInt(50) + 1;
+		//		level = new Random().nextInt(50) + 1;
 		int temp = new Random().nextInt(1000);
 		if (temp == 0)
 			shiny = true;
 		else
 			shiny = false;
-		if (pokemon.getGenderRatio() < 0) {
+		if (pokemon.getGenderRatio() < 0)
 			gender = "genderless";
-		} else {
+		else {
 			temp = new Random().nextInt(100) + 1;
 			if (temp/100 <= pokemon.getGenderRatio())
 				gender = "male";
@@ -65,6 +65,44 @@ public class OwnedPokemon {
 		//		calculateStats();
 	}
 
+	public OwnedPokemon(Pokemon pokemon, int healthIV, int attackIV, int defenseIV, int specialAttackIV, int specialDefenseIV, int speedIV) {
+		this.pokemon = pokemon;
+		this.nickname = pokemon.getName();
+		int temp = new Random().nextInt(1000);
+		if (temp == 0)
+			shiny = true;
+		else
+			shiny = false;
+		if (pokemon.getGenderRatio() < 0) {
+			gender = "genderless";
+		} else {
+			temp = new Random().nextInt(100) + 1;
+			if (temp/100 <= pokemon.getGenderRatio())
+				gender = "male";
+			else
+				gender = "female";
+		}
+		this.healthIV = healthIV;
+		this.attackIV = attackIV;
+		this.defenseIV = defenseIV;
+		this.specialAttackIV = specialAttackIV;
+		this.specialDefenseIV = specialDefenseIV;
+		this.speedIV = speedIV;
+	}
+
+	public OwnedPokemon(OwnedPokemon ownedPokemon) {
+		this.pokemon = ownedPokemon.pokemon;
+		this.nickname = ownedPokemon.nickname;
+		this.shiny = ownedPokemon.shiny;
+		this.gender = ownedPokemon.gender;
+		this.healthIV = ownedPokemon.healthIV;
+		this.attackIV = ownedPokemon.attackIV;
+		this.defenseIV = ownedPokemon.defenseIV;
+		this.specialAttackIV = ownedPokemon.specialAttackIV;
+		this.specialDefenseIV = ownedPokemon.specialDefenseIV;
+		this.speedIV = ownedPokemon.speedIV;
+	}
+
 	//	private void calculateStats() {
 	//		// to be implemented
 	//	}
@@ -85,9 +123,13 @@ public class OwnedPokemon {
 		nickname = nick;
 	}
 
-//	public int getLevel() {
-//		return level;
-//	}
+	public String getGender() {
+		return gender;
+	}
+
+	//	public int getLevel() {
+	//		return level;
+	//	}
 
 	public int getHealthIV() {
 		return healthIV;
@@ -196,7 +238,8 @@ public class OwnedPokemon {
 					+ "Defense IVs: " + defenseIV + "\n"
 					+ "Special Attack IVs: " + specialAttackIV + "\n"
 					+ "Special Defense IVs: " + specialDefenseIV + "\n"
-					+ "Speed IVs: " + speedIV + "\n");
+					+ "Speed IVs: " + speedIV + "\n"
+					+ "Total IV Percentage: " + ((((double)(healthIV + attackIV + defenseIV + specialAttackIV + specialDefenseIV + speedIV))/186) * 100) + "%%");
 		return String.format("Name: " + pokemon.getName() + "\n"
 				+ "Nickname: " + nickname + "\n"
 				+ "Gender: " + gender + "\n"
@@ -205,7 +248,16 @@ public class OwnedPokemon {
 				+ "Defense IVs: " + defenseIV + "\n"
 				+ "Special Attack IVs: " + specialAttackIV + "\n"
 				+ "Special Defense IVs: " + specialDefenseIV + "\n"
-				+ "Speed IVs: " + speedIV + "\n");
+				+ "Speed IVs: " + speedIV + "\n"
+				+ "Total IV Percentage: " + ((((double)(healthIV + attackIV + defenseIV + specialAttackIV + specialDefenseIV + speedIV))/186) * 100) + "%%");
+	}
+
+	public String[] getEggGroup() {
+		return pokemon.getEggGroup();
+	}
+
+	public String getName() {
+		return pokemon.getName();
 	}
 
 }
