@@ -1,9 +1,9 @@
 import java.util.*;
 
 public class Player {
-	
+
 	private ArrayList<OwnedPokemon> pc;
-	
+
 	public Player() {
 		pc = new ArrayList<>();
 	}

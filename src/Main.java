@@ -140,7 +140,7 @@ public class Main {
 			breed(p, sc);
 		} else {
 			int num = Integer.parseInt(temp);
-			if (num < 0 || num >= p.getPC().size() + 1) {
+			if (num < 0 || num > p.getPC().size()) {
 				System.out.println();
 				System.out.println("Input does not match an available choice.");
 				System.out.println();
@@ -156,7 +156,8 @@ public class Main {
 	}
 
 	private static void breedTwo(Player p, Scanner sc, int num) {
-		System.out.println("Enter the number corresponding to the first pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
+		System.out.println();
+		System.out.println("Enter the number corresponding to the second pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
 		System.out.println();
 		String temp = sc.next();
 		if (!isNumeric(temp)) {
@@ -166,7 +167,7 @@ public class Main {
 			breed(p, sc);
 		} else {
 			int numTwo = Integer.parseInt(temp);
-			if (numTwo < 0 || numTwo >= p.getPC().size() + 1 || num == numTwo) {
+			if (numTwo < 0 || numTwo > p.getPC().size() || num == numTwo) {
 				System.out.println();
 				System.out.println("Input does not match an available choice.");
 				System.out.println();
@@ -174,27 +175,20 @@ public class Main {
 			} else {
 				if (numTwo != 0) {
 					if (breedable(p, num, numTwo)) {
-						OwnedPokemon oldOne = new OwnedPokemon(p.getPC().get(num));
-						OwnedPokemon oldTwo = new OwnedPokemon(p.getPC().get(numTwo));
+						OwnedPokemon oldOne = new OwnedPokemon(p.getPC().get(num - 1));
+						OwnedPokemon oldTwo = new OwnedPokemon(p.getPC().get(numTwo - 1));
 						Pokemon pokemon;
-						String name = "";
 						if (oldOne.getGender().equals("genderless")) {
 							int choose = new Random().nextInt(2);
-							if (choose == 0) {
-								name = oldOne.getName();
+							if (choose == 0)
 								pokemon = oldOne.getPokemon();
-							} else {
-								name = oldTwo.getName();
+							else
 								pokemon = oldTwo.getPokemon();
-							}
 						} else 
-							if (oldOne.getGender().equals("female")) {
-								name = oldOne.getName();
+							if (oldOne.getGender().equals("female"))
 								pokemon = oldOne.getPokemon();
-							} else {
-								name = oldTwo.getName();
+							else
 								pokemon = oldTwo.getPokemon();
-							}
 						int healthIV;
 						int attackIV;
 						int defenseIV;
@@ -225,11 +219,21 @@ public class Main {
 							speedIV = oldOne.getSpeedIV();
 						else
 							speedIV = oldTwo.getSpeedIV();
-						p.getPC().remove(num);
-						p.getPC().remove(numTwo);
+						if (num < numTwo) {
+							p.getPC().remove(numTwo - 1);
+							p.getPC().remove(num - 1);
+						} else {
+							p.getPC().remove(num - 1);
+							p.getPC().remove(numTwo - 1);
+						}
 						p.catchPokemon(new OwnedPokemon(pokemon, healthIV, attackIV, defenseIV, specialAttackIV, specialDefenseIV, speedIV));
-					} else
+						System.out.println("Congratulations on your newly bred Pokemon!");
 						System.out.println();
+					} else {
+						System.out.println();
+						System.out.println("These two Pokemon are not breedable.");
+						System.out.println();
+					}
 				} else
 					System.out.println();
 			}
@@ -238,16 +242,16 @@ public class Main {
 
 	private static boolean breedable(Player p, int num, int numTwo) {
 		boolean temp = false;
-		for (int i = 0; i < p.getPC().get(num).getEggGroup().length; i++) {
-			for (int j = 0; j < p.getPC().get(numTwo).getEggGroup().length; j++) {
-				if (p.getPC().get(num).getEggGroup()[i].equals(p.getPC().get(numTwo).getEggGroup()[j]))
+		for (int i = 0; i < p.getPC().get(num - 1).getEggGroup().length; i++) {
+			for (int j = 0; j < p.getPC().get(numTwo - 1).getEggGroup().length; j++) {
+				if (p.getPC().get(num - 1).getEggGroup()[i].equals(p.getPC().get(numTwo - 1).getEggGroup()[j]))
 					temp = true;
 			}
 		}
 		if (temp) {
-			if ((p.getPC().get(num).getGender().equals("male") && p.getPC().get(num).getGender().equals("female"))
-					|| (p.getPC().get(num).getGender().equals("female") && p.getPC().get(num).getGender().equals("male"))
-					|| (p.getPC().get(num).getGender().equals("genderless") && p.getPC().get(num).getGender().equals("genderless")))
+			if ((p.getPC().get(num - 1).getGender().equals("male") && p.getPC().get(numTwo - 1).getGender().equals("female"))
+					|| (p.getPC().get(num - 1).getGender().equals("female") && p.getPC().get(numTwo - 1).getGender().equals("male"))
+					|| (p.getPC().get(num - 1).getGender().equals("genderless") && p.getPC().get(numTwo - 1).getGender().equals("genderless")))
 				return true;
 		}
 		return false;

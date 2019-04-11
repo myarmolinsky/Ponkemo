@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Pokemon {
 
 	private String name;
@@ -36,6 +34,14 @@ public class Pokemon {
 		return name;
 	}
 
+	public String getType1() {
+		return type1;
+	}
+
+	public String getType2() {
+		return type2;
+	}
+
 	public int getBaseHealth() {
 		return baseHealth;
 	}
@@ -70,14 +76,6 @@ public class Pokemon {
 
 	public double getGenderRatio() {
 		return genderRatio;
-	}
-
-	public String getType1() {
-		return type1;
-	}
-
-	public String getType2() {
-		return type2;
 	}
 
 }
