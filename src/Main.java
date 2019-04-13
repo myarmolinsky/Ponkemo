@@ -78,10 +78,10 @@ public class Main {
 		pokedex.add(new Pokemon("NidoranM", "Poison", null, 46, 57, 40, 40, 40, 50, 1, new String[] {"monster", "water1"}, 100, new String[] {"NidoranM", "Nidorino", "Nidoking"}));
 		pokedex.add(new Pokemon("Nidorino", "Poison", null, 61, 72, 57, 55, 55, 65, 17, new String[] {"monster", "water1"}, 100, new String[] {"NidoranM", "Nidorino", "Nidoking"}));
 		pokedex.add(new Pokemon("Nidoking", "Poison", "Ground", 81, 102, 77, 85, 75, 85, 27, new String[] {"monster", "water1"}, 100, new String[] {"NidoranM", "Nidorino", "Nidoking"}));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
+		pokedex.add(new Pokemon("Clefairy", "Fairy", null, 70, 45, 48, 60, 65, 35, 11, new String[] {"fairy"}, 25, new String[] {"Clefairy", "Clefable"}));
+		pokedex.add(new Pokemon("Clefable", "Fairy", null, 95, 70, 73, 95, 90, 60, 30, new String[] {"fairy"}, 25, new String[] {"Clefairy", "Clefable"}));
+		pokedex.add(new Pokemon("Vulpix", "Fire", null, 39, 41, 40, 50, 65, 65, 6, new String[] {"field"}, 25, new String[] {"Vulpix", "Ninetales"}));
+		pokedex.add(new Pokemon("Ninetales", "Fire", null, 73, 76, 75, 81, 100, 100, 21, new String[] {"field"}, 25, new String[] {"Vulpix", "Ninetales"}));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
