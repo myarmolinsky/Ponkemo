@@ -38,8 +38,8 @@ public class OwnedPokemon {
 		if (pokemon.getGenderRatio() < 0)
 			gender = "genderless";
 		else {
-			temp = new Random().nextInt(100) + 1;
-			if ((((double) temp)/100) <= pokemon.getGenderRatio())
+			temp = new Random().nextInt(1000) + 1;
+			if ((((double) temp) / 10 ) <= pokemon.getGenderRatio())
 				gender = "male";
 			else
 				gender = "female";
