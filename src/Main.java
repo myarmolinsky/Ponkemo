@@ -176,20 +176,20 @@ public class Main {
 		pokedex.add(new Pokemon("Gyarados", "Water", "Flying", 95, 125, 79, 60, 100, 81, 27, new String[] {"water2", "dragon"}, 50, new String[] {"Magikarp", "Gyarados"}));
 		pokedex.add(new Pokemon("Lapras", "Water", "Ice", 130, 85, 80, 85, 95, 60, 27, new String[] {"water1", "monster"}, 50, new String[] {"Lapras"}));
 		pokedex.add(new Pokemon("Ditto", "Normal", null, 48, 48, 48, 48, 48, 48, 28, new String[] {"ditto"}, -1, new String[] {"Ditto"}));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
+		pokedex.add(new Pokemon("Eevee", "Normal", null, 55, 55, 50, 45, 65, 55, 27, new String[] {"field"}, 87.5, new String[] {"Eevee", "Vaporeon", "Jolteon", "Flareon"}));
+		pokedex.add(new Pokemon("Vaporeon", "Water", null, 130, 65, 60, 110, 95, 65, 27, new String[] {"field"}, 87.5, new String[] {"Eevee", "Vaporeon", "Jolteon", "Flareon"}));
+		pokedex.add(new Pokemon("Jolteon", "Electric", null, 65, 65, 60, 110, 95, 130, 27, new String[] {"field"}, 87.5, new String[] {"Eevee", "Vaporeon", "Jolteon", "Flareon"}));
+		pokedex.add(new Pokemon("Flareon", "Fire", null, 65, 130, 60, 95, 110, 65, 27, new String[] {"field"}, 87.5, new String[] {"Eevee", "Vaporeon", "Jolteon", "Flareon"}));
+		pokedex.add(new Pokemon("Porygon", "Normal", null, 65, 60, 70, 85, 75, 40, 27, new String[] {"mineral"}, -1, new String[] {"Porygon"}));
+		pokedex.add(new Pokemon("Omanyte", "Rock", "Water", 35, 40, 100, 90, 55, 35, 27, new String[] {"water1", "water3"}, 87.5, new String[] {"Omanyte", "Omastar"}));
+		pokedex.add(new Pokemon("Omastar", "Rock", "Water", 70, 60, 125, 115, 70, 55, 27, new String[] {"water1", "water3"}, 87.5, new String[] {"Omanyte", "Omastar"}));
+		pokedex.add(new Pokemon("Kabuto", "Rock", "Water", 30, 80, 90, 55, 45, 55, 27, new String[] {"water1", "water3"}, 87.5, new String[] {"Kabuto", "Kabutops"}));
+		pokedex.add(new Pokemon("Kabutops", "Rock", "Water", 60, 115, 105, 65, 70, 80, 27, new String[] {"water1", "water3"}, 87.5, new String[] {"Kabuto", "Kabutops"}));
+		pokedex.add(new Pokemon("Aerodactyl", "Rock", "Flying", 80, 105, 65, 60, 75, 130, 27, new String[] {"flying"}, 87.5, new String[] {"Aerodactyl"}));
+		pokedex.add(new Pokemon("Snorlax", "Normal", null, 160, 110, 65, 65, 110, 30, 30, new String[] {"monster"}, 87.5, new String[] {"Snorlax"}));
+		pokedex.add(new Pokemon("Articuno", "Ice", "Flying", 90, 85, 100, 95, 125, 85, 32, new String[] {"undiscovered"}, -1, new String[] {"Articuno"}));
+		pokedex.add(new Pokemon("Zapdos", "Electric", "Flying", 90, 90, 85, 125, 90, 100, 32, new String[] {"undiscovered"}, -1, new String[] {"Zapdos"}));
+		pokedex.add(new Pokemon("Moltres", "Fire", "Flying", 90, 100, 90, 125, 85, 90, 32, new String[] {"undiscovered"}, -1, new String[] {"Moltres"}));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
@@ -463,17 +463,17 @@ public class Main {
 
 	private static boolean breedable(Player p, int num, int numTwo) {
 		boolean temp = false;
-		for (int i = 0; i < p.getPC().get(num - 1).getEggGroup().length; i++)
-			if (p.getPC().get(num - 1).getEggGroup()[i].equals("ditto"))
-				return true;
-		for (int i = 0; i < p.getPC().get(numTwo-1).getEggGroup().length; i++)
-			if (p.getPC().get(numTwo - 1).getEggGroup()[i].equals("ditto"))
-				return true;
+		if (p.getPC().get(num - 1).getEggGroup()[0].equals("ditto"))
+			return true;
+		if (p.getPC().get(numTwo - 1).getEggGroup()[0].equals("ditto"))
+			return true;
 		for (int i = 0; i < p.getPC().get(num - 1).getEggGroup().length; i++)
 			for (int j = 0; j < p.getPC().get(numTwo - 1).getEggGroup().length; j++)
 				if (p.getPC().get(num - 1).getEggGroup()[i].equals(p.getPC().get(numTwo - 1).getEggGroup()[j]))
 					temp = true;
 		if (temp)
+			if (p.getPC().get(num - 1).getEggGroup()[0].equals("undiscovered") && !p.getPC().get(numTwo - 1).getName().equals(p.getPC().get(num - 1).getName()))
+				return false;
 			if ((p.getPC().get(num - 1).getGender().equals("male") && p.getPC().get(numTwo - 1).getGender().equals("female"))
 					|| (p.getPC().get(num - 1).getGender().equals("female") && p.getPC().get(numTwo - 1).getGender().equals("male"))
 					|| (p.getPC().get(num - 1).getGender().equals("genderless") && p.getPC().get(numTwo - 1).getGender().equals("genderless")))
