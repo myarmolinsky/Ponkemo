@@ -190,11 +190,11 @@ public class Main {
 		pokedex.add(new Pokemon("Articuno", "Ice", "Flying", 90, 85, 100, 95, 125, 85, 32, new String[] {"undiscovered"}, -1, new String[] {"Articuno"}));
 		pokedex.add(new Pokemon("Zapdos", "Electric", "Flying", 90, 90, 85, 125, 90, 100, 32, new String[] {"undiscovered"}, -1, new String[] {"Zapdos"}));
 		pokedex.add(new Pokemon("Moltres", "Fire", "Flying", 90, 100, 90, 125, 85, 90, 32, new String[] {"undiscovered"}, -1, new String[] {"Moltres"}));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
+		pokedex.add(new Pokemon("Dratini", "Dragon", null, 41, 64, 45, 50, 50, 50, 27, new String[] {"water1", "dragon"}, 50, new String[] {"Dratini", "Dragonair", "Dragonite"}));
+		pokedex.add(new Pokemon("Dragonair", "Dragon", null, 61, 84, 65, 70, 70, 70, 27, new String[] {"water1", "dragon"}, 50, new String[] {"Dratini", "Dragonair", "Dragonite"}));
+		pokedex.add(new Pokemon("Dragonite", "Dragon", "Flying", 91, 134, 95, 100, 100, 80, 27, new String[] {"water1", "dragon"}, 50, new String[] {"Dratini", "Dragonair", "Dragonite"}));
+		pokedex.add(new Pokemon("Mewtwo", "Psychic", null, 106, 110, 90, 154, 90, 130, 32, new String[] {"undiscovered"}, -1, new String[] {"Mewtwo"}));
+		pokedex.add(new Pokemon("Mew", "Psychic", null, 100, 100, 100, 100, 100, 100, 27, new String[] {"undiscovered"}, -1, new String[] {"Mew"}));
 	}
 
 	private static void search(ArrayList<Pokemon> pokedex, Player p, int[] spawnRateCounter) {
