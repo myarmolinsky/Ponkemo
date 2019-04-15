@@ -9,14 +9,15 @@ public class Main {
 		Player p = new Player();
 		int[] spawnRateCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		boolean finished = false;
-//		p.catchPokemon(new OwnedPokemon(pokedex.get(150)));
-//		p.catchPokemon(new OwnedPokemon(pokedex.get(131)));
+		//		p.catchPokemon(new OwnedPokemon(pokedex.get(150)));
+		//		p.catchPokemon(new OwnedPokemon(pokedex.get(131)));
 		while(!finished) {
 			System.out.println("Input the number corresponding to your choice:");
 			System.out.println("1) Search for Pokemon");
 			System.out.println("2) View Owned Pokemon");
 			System.out.println("3) Breed Pokemon");
-			System.out.println("4) Quit");
+			System.out.println("4) Recycle Pokemon");
+			System.out.println("5) Quit");
 			System.out.println();
 			switch(input.next().charAt(0)){
 			case '1':
@@ -32,6 +33,10 @@ public class Main {
 				breed(p, input, pokedex);
 				break;
 			case '4':
+				System.out.println();
+				recycle(p, input);
+				break;
+			case '5':
 				finished = true;
 				System.out.println();
 				System.out.println("Quitting ...");
@@ -44,6 +49,111 @@ public class Main {
 		}
 		input.close();
 	}	
+
+	private static void recycle(Player p, Scanner input) {
+		printOwnedPokemon(p);
+		chooseRecyclePokemon(p, input);
+	}
+
+	private static void chooseRecyclePokemon(Player p, Scanner input) {
+		System.out.println("Choose a Pokemon to recycle.");
+		System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
+		System.out.println("2) Enter \"0\" to go back to the previous menu.");
+		System.out.println();
+		String temp = input.next();
+		if (!isNumeric(temp)) {
+			System.out.println();
+			System.out.println("Input does not match an avalable choice.");
+			System.out.println();
+			chooseRecyclePokemon(p, input);
+		} else {
+			int num = Integer.parseInt(temp);
+			if (num < 0 || num >= p.getPC().size() + 1) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+				chooseRecyclePokemon(p, input);
+			} else {
+				if (num != 0) {
+					System.out.println();
+					verifyRecycle(p, num, input);
+					System.out.println();
+					chooseRecyclePokemon(p, input);
+				} else {
+					System.out.println();
+				}
+			}
+		}
+	}
+
+	private static void verifyRecycle(Player p, int num, Scanner input) {
+		System.out.println(p.getPC().get(num - 1));
+		System.out.println();
+		int numPoints = ((((p.getPC().get(num - 1).getHealthIV() + p.getPC().get(num - 1).getAttackIV() + p.getPC().get(num - 1).getDefenseIV() + p.getPC().get(num - 1).getSpecialAttackIV() + p.getPC().get(num - 1).getSpecialDefenseIV() + p.getPC().get(num - 1).getSpeedIV()))/186) * 10);
+		String typePoints = "";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() >= 200)
+			typePoints = "Tier 1 Points";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() >= 150 && p.getPC().get(num - 1).getPokemon().getSpawnRate() < 200)
+			typePoints = "Tier 2 Points";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() >= 100 && p.getPC().get(num - 1).getPokemon().getSpawnRate() < 150)
+			typePoints = "Tier 3 Points";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() >= 50 && p.getPC().get(num - 1).getPokemon().getSpawnRate() < 100)
+			typePoints = "Tier 4 Points";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() >= 0 && p.getPC().get(num - 1).getPokemon().getSpawnRate() < 50)
+			typePoints = "Tier 5 Points";
+		System.out.println("Are you sure you would like to recycle this pokemon?  You will receive " + numPoints + " " + typePoints);
+		System.out.println();
+		recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
+	}
+
+	private static void recycleVerificationStepTwo(Player p, int num, Scanner input, int numPoints, String typePoints) {
+		System.out.println("Input the number corresponding to your choice:");
+		System.out.println("1) Yes");
+		System.out.println("2) No");
+		System.out.println();
+		String temp = input.next();
+		if (!isNumeric(temp)) {
+			System.out.println();
+			System.out.println("Input does not match an avalable choice.");
+			System.out.println();
+			recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
+		} else {
+			int tempNum = Integer.parseInt(temp);
+			if (tempNum != 1 || tempNum != 2) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+				recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
+			} else {
+				if (num == 1) {
+					System.out.println();
+					if (typePoints.equals("Tier 1 Points")) {
+						p.addTier1(numPoints);
+						System.out.println("You now have " + p.getTier1() + "Tier 1 Points.");
+					}
+					if (typePoints.equals("Tier 2 Points")) {
+						p.addTier2(numPoints);
+						System.out.println("You now have " + p.getTier2() + "Tier 1 Points.");
+					}
+					if (typePoints.equals("Tier 3 Points")) {
+						p.addTier3(numPoints);
+						System.out.println("You now have " + p.getTier3() + "Tier 1 Points.");
+					}
+					if (typePoints.equals("Tier 4 Points")) {
+						p.addTier4(numPoints);
+						System.out.println("You now have " + p.getTier4() + "Tier 1 Points.");
+					}
+					if (typePoints.equals("Tier 5 Points")) {
+						p.addTier5(numPoints);
+						System.out.println("You now have " + p.getTier5() + "Tier 1 Points.");
+					}
+					System.out.println();
+				} else {
+					System.out.println();
+				}
+			}
+		}
+	}
 
 	private static void fillPossibilities(ArrayList<Pokemon> pokedex) {
 		pokedex.add(new Pokemon("Bulbasaur", "Grass", "Poison", 45, 49, 49, 65, 65, 45, 27, new String[] {"monster", "grass"}, 87.5, new String[] {"Bulbasaur", "Ivysaur", "Venusaur"}));
@@ -200,7 +310,7 @@ public class Main {
 	}
 
 	private static void search(ArrayList<Pokemon> pokedex, Player p, int[] spawnRateCounter) {
-		int rand = new Random().nextInt(5);
+		int rand = new Random().nextInt(20);
 		if (rand == 0) {
 			System.out.println("You found nothing. :(");
 			System.out.println();
@@ -223,9 +333,9 @@ public class Main {
 		}
 	}
 
-	private static void viewOwnedPokemon(Player p, Scanner sc) {
+	private static void viewOwnedPokemon(Player p, Scanner input) {
 		printOwnedPokemon(p);
-		viewAnotherOwnedPokemon(p, sc);
+		viewAnotherOwnedPokemon(p, input);
 	}
 
 	private static void printOwnedPokemon(Player p) {
@@ -236,30 +346,30 @@ public class Main {
 		System.out.println();
 	}
 
-	private static void viewAnotherOwnedPokemon(Player p, Scanner sc) {
-		System.out.println("Would you like to view any pokemon in particular?");
-		System.out.println("1) Enter the number correlating to a pokemon in your PC.");
+	private static void viewAnotherOwnedPokemon(Player p, Scanner input) {
+		System.out.println("Would you like to view any Pokemon in particular?");
+		System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
 		System.out.println("2) Enter \"0\" to go back to the previous menu.");
 		System.out.println();
-		String temp = sc.next();
+		String temp = input.next();
 		if (!isNumeric(temp)) {
 			System.out.println();
 			System.out.println("Input does not match an avalable choice.");
 			System.out.println();
-			viewOwnedPokemon(p, sc);
+			viewOwnedPokemon(p, input);
 		} else {
 			int num = Integer.parseInt(temp);
 			if (num < 0 || num >= p.getPC().size() + 1) {
 				System.out.println();
 				System.out.println("Input does not match an available choice.");
 				System.out.println();
-				viewOwnedPokemon(p, sc);
+				viewOwnedPokemon(p, input);
 			} else {
 				if (num != 0) {
 					System.out.println();
 					System.out.println(p.getPC().get(num - 1));
 					System.out.println();
-					viewAnotherOwnedPokemon(p, sc);
+					viewAnotherOwnedPokemon(p, input);
 				} else {
 					System.out.println();
 				}
@@ -276,30 +386,30 @@ public class Main {
 		}
 	}
 
-	private static void breed(Player p, Scanner sc, ArrayList<Pokemon> pokedex) {
+	private static void breed(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
 		printOwnedPokemon(p);
-		breedOne(p, sc, pokedex);
+		breedOne(p, input, pokedex);
 	}
 
-	private static void breedOne(Player p, Scanner sc, ArrayList<Pokemon> pokedex) {
-		System.out.println("Enter the number corresponding to the first pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
+	private static void breedOne(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
+		System.out.println("Enter the number corresponding to the first Pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
 		System.out.println();
-		String temp = sc.next();
+		String temp = input.next();
 		if (!isNumeric(temp)) {
 			System.out.println();
 			System.out.println("Input does not match an avalable choice.");
 			System.out.println();
-			breed(p, sc, pokedex);
+			breed(p, input, pokedex);
 		} else {
 			int num = Integer.parseInt(temp);
 			if (num < 0 || num > p.getPC().size()) {
 				System.out.println();
 				System.out.println("Input does not match an available choice.");
 				System.out.println();
-				breed(p, sc, pokedex);
+				breed(p, input, pokedex);
 			} else {
 				if (num != 0) {
-					breedTwo(p, sc, num, pokedex);
+					breedTwo(p, input, num, pokedex);
 				} else {
 					System.out.println();
 				}
@@ -307,23 +417,23 @@ public class Main {
 		}
 	}
 
-	private static void breedTwo(Player p, Scanner sc, int num, ArrayList<Pokemon> pokedex) {
+	private static void breedTwo(Player p, Scanner input, int num, ArrayList<Pokemon> pokedex) {
 		System.out.println();
-		System.out.println("Enter the number corresponding to the second pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
+		System.out.println("Enter the number corresponding to the second Pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
 		System.out.println();
-		String temp = sc.next();
+		String temp = input.next();
 		if (!isNumeric(temp)) {
 			System.out.println();
 			System.out.println("Input does not match an avalable choice.");
 			System.out.println();
-			breed(p, sc, pokedex);
+			breed(p, input, pokedex);
 		} else {
 			int numTwo = Integer.parseInt(temp);
 			if (numTwo < 0 || numTwo > p.getPC().size() || num == numTwo) {
 				System.out.println();
 				System.out.println("Input does not match an available choice.");
 				System.out.println();
-				breed(p, sc, pokedex);
+				breed(p, input, pokedex);
 			} else {
 				if (numTwo != 0) {
 					if (breedable(p, num, numTwo)) {
@@ -486,10 +596,10 @@ public class Main {
 		if (temp)
 			if (p.getPC().get(num - 1).getEggGroup()[0].equals("undiscovered") && !p.getPC().get(numTwo - 1).getName().equals(p.getPC().get(num - 1).getName()))
 				return false;
-			if ((p.getPC().get(num - 1).getGender().equals("male") && p.getPC().get(numTwo - 1).getGender().equals("female"))
-					|| (p.getPC().get(num - 1).getGender().equals("female") && p.getPC().get(numTwo - 1).getGender().equals("male"))
-					|| (p.getPC().get(num - 1).getGender().equals("genderless") && p.getPC().get(numTwo - 1).getGender().equals("genderless")))
-				return true;
+		if ((p.getPC().get(num - 1).getGender().equals("male") && p.getPC().get(numTwo - 1).getGender().equals("female"))
+				|| (p.getPC().get(num - 1).getGender().equals("female") && p.getPC().get(numTwo - 1).getGender().equals("male"))
+				|| (p.getPC().get(num - 1).getGender().equals("genderless") && p.getPC().get(numTwo - 1).getGender().equals("genderless")))
+			return true;
 		return false;
 	}
 
