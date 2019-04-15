@@ -156,26 +156,26 @@ public class Main {
 		pokedex.add(new Pokemon("Weezing", "Poison", null, 65, 90, 120, 85, 70, 60, 24, new String[] {"amorphous"}, 50, new String[] {"Koffing", "Weezing"}));
 		pokedex.add(new Pokemon("Rhyhorn", "Ground", "Rock", 80, 85, 95, 30, 30, 25, 17, new String[] {"field", "monster"}, 50, new String[] {"Rhyhorn", "Rhydon"}));
 		pokedex.add(new Pokemon("Rhydon", "Ground", "Rock", 105, 130, 120, 45, 45, 40, 24, new String[] {"field", "monster"}, 50, new String[] {"Rhyhorn", "Rhydon"}));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
+		pokedex.add(new Pokemon("Chansey", "Normal", null, 250, 5, 5, 35, 105, 50, 29, new String[] {"fairy"}, 0, new String[] {"Chansey"}));
+		pokedex.add(new Pokemon("Tangela", "Grass", null, 65, 55, 115, 100, 40, 60, 27, new String[] {"grass"}, 50, new String[] {"Tangela"}));
+		pokedex.add(new Pokemon("Kangaskhan", "Normal", null, 105, 95, 80, 40, 80, 90, 27, new String[] {"monster"}, 0, new String[] {"Kangaskhan"}));
+		pokedex.add(new Pokemon("Horsea", "Water", null, 30, 40, 70, 70, 25, 60, 2, new String[] {"water1", "dragon"}, 50, new String[] {"Horsea", "Seadra"}));
+		pokedex.add(new Pokemon("Seadra", "Water", null, 55, 65, 95, 95, 45, 85, 21, new String[] {"water1", "dragon"}, 50, new String[] {"Horsea", "Seadra"}));
+		pokedex.add(new Pokemon("Goldeen", "Water", null, 45, 67, 60, 35, 50, 63, 2, new String[] {"water2"}, 50, new String[] {"Goldeen", "Seaking"}));
+		pokedex.add(new Pokemon("Seaking", "Water", null, 80, 92, 65, 65, 80, 68, 24, new String[] {"water2"}, 50, new String[] {"Goldeen", "Seaking"}));
+		pokedex.add(new Pokemon("Staryu", "Water", null, 30, 45, 55, 70, 55, 85, 2, new String[] {"water3"}, -1, new String[] {"Staryu", "Starmie"}));
+		pokedex.add(new Pokemon("Starmie", "Water", "Psychic", 60, 75, 85, 100, 85, 115, 24, new String[] {"water3"}, -1, new String[] {"Staryu", "Starmie"}));
+		pokedex.add(new Pokemon("Mr. Mime", "Psychic", "Fairy", 40, 45, 65, 100, 120, 95, 27, new String[] {"human-like"}, 50, new String[] {"Mr. Mime"}));
+		pokedex.add(new Pokemon("Scyther", "Bug", "Flying", 70, 110, 80, 55, 80, 105, 27, new String[] {"bug"}, 50, new String[] {"Scyther"}));
+		pokedex.add(new Pokemon("Jynx", "Ice", "Psychic", 65, 50, 35, 115, 95, 95, 27, new String[] {"human-like"}, 0, new String[] {"Jynx"}));
+		pokedex.add(new Pokemon("Electabuzz", "Electric", null, 65, 83, 57, 95, 85, 105, 27, new String[] {"human-like"}, 75, new String[] {"Electabuzz"}));
+		pokedex.add(new Pokemon("Magmar", "Fire", null, 65, 95, 57, 100, 85, 93, 27, new String[] {"human-like"}, 75, new String[] {"Magmar"}));
+		pokedex.add(new Pokemon("Pinsir", "Bug", null, 65, 125, 100, 55, 70, 85, 27, new String[] {"bug"}, 50, new String[] {"Pinsir"}));
+		pokedex.add(new Pokemon("Tauros", "Normal", null, 75, 100, 95, 40, 70, 110, 27, new String[] {"field"}, 100, new String[] {"Tauros"}));
+		pokedex.add(new Pokemon("Magikarp", "Water", null, 20, 10, 55, 15, 20, 80, 0, new String[] {"water2", "dragon"}, 50, new String[] {"Magikarp", "Gyarados"}));
+		pokedex.add(new Pokemon("Gyarados", "Water", "Flying", 95, 125, 79, 60, 100, 81, 27, new String[] {"water2", "dragon"}, 50, new String[] {"Magikarp", "Gyarados"}));
+		pokedex.add(new Pokemon("Lapras", "Water", "Ice", 130, 85, 80, 85, 95, 60, 27, new String[] {"water1", "monster"}, 50, new String[] {"Lapras"}));
+		pokedex.add(new Pokemon("Ditto", "Normal", null, 48, 48, 48, 48, 48, 48, 28, new String[] {"ditto"}, -1, new String[] {"Ditto"}));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null));
@@ -328,72 +328,80 @@ public class Main {
 						OwnedPokemon oldOne = new OwnedPokemon(p.getPC().get(num - 1));
 						OwnedPokemon oldTwo = new OwnedPokemon(p.getPC().get(numTwo - 1));
 						Pokemon pokemon;
-						if (oldOne.getGender().equals("genderless")) {
-							int choose = new Random().nextInt(2);
-							if (choose == 0) {
-								pokemon = getBabyPokemon(pokedex, oldOne);
-							} else
+						boolean ditto = false;
+						for (int i = 0; i < oldOne.getEggGroup().length; i++)
+							if (oldOne.getEggGroup()[i].equals("ditto")) {
 								pokemon = getBabyPokemon(pokedex, oldTwo);
-						} else
-							if (oldOne.getGender().equals("female")) {
-								if (oldOne.getName().equals("NidoranF") || oldOne.getName().equals("Nidorina") || oldOne.getName().equals("Nidoqueen")) {
-									int rand = new Random().nextInt(2);
-									if (rand == 0)
-										pokemon = pokedex.get(28);
-									else
-										pokemon = pokedex.get(31);
-								} else
-									pokemon = getBabyPokemon(pokedex, oldOne);
-							} else {
-								if (oldTwo.getName().equals("NidoranF") || oldTwo.getName().equals("Nidorina") || oldTwo.getName().equals("Nidoqueen")) {
-									int rand = new Random().nextInt(2);
-									if (rand == 0)
-										pokemon = pokedex.get(28);
-									else
-										pokemon = pokedex.get(31);
-								} else
-									pokemon = getBabyPokemon(pokedex, oldTwo);
+								ditto = true;
+								p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+								System.out.println("Congratulations on your newly bred Pokemon!");
+								System.out.println();
 							}
-						int healthIV;
-						int attackIV;
-						int defenseIV;
-						int specialAttackIV;
-						int specialDefenseIV;
-						int speedIV;
-						if (oldOne.getHealthIV() > oldTwo.getHealthIV())
-							healthIV = oldOne.getHealthIV();
-						else
-							healthIV = oldTwo.getHealthIV();
-						if (oldOne.getAttackIV() > oldTwo.getAttackIV())
-							attackIV = oldOne.getAttackIV();
-						else
-							attackIV = oldTwo.getAttackIV();
-						if (oldOne.getDefenseIV() > oldTwo.getDefenseIV())
-							defenseIV = oldOne.getDefenseIV();
-						else
-							defenseIV = oldTwo.getDefenseIV();
-						if (oldOne.getSpecialAttackIV() > oldTwo.getSpecialAttackIV())
-							specialAttackIV = oldOne.getSpecialAttackIV();
-						else
-							specialAttackIV = oldTwo.getSpecialAttackIV();
-						if (oldOne.getSpecialDefenseIV() > oldTwo.getSpecialDefenseIV())
-							specialDefenseIV = oldOne.getSpecialDefenseIV();
-						else
-							specialDefenseIV = oldTwo.getSpecialDefenseIV();
-						if (oldOne.getSpeedIV() > oldTwo.getSpeedIV())
-							speedIV = oldOne.getSpeedIV();
-						else
-							speedIV = oldTwo.getSpeedIV();
-						if (num < numTwo) {
-							p.getPC().remove(numTwo - 1);
-							p.getPC().remove(num - 1);
-						} else {
-							p.getPC().remove(num - 1);
-							p.getPC().remove(numTwo - 1);
-						}
-						p.catchPokemon(new OwnedPokemon(pokemon, healthIV, attackIV, defenseIV, specialAttackIV, specialDefenseIV, speedIV));
-						System.out.println("Congratulations on your newly bred Pokemon!");
-						System.out.println();
+						if (!ditto)
+							for (int i = 0; i < oldTwo.getEggGroup().length; i++)
+								if (oldTwo.getEggGroup()[i].equals("ditto")) {
+									pokemon = getBabyPokemon(pokedex, oldOne);
+									ditto = true;
+									p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+									System.out.println("Congratulations on your newly bred Pokemon!");
+									System.out.println();
+								}
+						if (!ditto)
+							if (oldOne.getGender().equals("genderless")) {
+								int choose = new Random().nextInt(2);
+								if (choose == 0) {
+									pokemon = getBabyPokemon(pokedex, oldOne);
+									p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+									System.out.println("Congratulations on your newly bred Pokemon!");
+									System.out.println();
+								} else {
+									pokemon = getBabyPokemon(pokedex, oldTwo);
+									p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+									System.out.println("Congratulations on your newly bred Pokemon!");
+									System.out.println();
+								}
+							} else
+								if (oldOne.getGender().equals("female")) {
+									if (oldOne.getName().equals("NidoranF") || oldOne.getName().equals("Nidorina") || oldOne.getName().equals("Nidoqueen")) {
+										int rand = new Random().nextInt(2);
+										if (rand == 0) {
+											pokemon = pokedex.get(28);
+											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											System.out.println("Congratulations on your newly bred Pokemon!");
+											System.out.println();
+										} else {
+											pokemon = pokedex.get(31);
+											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											System.out.println("Congratulations on your newly bred Pokemon!");
+											System.out.println();
+										}
+									} else {
+										pokemon = getBabyPokemon(pokedex, oldOne);
+										p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+										System.out.println("Congratulations on your newly bred Pokemon!");
+										System.out.println();
+									}
+								} else {
+									if (oldTwo.getName().equals("NidoranF") || oldTwo.getName().equals("Nidorina") || oldTwo.getName().equals("Nidoqueen")) {
+										int rand = new Random().nextInt(2);
+										if (rand == 0) {
+											pokemon = pokedex.get(28);
+											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											System.out.println("Congratulations on your newly bred Pokemon!");
+											System.out.println();
+										} else {
+											pokemon = pokedex.get(31);
+											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											System.out.println("Congratulations on your newly bred Pokemon!");
+											System.out.println();
+										}
+									} else {
+										pokemon = getBabyPokemon(pokedex, oldTwo);
+										p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+										System.out.println("Congratulations on your newly bred Pokemon!");
+										System.out.println();
+									}
+								}
 					} else {
 						System.out.println();
 						System.out.println("These two Pokemon are not breedable.");
@@ -405,6 +413,47 @@ public class Main {
 		}
 	}
 
+	private static OwnedPokemon createBabyPokemon(Player p, ArrayList<Pokemon> pokedex, int num, int numTwo, OwnedPokemon oldOne, OwnedPokemon oldTwo, Pokemon pokemon) {
+		int healthIV;
+		int attackIV;
+		int defenseIV;
+		int specialAttackIV;
+		int specialDefenseIV;
+		int speedIV;
+		if (oldOne.getHealthIV() > oldTwo.getHealthIV())
+			healthIV = oldOne.getHealthIV();
+		else
+			healthIV = oldTwo.getHealthIV();
+		if (oldOne.getAttackIV() > oldTwo.getAttackIV())
+			attackIV = oldOne.getAttackIV();
+		else
+			attackIV = oldTwo.getAttackIV();
+		if (oldOne.getDefenseIV() > oldTwo.getDefenseIV())
+			defenseIV = oldOne.getDefenseIV();
+		else
+			defenseIV = oldTwo.getDefenseIV();
+		if (oldOne.getSpecialAttackIV() > oldTwo.getSpecialAttackIV())
+			specialAttackIV = oldOne.getSpecialAttackIV();
+		else
+			specialAttackIV = oldTwo.getSpecialAttackIV();
+		if (oldOne.getSpecialDefenseIV() > oldTwo.getSpecialDefenseIV())
+			specialDefenseIV = oldOne.getSpecialDefenseIV();
+		else
+			specialDefenseIV = oldTwo.getSpecialDefenseIV();
+		if (oldOne.getSpeedIV() > oldTwo.getSpeedIV())
+			speedIV = oldOne.getSpeedIV();
+		else
+			speedIV = oldTwo.getSpeedIV();
+		if (num < numTwo) {
+			p.getPC().remove(numTwo - 1);
+			p.getPC().remove(num - 1);
+		} else {
+			p.getPC().remove(num - 1);
+			p.getPC().remove(numTwo - 1);
+		}
+		return new OwnedPokemon(pokemon, healthIV, attackIV, defenseIV, specialAttackIV, specialDefenseIV, speedIV);
+	}
+
 	private static Pokemon getBabyPokemon(ArrayList<Pokemon> pokedex, OwnedPokemon poke) {
 		for (int i = 0; i < pokedex.size(); i++)
 			if (poke.getPokemon().getEvolutionTree()[0].equals(pokedex.get(i).getName()))
@@ -414,18 +463,21 @@ public class Main {
 
 	private static boolean breedable(Player p, int num, int numTwo) {
 		boolean temp = false;
-		for (int i = 0; i < p.getPC().get(num - 1).getEggGroup().length; i++) {
-			for (int j = 0; j < p.getPC().get(numTwo - 1).getEggGroup().length; j++) {
+		for (int i = 0; i < p.getPC().get(num - 1).getEggGroup().length; i++)
+			if (p.getPC().get(num - 1).getEggGroup()[i].equals("ditto"))
+				return true;
+		for (int i = 0; i < p.getPC().get(numTwo-1).getEggGroup().length; i++)
+			if (p.getPC().get(numTwo - 1).getEggGroup()[i].equals("ditto"))
+				return true;
+		for (int i = 0; i < p.getPC().get(num - 1).getEggGroup().length; i++)
+			for (int j = 0; j < p.getPC().get(numTwo - 1).getEggGroup().length; j++)
 				if (p.getPC().get(num - 1).getEggGroup()[i].equals(p.getPC().get(numTwo - 1).getEggGroup()[j]))
 					temp = true;
-			}
-		}
-		if (temp) {
+		if (temp)
 			if ((p.getPC().get(num - 1).getGender().equals("male") && p.getPC().get(numTwo - 1).getGender().equals("female"))
 					|| (p.getPC().get(num - 1).getGender().equals("female") && p.getPC().get(numTwo - 1).getGender().equals("male"))
 					|| (p.getPC().get(num - 1).getGender().equals("genderless") && p.getPC().get(numTwo - 1).getGender().equals("genderless")))
 				return true;
-		}
 		return false;
 	}
 
