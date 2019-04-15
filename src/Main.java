@@ -9,6 +9,8 @@ public class Main {
 		Player p = new Player();
 		int[] spawnRateCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		boolean finished = false;
+//		p.catchPokemon(new OwnedPokemon(pokedex.get(150)));
+//		p.catchPokemon(new OwnedPokemon(pokedex.get(131)));
 		while(!finished) {
 			System.out.println("Input the number corresponding to your choice:");
 			System.out.println("1) Search for Pokemon");
@@ -334,6 +336,7 @@ public class Main {
 								pokemon = getBabyPokemon(pokedex, oldTwo);
 								ditto = true;
 								p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+								System.out.println();
 								System.out.println("Congratulations on your newly bred Pokemon!");
 								System.out.println();
 							}
@@ -343,6 +346,7 @@ public class Main {
 									pokemon = getBabyPokemon(pokedex, oldOne);
 									ditto = true;
 									p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+									System.out.println();
 									System.out.println("Congratulations on your newly bred Pokemon!");
 									System.out.println();
 								}
@@ -352,11 +356,13 @@ public class Main {
 								if (choose == 0) {
 									pokemon = getBabyPokemon(pokedex, oldOne);
 									p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+									System.out.println();
 									System.out.println("Congratulations on your newly bred Pokemon!");
 									System.out.println();
 								} else {
 									pokemon = getBabyPokemon(pokedex, oldTwo);
 									p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+									System.out.println();
 									System.out.println("Congratulations on your newly bred Pokemon!");
 									System.out.println();
 								}
@@ -367,17 +373,20 @@ public class Main {
 										if (rand == 0) {
 											pokemon = pokedex.get(28);
 											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											System.out.println();
 											System.out.println("Congratulations on your newly bred Pokemon!");
 											System.out.println();
 										} else {
 											pokemon = pokedex.get(31);
 											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											System.out.println();
 											System.out.println("Congratulations on your newly bred Pokemon!");
 											System.out.println();
 										}
 									} else {
 										pokemon = getBabyPokemon(pokedex, oldOne);
 										p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+										System.out.println();
 										System.out.println("Congratulations on your newly bred Pokemon!");
 										System.out.println();
 									}
@@ -387,17 +396,20 @@ public class Main {
 										if (rand == 0) {
 											pokemon = pokedex.get(28);
 											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											System.out.println();
 											System.out.println("Congratulations on your newly bred Pokemon!");
 											System.out.println();
 										} else {
 											pokemon = pokedex.get(31);
 											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											System.out.println();
 											System.out.println("Congratulations on your newly bred Pokemon!");
 											System.out.println();
 										}
 									} else {
 										pokemon = getBabyPokemon(pokedex, oldTwo);
 										p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+										System.out.println();
 										System.out.println("Congratulations on your newly bred Pokemon!");
 										System.out.println();
 									}
