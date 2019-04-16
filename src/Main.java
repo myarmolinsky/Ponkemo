@@ -91,15 +91,15 @@ public class Main {
 		System.out.println();
 		int numPoints = ((((p.getPC().get(num - 1).getHealthIV() + p.getPC().get(num - 1).getAttackIV() + p.getPC().get(num - 1).getDefenseIV() + p.getPC().get(num - 1).getSpecialAttackIV() + p.getPC().get(num - 1).getSpecialDefenseIV() + p.getPC().get(num - 1).getSpeedIV()))/186) * 10);
 		String typePoints = "";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() >= 200)
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 11)
 			typePoints = "Tier 1 Points";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() >= 150 && p.getPC().get(num - 1).getPokemon().getSpawnRate() < 200)
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 17 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 11)
 			typePoints = "Tier 2 Points";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() >= 100 && p.getPC().get(num - 1).getPokemon().getSpawnRate() < 150)
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 22 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 17)
 			typePoints = "Tier 3 Points";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() >= 50 && p.getPC().get(num - 1).getPokemon().getSpawnRate() < 100)
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 28 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 22)
 			typePoints = "Tier 4 Points";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() >= 0 && p.getPC().get(num - 1).getPokemon().getSpawnRate() < 50)
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 32 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 28)
 			typePoints = "Tier 5 Points";
 		System.out.println("Are you sure you would like to recycle this pokemon?  You will receive " + numPoints + " " + typePoints);
 		System.out.println();
