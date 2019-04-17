@@ -10,14 +10,15 @@ public class Main {
 		int[] spawnRateCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		boolean finished = false;
 		//		p.catchPokemon(new OwnedPokemon(pokedex.get(150)));
-				p.catchPokemon(new OwnedPokemon(pokedex.get(131)));
+		//		p.catchPokemon(new OwnedPokemon(pokedex.get(131)));
 		while(!finished) {
 			System.out.println("Input the number corresponding to your choice:");
 			System.out.println("1) Search for Pokemon");
 			System.out.println("2) View Owned Pokemon");
 			System.out.println("3) Breed Pokemon");
 			System.out.println("4) Recycle Pokemon");
-			System.out.println("5) Quit");
+			System.out.println("5) View Player Data");
+			System.out.println("6) Quit");
 			System.out.println();
 			switch(input.next()){
 			case "1":
@@ -37,6 +38,10 @@ public class Main {
 				recycle(p, input);
 				break;
 			case "5":
+				System.out.println();
+				printPlayerData(p);
+				break;
+			case "6":
 				finished = true;
 				System.out.println();
 				System.out.println("Quitting ...");
@@ -48,7 +53,7 @@ public class Main {
 			}
 		}
 		input.close();
-	}	
+	}
 
 	private static void fillPossibilities(ArrayList<Pokemon> pokedex) {
 		pokedex.add(new Pokemon("Bulbasaur", "Grass", "Poison", 45, 49, 49, 65, 65, 45, 27, new String[] {"monster", "grass"}, 87.5, new String[] {"Bulbasaur", "Ivysaur", "Venusaur"}));
@@ -497,7 +502,7 @@ public class Main {
 			return true;
 		return false;
 	}
-	
+
 	private static void recycle(Player p, Scanner input) {
 		printOwnedPokemon(p);
 		chooseRecyclePokemon(p, input);
@@ -636,6 +641,10 @@ public class Main {
 				}
 			}
 		}
+	}	
+
+	private static void printPlayerData(Player p) {
+		System.out.println(p);
 	}
 
 }

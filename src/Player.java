@@ -3,59 +3,59 @@ import java.util.*;
 public class Player {
 
 	private ArrayList<OwnedPokemon> pc;
-	private int tier1RarityPoints;
-	private int tier2RarityPoints;
-	private int tier3RarityPoints;
-	private int tier4RarityPoints;
-	private int tier5RarityPoints;
+	private int tier1Points;
+	private int tier2Points;
+	private int tier3Points;
+	private int tier4Points;
+	private int tier5Points;
 
 	public Player() {
 		pc = new ArrayList<>();
-		tier1RarityPoints = 0;
-		tier2RarityPoints = 0;
-		tier3RarityPoints = 0;
-		tier4RarityPoints = 0;
-		tier5RarityPoints = 0;
+		tier1Points = 0;
+		tier2Points = 0;
+		tier3Points = 0;
+		tier4Points = 0;
+		tier5Points = 0;
 	}
 
 	public void addTier1(int num) {
-		tier1RarityPoints = tier1RarityPoints + num;
+		tier1Points = tier1Points + num;
 	}
 
 	public void addTier2(int num) {
-		tier2RarityPoints = tier2RarityPoints + num;
+		tier2Points = tier2Points + num;
 	}
 
 	public void addTier3(int num) {
-		tier3RarityPoints = tier3RarityPoints + num;
+		tier3Points = tier3Points + num;
 	}
 
 	public void addTier4(int num) {
-		tier4RarityPoints = tier4RarityPoints + num;
+		tier4Points = tier4Points + num;
 	}
 
 	public void addTier5(int num) {
-		tier5RarityPoints = tier5RarityPoints + num;
+		tier5Points = tier5Points + num;
 	}
 	
 	public int getTier1() {
-		return tier1RarityPoints;
+		return tier1Points;
 	}
 	
 	public int getTier2() {
-		return tier2RarityPoints;
+		return tier2Points;
 	}
 	
 	public int getTier3() {
-		return tier3RarityPoints;
+		return tier3Points;
 	}
 	
 	public int getTier4() {
-		return tier4RarityPoints;
+		return tier4Points;
 	}
 	
 	public int getTier5() {
-		return tier5RarityPoints;
+		return tier5Points;
 	}
 
 	public void catchPokemon(OwnedPokemon ownedPokemon) {
@@ -64,6 +64,15 @@ public class Player {
 
 	public ArrayList<OwnedPokemon> getPC() {
 		return pc;
+	}
+	
+	public String toString() {
+		return String.format("Pokemon Owned: " + pc.size() + "\n"
+				+ "Tier 1 Points: " + tier1Points + "\n"
+				+ "Tier 2 Points: " + tier2Points + "\n"
+				+ "Tier 3 Points: " + tier3Points + "\n"
+				+ "Tier 4 Points: " + tier4Points + "\n"
+				+ "Tier 5 Points: " + tier5Points + "\n");
 	}
 
 }
