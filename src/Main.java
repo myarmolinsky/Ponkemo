@@ -10,7 +10,7 @@ public class Main {
 		int[] spawnRateCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		boolean finished = false;
 		//		p.catchPokemon(new OwnedPokemon(pokedex.get(150)));
-		//		p.catchPokemon(new OwnedPokemon(pokedex.get(131)));
+				p.catchPokemon(new OwnedPokemon(pokedex.get(131)));
 		while(!finished) {
 			System.out.println("Input the number corresponding to your choice:");
 			System.out.println("1) Search for Pokemon");
@@ -19,24 +19,24 @@ public class Main {
 			System.out.println("4) Recycle Pokemon");
 			System.out.println("5) Quit");
 			System.out.println();
-			switch(input.next().charAt(0)){
-			case '1':
+			switch(input.next()){
+			case "1":
 				System.out.println();
 				search(pokedex, p, spawnRateCounter);
 				break;
-			case '2':
+			case "2":
 				System.out.println();
 				viewOwnedPokemon(p, input);
 				break;
-			case '3':
+			case "3":
 				System.out.println();
 				breed(p, input, pokedex);
 				break;
-			case '4':
+			case "4":
 				System.out.println();
 				recycle(p, input);
 				break;
-			case '5':
+			case "5":
 				finished = true;
 				System.out.println();
 				System.out.println("Quitting ...");
@@ -49,111 +49,6 @@ public class Main {
 		}
 		input.close();
 	}	
-
-	private static void recycle(Player p, Scanner input) {
-		printOwnedPokemon(p);
-		chooseRecyclePokemon(p, input);
-	}
-
-	private static void chooseRecyclePokemon(Player p, Scanner input) {
-		System.out.println("Choose a Pokemon to recycle.");
-		System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
-		System.out.println("2) Enter \"0\" to go back to the previous menu.");
-		System.out.println();
-		String temp = input.next();
-		if (!isNumeric(temp)) {
-			System.out.println();
-			System.out.println("Input does not match an avalable choice.");
-			System.out.println();
-			chooseRecyclePokemon(p, input);
-		} else {
-			int num = Integer.parseInt(temp);
-			if (num < 0 || num >= p.getPC().size() + 1) {
-				System.out.println();
-				System.out.println("Input does not match an available choice.");
-				System.out.println();
-				chooseRecyclePokemon(p, input);
-			} else {
-				if (num != 0) {
-					System.out.println();
-					verifyRecycle(p, num, input);
-					System.out.println();
-					chooseRecyclePokemon(p, input);
-				} else {
-					System.out.println();
-				}
-			}
-		}
-	}
-
-	private static void verifyRecycle(Player p, int num, Scanner input) {
-		System.out.println(p.getPC().get(num - 1));
-		System.out.println();
-		int numPoints = ((((p.getPC().get(num - 1).getHealthIV() + p.getPC().get(num - 1).getAttackIV() + p.getPC().get(num - 1).getDefenseIV() + p.getPC().get(num - 1).getSpecialAttackIV() + p.getPC().get(num - 1).getSpecialDefenseIV() + p.getPC().get(num - 1).getSpeedIV()))/186) * 10);
-		String typePoints = "";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 11)
-			typePoints = "Tier 1 Points";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 17 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 11)
-			typePoints = "Tier 2 Points";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 22 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 17)
-			typePoints = "Tier 3 Points";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 28 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 22)
-			typePoints = "Tier 4 Points";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 32 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 28)
-			typePoints = "Tier 5 Points";
-		System.out.println("Are you sure you would like to recycle this pokemon?  You will receive " + numPoints + " " + typePoints);
-		System.out.println();
-		recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
-	}
-
-	private static void recycleVerificationStepTwo(Player p, int num, Scanner input, int numPoints, String typePoints) {
-		System.out.println("Input the number corresponding to your choice:");
-		System.out.println("1) Yes");
-		System.out.println("2) No");
-		System.out.println();
-		String temp = input.next();
-		if (!isNumeric(temp)) {
-			System.out.println();
-			System.out.println("Input does not match an avalable choice.");
-			System.out.println();
-			recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
-		} else {
-			int tempNum = Integer.parseInt(temp);
-			if (tempNum != 1 || tempNum != 2) {
-				System.out.println();
-				System.out.println("Input does not match an available choice.");
-				System.out.println();
-				recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
-			} else {
-				if (num == 1) {
-					System.out.println();
-					if (typePoints.equals("Tier 1 Points")) {
-						p.addTier1(numPoints);
-						System.out.println("You now have " + p.getTier1() + "Tier 1 Points.");
-					}
-					if (typePoints.equals("Tier 2 Points")) {
-						p.addTier2(numPoints);
-						System.out.println("You now have " + p.getTier2() + "Tier 1 Points.");
-					}
-					if (typePoints.equals("Tier 3 Points")) {
-						p.addTier3(numPoints);
-						System.out.println("You now have " + p.getTier3() + "Tier 1 Points.");
-					}
-					if (typePoints.equals("Tier 4 Points")) {
-						p.addTier4(numPoints);
-						System.out.println("You now have " + p.getTier4() + "Tier 1 Points.");
-					}
-					if (typePoints.equals("Tier 5 Points")) {
-						p.addTier5(numPoints);
-						System.out.println("You now have " + p.getTier5() + "Tier 1 Points.");
-					}
-					System.out.println();
-				} else {
-					System.out.println();
-				}
-			}
-		}
-	}
 
 	private static void fillPossibilities(ArrayList<Pokemon> pokedex) {
 		pokedex.add(new Pokemon("Bulbasaur", "Grass", "Poison", 45, 49, 49, 65, 65, 45, 27, new String[] {"monster", "grass"}, 87.5, new String[] {"Bulbasaur", "Ivysaur", "Venusaur"}));
@@ -601,6 +496,146 @@ public class Main {
 				|| (p.getPC().get(num - 1).getGender().equals("genderless") && p.getPC().get(numTwo - 1).getGender().equals("genderless")))
 			return true;
 		return false;
+	}
+	
+	private static void recycle(Player p, Scanner input) {
+		printOwnedPokemon(p);
+		chooseRecyclePokemon(p, input);
+	}
+
+	private static void chooseRecyclePokemon(Player p, Scanner input) {
+		System.out.println("Choose a Pokemon to recycle.");
+		System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
+		System.out.println("2) Enter \"0\" to go back to the previous menu.");
+		System.out.println();
+		String temp = input.next();
+		if (!isNumeric(temp)) {
+			System.out.println();
+			System.out.println("Input does not match an avalable choice.");
+			System.out.println();
+			chooseRecyclePokemon(p, input);
+		} else {
+			int num = Integer.parseInt(temp);
+			if (num < 0 || num >= p.getPC().size() + 1) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+				chooseRecyclePokemon(p, input);
+			} else {
+				if (num != 0) {
+					System.out.println();
+					verifyRecycle(p, num, input);
+					System.out.println();
+					chooseRecyclePokemon(p, input);
+				} else {
+					System.out.println();
+				}
+			}
+		}
+	}
+
+	private static void verifyRecycle(Player p, int num, Scanner input) {
+		System.out.println(p.getPC().get(num - 1));
+		System.out.println();
+		int numPoints = roundProperlyRecyclePoints(p.getPC().get(num - 1).getTotalIVPercentage()/10);
+		String typePoints = "";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 11)
+			typePoints = "Tier 1 Points";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 17 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 11)
+			typePoints = "Tier 2 Points";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 22 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 17)
+			typePoints = "Tier 3 Points";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 28 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 22)
+			typePoints = "Tier 4 Points";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 32 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 28)
+			typePoints = "Tier 5 Points";
+		System.out.println("Are you sure you would like to recycle this pokemon?  You will receive " + numPoints + " " + typePoints);
+		System.out.println();
+		recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
+	}
+
+	private static int roundProperlyRecyclePoints(double d) {
+		if (d >= 0.5 && d < 1.5) {
+			return 1;
+		}
+		if (d >= 1.5 && d < 2.5) {
+			return 2;
+		}
+		if (d >= 2.5 && d < 3.5) {
+			return 3;
+		}
+		if (d >= 3.5 && d < 4.5) {
+			return 4;
+		}
+		if (d >= 4.5 && d < 5.5) {
+			return 5;
+		}
+		if (d >= 5.5 && d < 6.5) {
+			return 6;
+		}
+		if (d >= 6.5 && d < 7.5) {
+			return 7;
+		}
+		if (d >= 7.5 && d < 8.5) {
+			return 8;
+		}
+		if (d >= 8.5 && d < 9.5) {
+			return 9;
+		}
+		if (d > 9.5) {
+			return 10;
+		}
+		return 1;
+	}
+
+	private static void recycleVerificationStepTwo(Player p, int num, Scanner input, int numPoints, String typePoints) {
+		System.out.println("Input the number corresponding to your choice:");
+		System.out.println("1) Yes");
+		System.out.println("2) No");
+		System.out.println();
+		String temp = input.next();
+		if (!isNumeric(temp)) {
+			System.out.println();
+			System.out.println("Input does not match an avalable choice.");
+			System.out.println();
+			recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
+		} else {
+			int tempNum = Integer.parseInt(temp);
+			if (tempNum != 1 && tempNum != 2) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+				recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
+			} else {
+				if (tempNum == 1) {
+					System.out.println();
+					if (typePoints.equals("Tier 1 Points")) {
+						p.addTier1(numPoints);
+						System.out.println("You now have " + p.getTier1() + " Tier 1 Points.");
+					}
+					if (typePoints.equals("Tier 2 Points")) {
+						p.addTier2(numPoints);
+						System.out.println("You now have " + p.getTier2() + " Tier 2 Points.");
+					}
+					if (typePoints.equals("Tier 3 Points")) {
+						p.addTier3(numPoints);
+						System.out.println("You now have " + p.getTier3() + " Tier 3 Points.");
+					}
+					if (typePoints.equals("Tier 4 Points")) {
+						p.addTier4(numPoints);
+						System.out.println("You now have " + p.getTier4() + " Tier 4 Points.");
+					}
+					if (typePoints.equals("Tier 5 Points")) {
+						p.addTier5(numPoints);
+						System.out.println("You now have " + p.getTier5() + " Tier 5 Points.");
+					}
+					p.getPC().remove(num - 1);
+					System.out.println();
+				} else {
+					System.out.println();
+				}
+			}
+		}
 	}
 
 }

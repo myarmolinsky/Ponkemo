@@ -226,6 +226,10 @@ public class OwnedPokemon {
 	//	public int getSpeedStat() {
 	//		return speedStat;
 	//	}
+	
+	public double getTotalIVPercentage() {
+		return ((((double)(healthIV + attackIV + defenseIV + specialAttackIV + specialDefenseIV + speedIV))/186) * 100);
+	}
 
 	public String toString() {
 		if (shiny)
@@ -239,7 +243,7 @@ public class OwnedPokemon {
 					+ "Special Attack IVs: " + specialAttackIV + "\n"
 					+ "Special Defense IVs: " + specialDefenseIV + "\n"
 					+ "Speed IVs: " + speedIV + "\n"
-					+ "Total IV Percentage: " + ((((double)(healthIV + attackIV + defenseIV + specialAttackIV + specialDefenseIV + speedIV))/186) * 100) + "%%");
+					+ "Total IV Percentage: " + getTotalIVPercentage() + "%%");
 		return String.format("Name: " + pokemon.getName() + "\n"
 				+ "Nickname: " + nickname + "\n"
 				+ "Gender: " + gender + "\n"
@@ -249,7 +253,7 @@ public class OwnedPokemon {
 				+ "Special Attack IVs: " + specialAttackIV + "\n"
 				+ "Special Defense IVs: " + specialDefenseIV + "\n"
 				+ "Speed IVs: " + speedIV + "\n"
-				+ "Total IV Percentage: " + ((((double)(healthIV + attackIV + defenseIV + specialAttackIV + specialDefenseIV + speedIV))/186) * 100) + "%%");
+				+ "Total IV Percentage: " + getTotalIVPercentage() + "%%");
 	}
 
 	public String[] getEggGroup() {
