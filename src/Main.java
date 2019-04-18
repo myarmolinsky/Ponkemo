@@ -16,9 +16,10 @@ public class Main {
 			System.out.println("1) Search for Pokemon");
 			System.out.println("2) View Owned Pokemon");
 			System.out.println("3) Breed Pokemon");
-			System.out.println("4) Recycle Pokemon");
-			System.out.println("5) View Player Data");
-			System.out.println("6) Quit");
+			System.out.println("4) EV Train");
+			System.out.println("5) Recycle Pokemon");
+			System.out.println("6) View Player Data");
+			System.out.println("7) Quit");
 			System.out.println();
 			switch(input.next()){
 			case "1":
@@ -35,13 +36,17 @@ public class Main {
 				break;
 			case "4":
 				System.out.println();
-				recycle(p, input);
+				evTraining(p, input);
 				break;
 			case "5":
 				System.out.println();
-				printPlayerData(p);
+				recycle(p, input);
 				break;
 			case "6":
+				System.out.println();
+				printPlayerData(p);
+				break;
+			case "7":
 				finished = true;
 				System.out.println();
 				System.out.println("Quitting ...");
@@ -503,6 +508,1183 @@ public class Main {
 		return false;
 	}
 
+	private static void evTraining(Player p, Scanner input) {
+		System.out.println("Would you like to EV Train a Pokemon or reset a Pokemon's EVs?");
+		System.out.println("1) EV Train");
+		System.out.println("2) Reset EVs");
+		System.out.println("3) Enter \"0\" to go back to the previous menu.");
+		System.out.println();
+		String temp = input.next();
+		if (!isNumeric(temp)) {
+			System.out.println();
+			System.out.println("Input does not match an avalable choice.");
+			System.out.println();
+			evTraining(p, input);
+		} else {
+			int num = Integer.parseInt(temp);
+			if (num != 0 && num != 1 && num != 2 && num != 3) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+				evTraining(p, input);
+			} else {
+				if (num == 1) {
+					System.out.println();
+					evTrain(p, input);
+					System.out.println();
+				} else {
+					if (num == 2) {
+						System.out.println();
+						resetEVs(p, input);
+						System.out.println();
+					} else {
+						System.out.println();
+					}
+				}
+			}
+		}
+	}
+
+	private static void evTrain(Player p, Scanner input) {
+		printOwnedPokemon(p);
+		System.out.println("Choose a Pokemon to EV Train.");
+		System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
+		System.out.println("2) Enter \"0\" to go back to the previous menu.");
+		System.out.println();
+		String temp = input.next();
+		if (!isNumeric(temp)) {
+			System.out.println();
+			System.out.println("Input does not match an avalable choice.");
+			System.out.println();
+			evTrain(p, input);
+		} else {
+			int num = Integer.parseInt(temp);
+			if (num < 0 || num >= p.getPC().size() + 1) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+				evTrain(p, input);
+			} else {
+				if (num != 0) {
+					System.out.println();
+					System.out.println("Health EV: " + p.getPC().get(num).getHealthEV());
+					System.out.println("Attack EV: " + p.getPC().get(num).getAttackEV());
+					System.out.println("Defense EV: " + p.getPC().get(num).getDefenseEV());
+					System.out.println("Special Attack EV: " + p.getPC().get(num).getSpecialAttackEV());
+					System.out.println("Special Defense EV: " + p.getPC().get(num).getSpecialDefenseEV());
+					System.out.println("Speed EV: " + p.getPC().get(num).getSpeedEV());
+					System.out.println();
+					evTrainContinued(p, input, num);
+					System.out.println();
+					evTrain(p, input);
+				} else {
+					System.out.println();
+				}
+			}
+		}
+	}
+
+	private static void evTrainContinued(Player p, Scanner input, int num) {
+		System.out.println("Which stat would you like to EV Train?");
+		System.out.println("1) Health");
+		System.out.println("2) Attack");
+		System.out.println("3) Defense");
+		System.out.println("4) Special Attack");
+		System.out.println("5) Special Defense");
+		System.out.println("6) Speed");
+		System.out.println("7) Enter \"0\" to go back to the previous menu.");
+		System.out.println();
+		String temp = input.next();
+		if (!isNumeric(temp)) {
+			System.out.println();
+			System.out.println("Input does not match an avalable choice.");
+			System.out.println();
+			evTrainStepOne(p, input, num);
+		} else {
+			int tempNum = Integer.parseInt(temp);
+			if (tempNum != 0 && tempNum !=1 && tempNum !=2 && tempNum !=3 && tempNum !=4 && tempNum !=5 && tempNum !=6) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+				evTrainStepOne(p, input, num);
+			} else {
+				switch(num) {
+				case 1:
+					System.out.println();
+					trainHealthEV(p, input, num);
+					System.out.println();
+					break;
+				case 2:
+					System.out.println();
+					trainAttackEV(p, input, num);
+					System.out.println();
+					break;
+				case 3:
+					System.out.println();
+					trainDefenseEV(p, input, num);
+					System.out.println();
+					break;
+				case 4:
+					System.out.println();
+					trainSpecialAttackEV(p, input, num);
+					System.out.println();
+					break;
+				case 5:
+					System.out.println();
+					trainSpecialDefenseEV(p, input, num);
+					System.out.println();
+					break;
+				case 6:
+					System.out.println();
+					trainSpeedEV(p, input, num);
+					System.out.println();
+					break;
+				case 0:
+					System.out.println();
+					break;
+				default:
+				}
+			}
+		}
+	}
+
+	private static void trainHealthEV(Player p, Scanner input, int num) {
+		String typePoints = chooseTypePoints(p, num);
+		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points per into one Pokemon.");
+		boolean invested = false;
+		if (typePoints.equals("Tier 1 Points")) {
+			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getHealthEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier1()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addHealthEV(tempNum);
+							p.spendTier1(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 2 Points")) {
+			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getHealthEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier2()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addHealthEV(tempNum);
+							p.spendTier2(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 3 Points")) {
+			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getHealthEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier3()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addHealthEV(tempNum);
+							p.spendTier3(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 4 Points")) {
+			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getHealthEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier4()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addHealthEV(tempNum);
+							p.spendTier4(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 5 Points")) {
+			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getHealthEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier5()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addHealthEV(tempNum);
+							p.spendTier5(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private static void trainAttackEV(Player p, Scanner input, int num) {
+		String typePoints = chooseTypePoints(p, num);
+		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points per into one Pokemon.");
+		boolean invested = false;
+		if (typePoints.equals("Tier 1 Points")) {
+			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getAttackEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier1()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addAttackEV(tempNum);
+							p.spendTier1(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 2 Points")) {
+			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getAttackEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier2()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addAttackEV(tempNum);
+							p.spendTier2(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 3 Points")) {
+			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getAttackEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier3()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addAttackEV(tempNum);
+							p.spendTier3(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 4 Points")) {
+			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getAttackEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier4()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addAttackEV(tempNum);
+							p.spendTier4(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 5 Points")) {
+			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getAttackEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier5()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addAttackEV(tempNum);
+							p.spendTier5(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private static void trainDefenseEV(Player p, Scanner input, int num) {
+		String typePoints = chooseTypePoints(p, num);
+		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points per into one Pokemon.");
+		boolean invested = false;
+		if (typePoints.equals("Tier 1 Points")) {
+			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getDefenseEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier1()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addDefenseEV(tempNum);
+							p.spendTier1(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 2 Points")) {
+			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getDefenseEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier2()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addDefenseEV(tempNum);
+							p.spendTier2(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 3 Points")) {
+			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getDefenseEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier3()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addDefenseEV(tempNum);
+							p.spendTier3(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 4 Points")) {
+			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getDefenseEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier4()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addDefenseEV(tempNum);
+							p.spendTier4(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 5 Points")) {
+			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getDefenseEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier5()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addDefenseEV(tempNum);
+							p.spendTier5(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private static void trainSpecialAttackEV(Player p, Scanner input, int num) {
+		String typePoints = chooseTypePoints(p, num);
+		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points per into one Pokemon.");
+		boolean invested = false;
+		if (typePoints.equals("Tier 1 Points")) {
+			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialAttackEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier1()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpecialAttackEV(tempNum);
+							p.spendTier1(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 2 Points")) {
+			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialAttackEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier2()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpecialAttackEV(tempNum);
+							p.spendTier2(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 3 Points")) {
+			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialAttackEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier3()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpecialAttackEV(tempNum);
+							p.spendTier3(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 4 Points")) {
+			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialAttackEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier4()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpecialAttackEV(tempNum);
+							p.spendTier4(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 5 Points")) {
+			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialAttackEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier5()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpecialAttackEV(tempNum);
+							p.spendTier5(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private static void trainSpecialDefenseEV(Player p, Scanner input, int num) {
+		String typePoints = chooseTypePoints(p, num);
+		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points per into one Pokemon.");
+		boolean invested = false;
+		if (typePoints.equals("Tier 1 Points")) {
+			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialDefenseEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier1()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpecialDefenseEV(tempNum);
+							p.spendTier1(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 2 Points")) {
+			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialDefenseEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier2()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpecialDefenseEV(tempNum);
+							p.spendTier2(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 3 Points")) {
+			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialDefenseEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier3()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpecialDefenseEV(tempNum);
+							p.spendTier3(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 4 Points")) {
+			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialDefenseEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier4()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpecialDefenseEV(tempNum);
+							p.spendTier4(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 5 Points")) {
+			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialDefenseEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier5()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpecialDefenseEV(tempNum);
+							p.spendTier5(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private static void trainSpeedEV(Player p, Scanner input, int num) {
+		String typePoints = chooseTypePoints(p, num);
+		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points per into one Pokemon.");
+		boolean invested = false;
+		if (typePoints.equals("Tier 1 Points")) {
+			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpeedEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier1()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpeedEV(tempNum);
+							p.spendTier1(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 2 Points")) {
+			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpeedEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier2()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpeedEV(tempNum);
+							p.spendTier2(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 3 Points")) {
+			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpeedEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier3()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpeedEV(tempNum);
+							p.spendTier3(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 4 Points")) {
+			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpeedEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier4()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpeedEV(tempNum);
+							p.spendTier4(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+		if (typePoints.equals("Tier 5 Points")) {
+			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
+			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+			System.out.println("How many points would you like to invest?");
+			while (!invested) {
+				String temp = input.next();
+				if (!isNumeric(temp)) {
+					System.out.println();
+					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println();
+				} else {
+					int tempNum = Integer.parseInt(temp);
+					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpeedEV()) > 252) {
+						System.out.println();
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println();
+					} else {
+						if (tempNum > p.getTier5()) {
+							System.out.println();
+							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							System.out.println();
+						} else {
+							System.out.println();
+							p.getPC().get(num).addSpeedEV(tempNum);
+							p.spendTier5(tempNum);
+							invested = true;
+							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+							System.out.println();
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private static void resetEVs(Player p, Scanner input) {
+		printOwnedPokemon(p);
+		// TODO Auto-generated method stub
+	}
+
 	private static void recycle(Player p, Scanner input) {
 		printOwnedPokemon(p);
 		chooseRecyclePokemon(p, input);
@@ -543,20 +1725,22 @@ public class Main {
 		System.out.println(p.getPC().get(num - 1));
 		System.out.println();
 		int numPoints = roundProperlyRecyclePoints(p.getPC().get(num - 1).getTotalIVPercentage()/10);
-		String typePoints = "";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 11)
-			typePoints = "Tier 1 Points";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 17 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 11)
-			typePoints = "Tier 2 Points";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 22 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 17)
-			typePoints = "Tier 3 Points";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 28 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 22)
-			typePoints = "Tier 4 Points";
-		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 32 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 28)
-			typePoints = "Tier 5 Points";
+		String typePoints = chooseTypePoints(p, num);
 		System.out.println("Are you sure you would like to recycle this pokemon?  You will receive " + numPoints + " " + typePoints);
 		System.out.println();
 		recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
+	}
+
+	private static String chooseTypePoints(Player p, int num) {
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 11)
+			return "Tier 1 Points";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 17 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 11)
+			return "Tier 2 Points";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 22 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 17)
+			return "Tier 3 Points";
+		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 28 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 22)
+			return "Tier 4 Points";
+		return "Tier 5 Points";
 	}
 
 	private static int roundProperlyRecyclePoints(double d) {

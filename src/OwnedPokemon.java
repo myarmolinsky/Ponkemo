@@ -13,18 +13,18 @@ public class OwnedPokemon {
 	private int specialAttackIV;
 	private int specialDefenseIV;
 	private int speedIV;
-	//	private int healthEV;
-	//	private int attackEV;
-	//	private int defenseEV;
-	//	private int specialAttackEV;
-	//	private int specialDefenseEV;
-	//	private int speedEV;
-	//	private int healthStat;
-	//	private int attackStat;
-	//	private int defenseStat;
-	//	private int specialAttackStat;
-	//	private int specialDefenseStat;
-	//	private int speedStat;
+	private int healthEV;
+	private int attackEV;
+	private int defenseEV;
+	private int specialAttackEV;
+	private int specialDefenseEV;
+	private int speedEV;
+	private int healthStat;
+	private int attackStat;
+	private int defenseStat;
+	private int specialAttackStat;
+	private int specialDefenseStat;
+	private int speedStat;
 
 	public OwnedPokemon(Pokemon pokemon) {
 		this.pokemon = pokemon;
@@ -155,78 +155,76 @@ public class OwnedPokemon {
 		return speedIV;
 	}
 
-	//	public int getHealthEV() {
-	//		return healthEV;
-	//	}
-	//
-	//	public void setHealthEV(int healthEV) {
-	//		this.healthEV = healthEV;
-	//	}
-	//
-	//	public int getAttackEV() {
-	//		return attackEV;
-	//	}
-	//
-	//	public void setAttackEV(int attackEV) {
-	//		this.attackEV = attackEV;
-	//	}
-	//
-	//	public int getDefenseEV() {
-	//		return defenseEV;
-	//	}
-	//
-	//	public void setDefenseEV(int defenseEV) {
-	//		this.defenseEV = defenseEV;
-	//	}
-	//
-	//	public int getSpecialAttackEV() {
-	//		return specialAttackEV;
-	//	}
-	//
-	//	public void setSpecialAttackEV(int specialAttackEV) {
-	//		this.specialAttackEV = specialAttackEV;
-	//	}
-	//
-	//	public int getSpecialDefenseEV() {
-	//		return specialDefenseEV;
-	//	}
-	//
-	//	public void setSpecialDefenseEV(int specialDefenseEV) {
-	//		this.specialDefenseEV = specialDefenseEV;
-	//	}
-	//
-	//	public int getSpeedEV() {
-	//		return speedEV;
-	//	}
-	//
-	//	public void setSpeedEV(int speedEV) {
-	//		this.speedEV = speedEV;
-	//	}
-	//
-	//	public int getHealthStat() {
-	//		return healthStat;
-	//	}
-	//
-	//	public int getAttackStat() {
-	//		return attackStat;
-	//	}
-	//
-	//	public int getDefenseStat() {
-	//		return defenseStat;
-	//	}
-	//
-	//	public int getSpecialAttackStat() {
-	//		return specialAttackStat;
-	//	}
-	//
-	//	public int getSpecialDefenseStat() {
-	//		return specialDefenseStat;
-	//	}
-	//
-	//	public int getSpeedStat() {
-	//		return speedStat;
-	//	}
-	
+	public int getHealthEV() {
+		return healthEV;
+	}
+
+	public int getAttackEV() {
+		return attackEV;
+	}
+	public int getDefenseEV() {
+		return defenseEV;
+	}
+
+	public int getSpecialAttackEV() {
+		return specialAttackEV;
+	}
+
+	public int getSpecialDefenseEV() {
+		return specialDefenseEV;
+	}
+
+	public int getSpeedEV() {
+		return speedEV;
+	}
+
+	public void addHealthEV(int num) {
+		healthEV += num;
+	}
+
+	public void addAttackEV(int num) {
+		attackEV += num;
+	}
+
+	public void addDefenseEV(int num) {
+		defenseEV += num;
+	}
+
+	public void addSpecialAttackEV(int num) {
+		specialAttackEV += num;
+	}
+
+	public void addSpecialDefenseEV(int num) {
+		specialDefenseEV += num;
+	}
+
+	public void addSpeedEV(int num) {
+		speedEV += num;
+	}
+	public int getHealthStat() {
+		return healthStat;
+	}
+
+	public int getAttackStat() {
+		return attackStat;
+	}
+
+	public int getDefenseStat() {
+		return defenseStat;
+	}
+
+	public int getSpecialAttackStat() {
+		return specialAttackStat;
+	}
+
+	public int getSpecialDefenseStat() {
+		return specialDefenseStat;
+	}
+
+	public int getSpeedStat() {
+		return speedStat;
+	}
+
 	public double getTotalIVPercentage() {
 		return ((((double)(healthIV + attackIV + defenseIV + specialAttackIV + specialDefenseIV + speedIV))/186) * 100);
 	}

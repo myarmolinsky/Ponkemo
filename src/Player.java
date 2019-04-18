@@ -41,21 +41,41 @@ public class Player {
 	public int getTier1() {
 		return tier1Points;
 	}
+
+	public void spendTier1(int num) {
+		tier1Points -= num;
+	}
 	
 	public int getTier2() {
 		return tier2Points;
+	}
+
+	public void spendTier2(int num) {
+		tier2Points -= num;
 	}
 	
 	public int getTier3() {
 		return tier3Points;
 	}
+
+	public void spendTier3(int num) {
+		tier3Points -= num;
+	}
 	
 	public int getTier4() {
 		return tier4Points;
 	}
+
+	public void spendTier4(int num) {
+		tier4Points -= num;
+	}
 	
 	public int getTier5() {
 		return tier5Points;
+	}
+	
+	public void spendTier5(int num) {
+		tier5Points -= num;
 	}
 
 	public void catchPokemon(OwnedPokemon ownedPokemon) {
