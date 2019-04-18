@@ -599,14 +599,14 @@ public class Main {
 			System.out.println();
 			System.out.println("Input does not match an avalable choice.");
 			System.out.println();
-			evTrainStepOne(p, input, num);
+			evTrainContinued(p, input, num);
 		} else {
 			int tempNum = Integer.parseInt(temp);
 			if (tempNum != 0 && tempNum !=1 && tempNum !=2 && tempNum !=3 && tempNum !=4 && tempNum !=5 && tempNum !=6) {
 				System.out.println();
 				System.out.println("Input does not match an available choice.");
 				System.out.println();
-				evTrainStepOne(p, input, num);
+				evTrainContinued(p, input, num);
 			} else {
 				switch(num) {
 				case 1:
