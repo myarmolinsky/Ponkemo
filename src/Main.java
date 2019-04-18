@@ -567,6 +567,7 @@ public class Main {
 			} else {
 				if (num != 0) {
 					System.out.println();
+					System.out.println("Your " + p.getPC().get(num).getName() + "'s EVs:");
 					System.out.println("Health EV: " + p.getPC().get(num).getHealthEV());
 					System.out.println("Attack EV: " + p.getPC().get(num).getAttackEV());
 					System.out.println("Defense EV: " + p.getPC().get(num).getDefenseEV());
@@ -1682,7 +1683,75 @@ public class Main {
 
 	private static void resetEVs(Player p, Scanner input) {
 		printOwnedPokemon(p);
-		// TODO Auto-generated method stub
+		System.out.println("Choose a Pokemon whose EVs you would like to reset.");
+		System.out.println("NOTE: YOU WILL NOT BE REFUNDED THE POINTS SPENT IN GETTING THOSE EVS");
+		System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
+		System.out.println("2) Enter \"0\" to go back to the previous menu.");
+		System.out.println();
+		String temp = input.next();
+		if (!isNumeric(temp)) {
+			System.out.println();
+			System.out.println("Input does not match an avalable choice.");
+			System.out.println();
+			resetEVs(p, input);
+		} else {
+			int num = Integer.parseInt(temp);
+			if (num < 0 || num >= p.getPC().size() + 1) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+				resetEVs(p, input);
+			} else {
+				if (num != 0) {
+					System.out.println();
+					System.out.println("Your " + p.getPC().get(num).getName() + "'s EVs:");
+					System.out.println("Health EV: " + p.getPC().get(num).getHealthEV());
+					System.out.println("Attack EV: " + p.getPC().get(num).getAttackEV());
+					System.out.println("Defense EV: " + p.getPC().get(num).getDefenseEV());
+					System.out.println("Special Attack EV: " + p.getPC().get(num).getSpecialAttackEV());
+					System.out.println("Special Defense EV: " + p.getPC().get(num).getSpecialDefenseEV());
+					System.out.println("Speed EV: " + p.getPC().get(num).getSpeedEV());
+					System.out.println();
+					resetEVsContinued(p, input, num);
+					System.out.println();
+					resetEVs(p, input);
+				} else {
+					System.out.println();
+				}
+			}
+		}
+	}
+
+	private static void resetEVsContinued(Player p, Scanner input, int num) {
+		System.out.println("Would you like to reset " + p.getPC().get(num).getName() + "'s EVs?");
+		System.out.println();
+		System.out.println("1) Yes");
+		System.out.println("2) No");
+		System.out.println();
+		String temp = input.next();
+		if (!isNumeric(temp)) {
+			System.out.println();
+			System.out.println("Input does not match an avalable choice.");
+			System.out.println();
+			resetEVsContinued(p, input, num);
+		} else {
+			int tempNum = Integer.parseInt(temp);
+			if (tempNum != 1 && tempNum != 2) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+				resetEVsContinued(p, input, num);
+			} else {
+				if (num != 2) {
+					System.out.println();
+					p.getPC().get(num).resetEVs();
+					System.out.println("Your " + p.getPC().get(num).getName() + "'s EVs have been reset.");
+					System.out.println();
+				} else {
+					System.out.println();
+				}
+			}
+		}
 	}
 
 	private static void recycle(Player p, Scanner input) {

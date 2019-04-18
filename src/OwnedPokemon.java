@@ -201,6 +201,16 @@ public class OwnedPokemon {
 	public void addSpeedEV(int num) {
 		speedEV += num;
 	}
+	
+	public void resetEVs() {
+		healthEV = 0;
+		attackEV = 0;
+		defenseEV = 0;
+		specialAttackEV = 0;
+		specialDefenseEV = 0;
+		speedEV = 0;
+	}
+	
 	public int getHealthStat() {
 		return healthStat;
 	}
