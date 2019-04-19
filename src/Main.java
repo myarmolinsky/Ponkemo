@@ -1982,7 +1982,6 @@ public class Main {
 									System.out.println();
 									p.getPC().get(num - 1).resetEVs();
 									System.out.println("Your " + p.getPC().get(num - 1).getName() + "'s EVs have been reset.");
-									System.out.println();
 									finished = true;
 									break;
 								case "2":
@@ -2009,7 +2008,6 @@ public class Main {
 									repeat = true;
 									break;
 								case "2":
-									System.out.println();
 									done = true;
 									repeat = true;
 									break;
