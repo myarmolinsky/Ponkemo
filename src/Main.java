@@ -625,11 +625,13 @@ public class Main {
 					if (num != 0) {
 						if (p.getPC().get(num - 1).getLevel() < 100) {
 							String typePoints = chooseTypePoints(p, num);
-							System.out.println("Each level-up has a point-cost equal to its current level.");
+							System.out.println();
+							System.out.println("Each level-up has a point-cost equal to the Pokemon's current level.");
 							boolean finished = false;
 							while (!finished) {
 								System.out.println("A level-up for this Pokemon will cost you " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
 								System.out.println("Enter \"1\" to level up or enter \"0\" to go back to the main menu.");
+								System.out.println();
 								if (input.hasNext())
 									switch (input.nextLine()) {
 									case "1":
@@ -638,32 +640,39 @@ public class Main {
 										case "Tier 1 Points":
 											if (p.getTier1() < 100)
 												enough = false;
+											break;
 										case "Tier 2 Points":
 											if (p.getTier2() < 100)
 												enough = false;
+											break;
 										case "Tier 3 Points":
 											if (p.getTier3() < 100)
 												enough = false;
+											break;
 										case "Tier 4 Points":
 											if (p.getTier4() < 100)
 												enough = false;
+											break;
 										case "Tier 5 Points":
 											if (p.getTier5() < 100)
 												enough = false;
+											break;
 										}
 										if (enough) {
 											levelUpHelper(p, input, num, typePoints);
 										} else {
 											System.out.println();
-											System.out.println("Changing this Pokemon's nature costs " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
+											System.out.println("Leveling up this Pokemon costs " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
 											System.out.println("You do not have enough " + typePoints + " to level up this Pokemon");
 											System.out.println();
 											finished = true;
 											done = true;
 										}
+										break;
 									case "0":
 										System.out.println();
 										done = true;
+										break;
 									default:
 										System.out.println();
 										System.out.println("Input does not match an available choice.");
@@ -750,6 +759,7 @@ public class Main {
 						System.out.println("Special Defense EV: " + p.getPC().get(num - 1).getSpecialDefenseEV());
 						System.out.println("Speed EV: " + p.getPC().get(num - 1).getSpeedEV());
 						System.out.println();
+						if ((p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) == 508) {
 						System.out.println("Which stat would you like to EV Train?");
 						System.out.println("1) Health");
 						System.out.println("2) Attack");
@@ -757,7 +767,7 @@ public class Main {
 						System.out.println("4) Special Attack");
 						System.out.println("5) Special Defense");
 						System.out.println("6) Speed");
-						System.out.println("Enter \"0\" to go back to the main menu.");
+						System.out.println("Enter \"0\" to cancel.");
 						System.out.println();
 						boolean finished = false;
 						while (!finished) {
@@ -812,7 +822,7 @@ public class Main {
 						System.out.println();
 						boolean repeat = false;
 						while (!repeat) {
-							System.out.println("Would you like to EV Train Pokemon?");
+							System.out.println("Would you like to EV Train another Pokemon?");
 							System.out.println("1) Yes");
 							System.out.println("2) No");
 							System.out.println();
@@ -837,6 +847,34 @@ public class Main {
 						System.out.println();
 						done = true;
 					}
+					} else {
+						System.out.println();
+						System.out.println("This Pokemon already has 508 EV points.");
+						System.out.println();
+						boolean repeat = false;
+						while (!repeat) {
+							System.out.println("Would you like to EV Train another Pokemon?");
+							System.out.println("1) Yes");
+							System.out.println("2) No");
+							System.out.println();
+							if (input.hasNext())
+								switch (input.nextLine()) {
+								case "1":
+									System.out.println();
+									repeat = true;
+									break;
+								case "2":
+									System.out.println();
+									done = true;
+									repeat = true;
+									break;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								}
+						}
+					}
 				}
 			}
 		}
@@ -859,9 +897,9 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252 || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
+						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
 						System.out.println();
 					} else {
 						if (tempNum > p.getTier1()) {
@@ -892,7 +930,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252 || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -925,7 +963,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -958,7 +996,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -991,7 +1029,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1031,7 +1069,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1064,7 +1102,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1097,7 +1135,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1130,7 +1168,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1163,7 +1201,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1203,7 +1241,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1236,7 +1274,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1269,7 +1307,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1302,7 +1340,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1335,7 +1373,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1375,7 +1413,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1408,7 +1446,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1441,7 +1479,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1474,7 +1512,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1507,7 +1545,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1547,7 +1585,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1580,7 +1618,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1613,7 +1651,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1646,7 +1684,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1679,7 +1717,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1719,7 +1757,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1752,7 +1790,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1785,7 +1823,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1818,7 +1856,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1851,7 +1889,7 @@ public class Main {
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
