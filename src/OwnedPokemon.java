@@ -67,54 +67,79 @@ public class OwnedPokemon {
 		switch(new Random().nextInt(25)) {
 		case 0:
 			nature = "Hardy";
+			break;
 		case 1:
 			nature = "Lonely";
+			break;
 		case 2:
 			nature = "Brave";
+			break;
 		case 3:
 			nature = "Adamant";
+			break;
 		case 4:
 			nature = "Naughty";
+			break;
 		case 5:
 			nature = "Bold";
+			break;
 		case 6:
 			nature = "Docile";
+			break;
 		case 7:
 			nature = "Relaxed";
+			break;
 		case 8:
 			nature = "Impish";
+			break;
 		case 9:
 			nature = "Lax";
+			break;
 		case 10:
 			nature = "Timid";
+			break;
 		case 11:
 			nature = "Hasty";
+			break;
 		case 12:
 			nature = "Serious";
+			break;
 		case 13:
 			nature = "Jolly";
+			break;
 		case 14:
 			nature = "Naive";
+			break;
 		case 15:
 			nature = "Modest";
+			break;
 		case 16:
 			nature = "Mild";
+			break;
 		case 17:
 			nature = "Quiet";
+			break;
 		case 18:
 			nature = "Bashful";
+			break;
 		case 19:
 			nature = "Rash";
+			break;
 		case 20:
 			nature = "Calm";
+			break;
 		case 21:
 			nature = "Gentle";
+			break;
 		case 22:
 			nature = "Sassy";
+			break;
 		case 23:
 			nature = "Careful";
+			break;
 		case 24:
 			nature = "Quirky";
+			break;
 		}
 		calculateStats();
 	}
@@ -128,11 +153,11 @@ public class OwnedPokemon {
 			shiny = true;
 		else
 			shiny = false;
-		if (pokemon.getGenderRatio() < 0) {
+		if (pokemon.getGenderRatio() < 0)
 			gender = "genderless";
-		} else {
-			temp = new Random().nextInt(100) + 1;
-			if (temp/100 <= pokemon.getGenderRatio())
+		else {
+			temp = new Random().nextInt(1000) + 1;
+			if ((((double) temp) / 10 ) <= pokemon.getGenderRatio())
 				gender = "male";
 			else
 				gender = "female";
@@ -146,54 +171,79 @@ public class OwnedPokemon {
 		switch(new Random().nextInt(25)) {
 		case 0:
 			nature = "Hardy";
+			break;
 		case 1:
 			nature = "Lonely";
+			break;
 		case 2:
 			nature = "Brave";
+			break;
 		case 3:
 			nature = "Adamant";
+			break;
 		case 4:
 			nature = "Naughty";
+			break;
 		case 5:
 			nature = "Bold";
+			break;
 		case 6:
 			nature = "Docile";
+			break;
 		case 7:
 			nature = "Relaxed";
+			break;
 		case 8:
 			nature = "Impish";
+			break;
 		case 9:
 			nature = "Lax";
+			break;
 		case 10:
 			nature = "Timid";
+			break;
 		case 11:
 			nature = "Hasty";
+			break;
 		case 12:
 			nature = "Serious";
+			break;
 		case 13:
 			nature = "Jolly";
+			break;
 		case 14:
 			nature = "Naive";
+			break;
 		case 15:
 			nature = "Modest";
+			break;
 		case 16:
 			nature = "Mild";
+			break;
 		case 17:
 			nature = "Quiet";
+			break;
 		case 18:
 			nature = "Bashful";
+			break;
 		case 19:
 			nature = "Rash";
+			break;
 		case 20:
 			nature = "Calm";
+			break;
 		case 21:
 			nature = "Gentle";
+			break;
 		case 22:
 			nature = "Sassy";
+			break;
 		case 23:
 			nature = "Careful";
+			break;
 		case 24:
 			nature = "Quirky";
+			break;
 		}
 		calculateStats();
 	}
@@ -537,7 +587,8 @@ public class OwnedPokemon {
 					+ "Name: " + pokemon.getName() + "\n"
 					+ "Nickname: " + nickname + "\n"
 					+ "Gender: " + gender + "\n"
-					+ "Nature:" + nature + "\n"
+					+ "Nature: " + nature + "\n"
+					+ "Level: " + level + "\n"
 					+ "Health IVs: " + healthIV + "\n"
 					+ "Attack IVs: " + attackIV + "\n"
 					+ "Defense IVs: " + defenseIV + "\n"
@@ -550,11 +601,12 @@ public class OwnedPokemon {
 					+ "Defense Stat: " + defenseStat + "\n"
 					+ "Special Attack Stat: " + specialAttackStat + "\n"
 					+ "Special Defense Stat: " + specialDefenseStat + "\n"
-					+ "Speed Stat: " + speedStat + "\n");
+					+ "Speed Stat: " + speedStat);
 		return String.format("Name: " + pokemon.getName() + "\n"
 				+ "Nickname: " + nickname + "\n"
 				+ "Gender: " + gender + "\n"
-				+ "Nature:" + nature + "\n"
+				+ "Nature: " + nature + "\n"
+				+ "Level: " + level + "\n"
 				+ "Health IVs: " + healthIV + "\n"
 				+ "Attack IVs: " + attackIV + "\n"
 				+ "Defense IVs: " + defenseIV + "\n"
@@ -567,6 +619,6 @@ public class OwnedPokemon {
 				+ "Defense Stat: " + defenseStat + "\n"
 				+ "Special Attack Stat: " + specialAttackStat + "\n"
 				+ "Special Defense Stat: " + specialDefenseStat + "\n"
-				+ "Speed Stat: " + speedStat + "\n");
+				+ "Speed Stat: " + speedStat);
 	}
 }

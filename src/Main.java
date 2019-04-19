@@ -9,8 +9,8 @@ public class Main {
 		Player p = new Player();
 		int[] spawnRateCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		boolean finished = false;
-		//		p.catchPokemon(new OwnedPokemon(pokedex.get(150)));
-		//		p.catchPokemon(new OwnedPokemon(pokedex.get(131)));
+		//		p.catchPokemon(new OwnedPokemon(pokedex.get(28)));
+		//		p.catchPokemon(new OwnedPokemon(pokedex.get(31)));
 		while(!finished) {
 			System.out.println("Input the number corresponding to your choice:");
 			System.out.println("1) Search for Pokemon");
@@ -257,49 +257,62 @@ public class Main {
 
 	private static void viewOwnedPokemon(Player p, Scanner input) {
 		boolean done = false;
+		boolean first = true;
+		String temp;
 		while (!done) {
 			printOwnedPokemon(p);
 			System.out.println("Enter the number correlating to a Pokemon in your PC to view it or enter \"0\" to go back to the main menu.");
 			System.out.println();
-			String temp = input.next();
-			if (!isNumeric(temp)) {
-				System.out.println();
-				System.out.println("Input does not match an avalable choice.");
-				System.out.println();
-			} else {
-				int num = Integer.parseInt(temp);
-				if (num < 0 || num >= p.getPC().size() + 1) {
+			if (input.hasNext()) {
+				if (first) {
+					temp = input.nextLine();
+					temp = input.nextLine();
+					first = false;
+				} else 
+					temp = input.nextLine();
+				if (!isNumeric(temp)) {
 					System.out.println();
+					System.out.println("CALLED");
 					System.out.println("Input does not match an available choice.");
 					System.out.println();
 				} else {
-					if (num != 0) {
+					int num = Integer.parseInt(temp);
+					if (num < 0 || num >= p.getPC().size() + 1) {
 						System.out.println();
-						System.out.println(p.getPC().get(num - 1));
+						System.out.println("Input does not match an available choice.");
 						System.out.println();
-						boolean repeat = false;
-						while (!repeat) {
-							System.out.println("Would you like to view another Pokemon?");
-							System.out.println("1) Yes");
-							System.out.println("2) No");
-							System.out.println();
-							switch (input.next()) {
-							case "1":
-								repeat = true;
-								break;
-							case "2":
-								done = true;
-								repeat = true;
-								break;
-							default:
-								System.out.println();
-								System.out.println("Input does not match an available choice.");
-								System.out.println();
-							}
-						}
 					} else {
-						System.out.println();
-						done = true;
+						if (num != 0) {
+							System.out.println();
+							System.out.println(p.getPC().get(num - 1));
+							System.out.println();
+							boolean repeat = false;
+							while (!repeat) {
+								System.out.println("Would you like to view another Pokemon?");
+								System.out.println("1) Yes");
+								System.out.println("2) No");
+								System.out.println();
+								if (input.hasNext())
+									switch (input.nextLine()) {
+									case "1":
+										System.out.println();
+										repeat = true;
+										break;
+									case "2":
+										System.out.println();
+										done = true;
+										repeat = true;
+										break;
+									default:
+										System.out.println();
+										System.out.println("Input does not match an available choice.");
+										System.out.println();
+									}
+							}
+						} else {
+							System.out.println();
+							done = true;
+						}
 					}
 				}
 			}
@@ -308,14 +321,21 @@ public class Main {
 
 	private static void breed(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
 		boolean done = false;
+		boolean first = true;
+		String temp;
 		while (!done) {
 			printOwnedPokemon(p);
 			System.out.println("Enter the number corresponding to the first Pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
 			System.out.println();
-			String temp = input.next();
+			if (first) {
+				temp = input.nextLine();
+				temp = input.nextLine();
+				first = false;
+			} else 
+				temp = input.nextLine();
 			if (!isNumeric(temp)) {
 				System.out.println();
-				System.out.println("Input does not match an avalable choice.");
+				System.out.println("Input does not match an available choice.");
 				System.out.println();
 			} else {
 				int num = Integer.parseInt(temp);
@@ -328,10 +348,10 @@ public class Main {
 						System.out.println();
 						System.out.println("Enter the number corresponding to the second Pokemon you would like to breed, or enter \"0\" to go back to the main menu.");
 						System.out.println();
-						temp = input.next();
+						temp = input.nextLine();
 						if (!isNumeric(temp)) {
 							System.out.println();
-							System.out.println("Input does not match an avalable choice.");
+							System.out.println("Input does not match an available choice.");
 							System.out.println();
 						} else {
 							int numTwo = Integer.parseInt(temp);
@@ -530,46 +550,56 @@ public class Main {
 
 	private static void training(Player p, Scanner input) {
 		boolean done = false;
+		boolean first = true;
+		String temp = "";
 		while (!done) {
-			System.out.println("Would you like to EV Train a Pokemon or reset a Pokemon's EVs?");
+			System.out.println("Would you like to Level Up a Pokemon, EV Train a Pokemon, Reset a Pokemon's EVs, or Change a Pokemon's Nature?");
 			System.out.println("1) Level Up");
 			System.out.println("2) EV Train");
 			System.out.println("3) Reset EVs");
 			System.out.println("4) Change Nature");
-			System.out.println("5) Enter \"0\" to go back to the main menu.");
+			System.out.println("Enter \"0\" to go back to the main menu.");
 			System.out.println();
-			switch (input.next()) {
-			case "1":
-				System.out.println();
-				levelUp(p, input);
-				System.out.println();
-				done = true;
-				break;
-			case "2":
-				System.out.println();
-				evTrain(p, input);
-				System.out.println();
-				done = true;
-				break;
-			case "3":
-				System.out.println();
-				resetEVs(p, input);
-				System.out.println();
-				done = true;
-				break;
-			case "4":
-				System.out.println();
-				changeNature(p, input);
-				System.out.println();
-			case "0":
-				System.out.println();
-				done = true;
-				break;
-			default:
-				System.out.println();
-				System.out.println("Input does not match an avalable choice.");
-				System.out.println();
-			}
+			if (input.hasNext())
+				if (first) {
+					temp = input.nextLine();
+					temp = input.nextLine();
+					first = false;
+				} else 
+					temp = input.nextLine();
+				switch (temp) {
+				case "1":
+					System.out.println();
+					levelUp(p, input);
+					System.out.println();
+					done = true;
+					break;
+				case "2":
+					System.out.println();
+					evTrain(p, input);
+					System.out.println();
+					done = true;
+					break;
+				case "3":
+					System.out.println();
+					resetEVs(p, input);
+					System.out.println();
+					done = true;
+					break;
+				case "4":
+					System.out.println();
+					changeNature(p, input);
+					System.out.println();
+					break;
+				case "0":
+					System.out.println();
+					done = true;
+					break;
+				default:
+					System.out.println();
+					System.out.println("Input does not match an available choice.");
+					System.out.println();
+				}
 		}
 	}
 
@@ -578,13 +608,12 @@ public class Main {
 		while (!done) {
 			printOwnedPokemon(p);
 			System.out.println("Choose the pokemon you want to level up.");
-			System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
-			System.out.println("2) Enter \"0\" to go back to the main menu.");
+			System.out.println("Enter the number correlating to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println();
-			String temp = input.next();
+			String temp = input.nextLine();
 			if (!isNumeric(temp)) {
 				System.out.println();
-				System.out.println("Input does not match an avalable choice.");
+				System.out.println("Input does not match an available choice.");
 				System.out.println();
 			} else {
 				int num = Integer.parseInt(temp);
@@ -594,52 +623,52 @@ public class Main {
 					System.out.println();
 				} else {
 					if (num != 0) {
-						if (p.getPC().get(num).getLevel() < 100) {
+						if (p.getPC().get(num - 1).getLevel() < 100) {
 							String typePoints = chooseTypePoints(p, num);
 							System.out.println("Each level-up has a point-cost equal to its current level.");
 							boolean finished = false;
 							while (!finished) {
-								System.out.println("A level-up for this Pokemon will cost you " + p.getPC().get(num).getLevel() + " " + typePoints);
-								System.out.println("1) Level Up");
-								System.out.println("2) Enter \"0\" to go back to the main menu.");
-								switch (input.next()) {
-								case "1":
-									boolean enough = true;
-									switch (typePoints) {
-									case "Tier 1 Points":
-										if (p.getTier1() < 100)
-											enough = false;
-									case "Tier 2 Points":
-										if (p.getTier2() < 100)
-											enough = false;
-									case "Tier 3 Points":
-										if (p.getTier3() < 100)
-											enough = false;
-									case "Tier 4 Points":
-										if (p.getTier4() < 100)
-											enough = false;
-									case "Tier 5 Points":
-										if (p.getTier5() < 100)
-											enough = false;
-									}
-									if (enough) {
-										levelUpHelper(p, input, num, typePoints);
-									} else {
+								System.out.println("A level-up for this Pokemon will cost you " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
+								System.out.println("Enter \"1\" to level up or enter \"0\" to go back to the main menu.");
+								if (input.hasNext())
+									switch (input.nextLine()) {
+									case "1":
+										boolean enough = true;
+										switch (typePoints) {
+										case "Tier 1 Points":
+											if (p.getTier1() < 100)
+												enough = false;
+										case "Tier 2 Points":
+											if (p.getTier2() < 100)
+												enough = false;
+										case "Tier 3 Points":
+											if (p.getTier3() < 100)
+												enough = false;
+										case "Tier 4 Points":
+											if (p.getTier4() < 100)
+												enough = false;
+										case "Tier 5 Points":
+											if (p.getTier5() < 100)
+												enough = false;
+										}
+										if (enough) {
+											levelUpHelper(p, input, num, typePoints);
+										} else {
+											System.out.println();
+											System.out.println("Changing this Pokemon's nature costs " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
+											System.out.println("You do not have enough " + typePoints + " to level up this Pokemon");
+											System.out.println();
+											finished = true;
+											done = true;
+										}
+									case "0":
 										System.out.println();
-										System.out.println("Changing this Pokemon's nature costs " + p.getPC().get(num).getLevel() + " " + typePoints);
-										System.out.println("You do not have enough " + typePoints + " to level up this Pokemon");
-										System.out.println();
-										finished = true;
 										done = true;
+									default:
+										System.out.println();
+										System.out.println("Input does not match an available choice.");
+										System.out.println();
 									}
-								case "0":
-									System.out.println();
-									done = true;
-								default:
-									System.out.println();
-									System.out.println("Input does not match an avalable choice.");
-									System.out.println();
-								}
 							}
 						} else {
 							System.out.println();
@@ -647,7 +676,6 @@ public class Main {
 							System.out.println();
 						}
 					} else {
-						System.out.println();
 						done = true;
 					}
 				}
@@ -658,37 +686,37 @@ public class Main {
 	private static void levelUpHelper(Player p, Scanner input, int num, String typePoints) {
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println();
-			p.spendTier1(p.getPC().get(num).getLevel());
-			p.getPC().get(num).levelUp();
-			System.out.println("Your " + p.getPC().get(num).getName() + " is now level " + p.getPC().get(num).getLevel());
+			p.spendTier1(p.getPC().get(num - 1).getLevel());
+			p.getPC().get(num - 1).levelUp();
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
 			System.out.println();
 		}
 		if (typePoints.equals("Tier 2 Points")) {
 			System.out.println();
-			p.spendTier2(p.getPC().get(num).getLevel());
-			p.getPC().get(num).levelUp();
-			System.out.println("Your " + p.getPC().get(num).getName() + " is now level " + p.getPC().get(num).getLevel());
+			p.spendTier2(p.getPC().get(num - 1).getLevel());
+			p.getPC().get(num - 1).levelUp();
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
 			System.out.println();
 		}
 		if (typePoints.equals("Tier 3 Points")) {
 			System.out.println();
-			p.spendTier3(p.getPC().get(num).getLevel());
-			p.getPC().get(num).levelUp();
-			System.out.println("Your " + p.getPC().get(num).getName() + " is now level " + p.getPC().get(num).getLevel());
+			p.spendTier3(p.getPC().get(num - 1).getLevel());
+			p.getPC().get(num - 1).levelUp();
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
 			System.out.println();
 		}
 		if (typePoints.equals("Tier 4 Points")) {
 			System.out.println();
-			p.spendTier4(p.getPC().get(num).getLevel());
-			p.getPC().get(num).levelUp();
-			System.out.println("Your " + p.getPC().get(num).getName() + " is now level " + p.getPC().get(num).getLevel());
+			p.spendTier4(p.getPC().get(num - 1).getLevel());
+			p.getPC().get(num - 1).levelUp();
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
 			System.out.println();
 		}
 		if (typePoints.equals("Tier 5 Points")) {
 			System.out.println();
-			p.spendTier5(p.getPC().get(num).getLevel());
-			p.getPC().get(num).levelUp();
-			System.out.println("Your " + p.getPC().get(num).getName() + " is now level " + p.getPC().get(num).getLevel());
+			p.spendTier5(p.getPC().get(num - 1).getLevel());
+			p.getPC().get(num - 1).levelUp();
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
 			System.out.println();
 		}
 	}
@@ -698,13 +726,12 @@ public class Main {
 		while (!done) {
 			printOwnedPokemon(p);
 			System.out.println("Choose a Pokemon to EV Train.");
-			System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
-			System.out.println("2) Enter \"0\" to go back to the main menu.");
+			System.out.println("Enter the number correlating to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println();
-			String temp = input.next();
+			String temp = input.nextLine();
 			if (!isNumeric(temp)) {
 				System.out.println();
-				System.out.println("Input does not match an avalable choice.");
+				System.out.println("Input does not match an available choice.");
 				System.out.println();
 			} else {
 				int num = Integer.parseInt(temp);
@@ -715,13 +742,13 @@ public class Main {
 				} else {
 					if (num != 0) {
 						System.out.println();
-						System.out.println("Your " + p.getPC().get(num).getName() + "'s EVs:");
-						System.out.println("Health EV: " + p.getPC().get(num).getHealthEV());
-						System.out.println("Attack EV: " + p.getPC().get(num).getAttackEV());
-						System.out.println("Defense EV: " + p.getPC().get(num).getDefenseEV());
-						System.out.println("Special Attack EV: " + p.getPC().get(num).getSpecialAttackEV());
-						System.out.println("Special Defense EV: " + p.getPC().get(num).getSpecialDefenseEV());
-						System.out.println("Speed EV: " + p.getPC().get(num).getSpeedEV());
+						System.out.println("Your " + p.getPC().get(num - 1).getName() + "'s EVs:");
+						System.out.println("Health EV: " + p.getPC().get(num - 1).getHealthEV());
+						System.out.println("Attack EV: " + p.getPC().get(num - 1).getAttackEV());
+						System.out.println("Defense EV: " + p.getPC().get(num - 1).getDefenseEV());
+						System.out.println("Special Attack EV: " + p.getPC().get(num - 1).getSpecialAttackEV());
+						System.out.println("Special Defense EV: " + p.getPC().get(num - 1).getSpecialDefenseEV());
+						System.out.println("Speed EV: " + p.getPC().get(num - 1).getSpeedEV());
 						System.out.println();
 						System.out.println("Which stat would you like to EV Train?");
 						System.out.println("1) Health");
@@ -730,56 +757,57 @@ public class Main {
 						System.out.println("4) Special Attack");
 						System.out.println("5) Special Defense");
 						System.out.println("6) Speed");
-						System.out.println("7) Enter \"0\" to go back to the main menu.");
+						System.out.println("Enter \"0\" to go back to the main menu.");
 						System.out.println();
 						boolean finished = false;
 						while (!finished) {
-							switch (input.next()) {
-							case "1":
-								System.out.println();
-								trainHealthEV(p, input, num);
-								System.out.println();
-								finished = true;
-								break;
-							case "2":
-								System.out.println();
-								trainAttackEV(p, input, num);
-								System.out.println();
-								finished = true;
-								break;
-							case "3":
-								System.out.println();
-								trainDefenseEV(p, input, num);
-								System.out.println();
-								finished = true;
-								break;
-							case "4":
-								System.out.println();
-								trainSpecialAttackEV(p, input, num);
-								System.out.println();
-								finished = true;
-								break;
-							case "5":
-								System.out.println();
-								trainSpecialDefenseEV(p, input, num);
-								System.out.println();
-								finished = true;
-								break;
-							case "6":
-								System.out.println();
-								trainSpeedEV(p, input, num);
-								System.out.println();
-								finished = true;
-								break;
-							case "0":
-								System.out.println();
-								finished = true;
-								break;
-							default:
-								System.out.println();
-								System.out.println("Input does not match an avalable choice.");
-								System.out.println();
-							}
+							if (input.hasNext())
+								switch (input.nextLine()) {
+								case "1":
+									System.out.println();
+									trainHealthEV(p, input, num);
+									System.out.println();
+									finished = true;
+									break;
+								case "2":
+									System.out.println();
+									trainAttackEV(p, input, num);
+									System.out.println();
+									finished = true;
+									break;
+								case "3":
+									System.out.println();
+									trainDefenseEV(p, input, num);
+									System.out.println();
+									finished = true;
+									break;
+								case "4":
+									System.out.println();
+									trainSpecialAttackEV(p, input, num);
+									System.out.println();
+									finished = true;
+									break;
+								case "5":
+									System.out.println();
+									trainSpecialDefenseEV(p, input, num);
+									System.out.println();
+									finished = true;
+									break;
+								case "6":
+									System.out.println();
+									trainSpeedEV(p, input, num);
+									System.out.println();
+									finished = true;
+									break;
+								case "0":
+									System.out.println();
+									finished = true;
+									break;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								}
 						}
 						System.out.println();
 						boolean repeat = false;
@@ -788,19 +816,22 @@ public class Main {
 							System.out.println("1) Yes");
 							System.out.println("2) No");
 							System.out.println();
-							switch (input.next()) {
-							case "1":
-								repeat = true;
-								break;
-							case "2":
-								done = true;
-								repeat = true;
-								break;
-							default:
-								System.out.println();
-								System.out.println("Input does not match an available choice.");
-								System.out.println();
-							}
+							if (input.hasNext())
+								switch (input.nextLine()) {
+								case "1":
+									System.out.println();
+									repeat = true;
+									break;
+								case "2":
+									System.out.println();
+									done = true;
+									repeat = true;
+									break;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								}
 						}
 					} else {
 						System.out.println();
@@ -818,17 +849,17 @@ public class Main {
 		boolean invested = false;
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getHealthEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -839,10 +870,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addHealthEV(tempNum);
+							p.getPC().get(num - 1).addHealthEV(tempNum);
 							p.spendTier1(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
 							System.out.println();
 						}
 					}
@@ -851,17 +882,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 2 Points")) {
 			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getHealthEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -872,10 +903,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addHealthEV(tempNum);
+							p.getPC().get(num - 1).addHealthEV(tempNum);
 							p.spendTier2(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
 							System.out.println();
 						}
 					}
@@ -884,17 +915,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 3 Points")) {
 			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getHealthEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -905,10 +936,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addHealthEV(tempNum);
+							p.getPC().get(num - 1).addHealthEV(tempNum);
 							p.spendTier3(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
 							System.out.println();
 						}
 					}
@@ -917,17 +948,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 4 Points")) {
 			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getHealthEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -938,10 +969,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addHealthEV(tempNum);
+							p.getPC().get(num - 1).addHealthEV(tempNum);
 							p.spendTier4(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
 							System.out.println();
 						}
 					}
@@ -950,17 +981,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 5 Points")) {
 			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getHealthEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -971,10 +1002,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addHealthEV(tempNum);
+							p.getPC().get(num - 1).addHealthEV(tempNum);
 							p.spendTier5(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getHealthEV() + " Health EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
 							System.out.println();
 						}
 					}
@@ -990,17 +1021,17 @@ public class Main {
 		boolean invested = false;
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1011,10 +1042,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addAttackEV(tempNum);
+							p.getPC().get(num - 1).addAttackEV(tempNum);
 							p.spendTier1(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
 							System.out.println();
 						}
 					}
@@ -1023,17 +1054,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 2 Points")) {
 			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1044,10 +1075,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addAttackEV(tempNum);
+							p.getPC().get(num - 1).addAttackEV(tempNum);
 							p.spendTier2(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
 							System.out.println();
 						}
 					}
@@ -1056,17 +1087,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 3 Points")) {
 			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1077,10 +1108,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addAttackEV(tempNum);
+							p.getPC().get(num - 1).addAttackEV(tempNum);
 							p.spendTier3(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
 							System.out.println();
 						}
 					}
@@ -1089,17 +1120,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 4 Points")) {
 			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1110,10 +1141,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addAttackEV(tempNum);
+							p.getPC().get(num - 1).addAttackEV(tempNum);
 							p.spendTier4(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
 							System.out.println();
 						}
 					}
@@ -1122,17 +1153,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 5 Points")) {
 			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1143,10 +1174,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addAttackEV(tempNum);
+							p.getPC().get(num - 1).addAttackEV(tempNum);
 							p.spendTier5(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getAttackEV() + " Attack EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
 							System.out.println();
 						}
 					}
@@ -1162,17 +1193,17 @@ public class Main {
 		boolean invested = false;
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1183,10 +1214,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addDefenseEV(tempNum);
+							p.getPC().get(num - 1).addDefenseEV(tempNum);
 							p.spendTier1(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
 							System.out.println();
 						}
 					}
@@ -1195,17 +1226,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 2 Points")) {
 			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1216,10 +1247,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addDefenseEV(tempNum);
+							p.getPC().get(num - 1).addDefenseEV(tempNum);
 							p.spendTier2(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
 							System.out.println();
 						}
 					}
@@ -1228,17 +1259,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 3 Points")) {
 			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1249,10 +1280,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addDefenseEV(tempNum);
+							p.getPC().get(num - 1).addDefenseEV(tempNum);
 							p.spendTier3(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
 							System.out.println();
 						}
 					}
@@ -1261,17 +1292,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 4 Points")) {
 			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1282,10 +1313,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addDefenseEV(tempNum);
+							p.getPC().get(num - 1).addDefenseEV(tempNum);
 							p.spendTier4(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
 							System.out.println();
 						}
 					}
@@ -1294,17 +1325,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 5 Points")) {
 			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1315,10 +1346,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addDefenseEV(tempNum);
+							p.getPC().get(num - 1).addDefenseEV(tempNum);
 							p.spendTier5(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getDefenseEV() + " Defense EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
 							System.out.println();
 						}
 					}
@@ -1334,17 +1365,17 @@ public class Main {
 		boolean invested = false;
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1355,10 +1386,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpecialAttackEV(tempNum);
+							p.getPC().get(num - 1).addSpecialAttackEV(tempNum);
 							p.spendTier1(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
 							System.out.println();
 						}
 					}
@@ -1367,17 +1398,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 2 Points")) {
 			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1388,10 +1419,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpecialAttackEV(tempNum);
+							p.getPC().get(num - 1).addSpecialAttackEV(tempNum);
 							p.spendTier2(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
 							System.out.println();
 						}
 					}
@@ -1400,17 +1431,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 3 Points")) {
 			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1421,10 +1452,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpecialAttackEV(tempNum);
+							p.getPC().get(num - 1).addSpecialAttackEV(tempNum);
 							p.spendTier3(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
 							System.out.println();
 						}
 					}
@@ -1433,17 +1464,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 4 Points")) {
 			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1454,10 +1485,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpecialAttackEV(tempNum);
+							p.getPC().get(num - 1).addSpecialAttackEV(tempNum);
 							p.spendTier4(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
 							System.out.println();
 						}
 					}
@@ -1466,17 +1497,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 5 Points")) {
 			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialAttackEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1487,10 +1518,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpecialAttackEV(tempNum);
+							p.getPC().get(num - 1).addSpecialAttackEV(tempNum);
 							p.spendTier5(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialAttackEV() + " Special Attack EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
 							System.out.println();
 						}
 					}
@@ -1506,17 +1537,17 @@ public class Main {
 		boolean invested = false;
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1527,10 +1558,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpecialDefenseEV(tempNum);
+							p.getPC().get(num - 1).addSpecialDefenseEV(tempNum);
 							p.spendTier1(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
 							System.out.println();
 						}
 					}
@@ -1539,17 +1570,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 2 Points")) {
 			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1560,10 +1591,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpecialDefenseEV(tempNum);
+							p.getPC().get(num - 1).addSpecialDefenseEV(tempNum);
 							p.spendTier2(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
 							System.out.println();
 						}
 					}
@@ -1572,17 +1603,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 3 Points")) {
 			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1593,10 +1624,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpecialDefenseEV(tempNum);
+							p.getPC().get(num - 1).addSpecialDefenseEV(tempNum);
 							p.spendTier3(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
 							System.out.println();
 						}
 					}
@@ -1605,17 +1636,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 4 Points")) {
 			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1626,10 +1657,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpecialDefenseEV(tempNum);
+							p.getPC().get(num - 1).addSpecialDefenseEV(tempNum);
 							p.spendTier4(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
 							System.out.println();
 						}
 					}
@@ -1638,17 +1669,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 5 Points")) {
 			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpecialDefenseEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1659,10 +1690,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpecialDefenseEV(tempNum);
+							p.getPC().get(num - 1).addSpecialDefenseEV(tempNum);
 							p.spendTier5(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpecialDefenseEV() + " Special Defense EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
 							System.out.println();
 						}
 					}
@@ -1678,17 +1709,17 @@ public class Main {
 		boolean invested = false;
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpeedEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1699,10 +1730,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpeedEV(tempNum);
+							p.getPC().get(num - 1).addSpeedEV(tempNum);
 							p.spendTier1(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
 							System.out.println();
 						}
 					}
@@ -1711,17 +1742,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 2 Points")) {
 			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpeedEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1732,10 +1763,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpeedEV(tempNum);
+							p.getPC().get(num - 1).addSpeedEV(tempNum);
 							p.spendTier2(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
 							System.out.println();
 						}
 					}
@@ -1744,17 +1775,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 3 Points")) {
 			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpeedEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1765,10 +1796,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpeedEV(tempNum);
+							p.getPC().get(num - 1).addSpeedEV(tempNum);
 							p.spendTier3(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
 							System.out.println();
 						}
 					}
@@ -1777,17 +1808,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 4 Points")) {
 			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpeedEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1798,10 +1829,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpeedEV(tempNum);
+							p.getPC().get(num - 1).addSpeedEV(tempNum);
 							p.spendTier4(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
 							System.out.println();
 						}
 					}
@@ -1810,17 +1841,17 @@ public class Main {
 		}
 		if (typePoints.equals("Tier 5 Points")) {
 			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
-			System.out.println("Your " + p.getPC().get(num).getName() + " has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
 			System.out.println("How many points would you like to invest?");
 			while (!invested) {
-				String temp = input.next();
+				String temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an avalable choice, please input a valid choice.");
+					System.out.println("Input does not match an available choice, please input a valid choice.");
 					System.out.println();
 				} else {
 					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num).getSpeedEV()) > 252) {
+					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252) {
 						System.out.println();
 						System.out.println("The number you have entered is either negative or would make the EV greater than 252.  Please input a valid choice.");
 						System.out.println();
@@ -1831,10 +1862,10 @@ public class Main {
 							System.out.println();
 						} else {
 							System.out.println();
-							p.getPC().get(num).addSpeedEV(tempNum);
+							p.getPC().get(num - 1).addSpeedEV(tempNum);
 							p.spendTier5(tempNum);
 							invested = true;
-							System.out.println("Your " + p.getPC().get(num).getName() + " now has " + p.getPC().get(num).getSpeedEV() + " Speed EVs.");
+							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
 							System.out.println();
 						}
 					}
@@ -1849,13 +1880,12 @@ public class Main {
 			printOwnedPokemon(p);
 			System.out.println("Choose a Pokemon whose EVs you would like to reset.");
 			System.out.println("NOTE: YOU WILL NOT BE REFUNDED THE POINTS SPENT IN GETTING THE RESET EVS");
-			System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
-			System.out.println("2) Enter \"0\" to go back to the main menu.");
+			System.out.println("Enter the number correlating to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println();
-			String temp = input.next();
+			String temp = input.nextLine();
 			if (!isNumeric(temp)) {
 				System.out.println();
-				System.out.println("Input does not match an avalable choice.");
+				System.out.println("Input does not match an available choice.");
 				System.out.println();
 			} else {
 				int num = Integer.parseInt(temp);
@@ -1866,38 +1896,39 @@ public class Main {
 				} else {
 					if (num != 0) {
 						System.out.println();
-						System.out.println("Your " + p.getPC().get(num).getName() + "'s EVs:");
-						System.out.println("Health EV: " + p.getPC().get(num).getHealthEV());
-						System.out.println("Attack EV: " + p.getPC().get(num).getAttackEV());
-						System.out.println("Defense EV: " + p.getPC().get(num).getDefenseEV());
-						System.out.println("Special Attack EV: " + p.getPC().get(num).getSpecialAttackEV());
-						System.out.println("Special Defense EV: " + p.getPC().get(num).getSpecialDefenseEV());
-						System.out.println("Speed EV: " + p.getPC().get(num).getSpeedEV());
+						System.out.println("Your " + p.getPC().get(num - 1).getName() + "'s EVs:");
+						System.out.println("Health EV: " + p.getPC().get(num - 1).getHealthEV());
+						System.out.println("Attack EV: " + p.getPC().get(num - 1).getAttackEV());
+						System.out.println("Defense EV: " + p.getPC().get(num - 1).getDefenseEV());
+						System.out.println("Special Attack EV: " + p.getPC().get(num - 1).getSpecialAttackEV());
+						System.out.println("Special Defense EV: " + p.getPC().get(num - 1).getSpecialDefenseEV());
+						System.out.println("Speed EV: " + p.getPC().get(num - 1).getSpeedEV());
 						System.out.println();
 						boolean finished = false;
 						while (!finished) {
-							System.out.println("Would you like to reset " + p.getPC().get(num).getName() + "'s EVs?");
+							System.out.println("Would you like to reset " + p.getPC().get(num - 1).getName() + "'s EVs?");
 							System.out.println();
 							System.out.println("1) Yes");
 							System.out.println("2) No");
 							System.out.println();
-							switch (input.next()) {
-							case "1":
-								System.out.println();
-								p.getPC().get(num).resetEVs();
-								System.out.println("Your " + p.getPC().get(num).getName() + "'s EVs have been reset.");
-								System.out.println();
-								finished = true;
-								break;
-							case "2":
-								System.out.println();
-								finished = true;
-								break;
-							default:
-								System.out.println();
-								System.out.println("Input does not match an avalable choice.");
-								System.out.println();
-							}
+							if (input.hasNext())
+								switch (input.nextLine()) {
+								case "1":
+									System.out.println();
+									p.getPC().get(num - 1).resetEVs();
+									System.out.println("Your " + p.getPC().get(num - 1).getName() + "'s EVs have been reset.");
+									System.out.println();
+									finished = true;
+									break;
+								case "2":
+									System.out.println();
+									finished = true;
+									break;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								}
 						}
 						System.out.println();
 						boolean repeat = false;
@@ -1906,19 +1937,22 @@ public class Main {
 							System.out.println("1) Yes");
 							System.out.println("2) No");
 							System.out.println();
-							switch (input.next()) {
-							case "1":
-								repeat = true;
-								break;
-							case "2":
-								done = true;
-								repeat = true;
-								break;
-							default:
-								System.out.println();
-								System.out.println("Input does not match an available choice.");
-								System.out.println();
-							}
+							if (input.hasNext())
+								switch (input.nextLine()) {
+								case "1":
+									System.out.println();
+									repeat = true;
+									break;
+								case "2":
+									System.out.println();
+									done = true;
+									repeat = true;
+									break;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								}
 						}
 					} else {
 						System.out.println();
@@ -1935,13 +1969,12 @@ public class Main {
 		while (!done) {
 			printOwnedPokemon(p);
 			System.out.println("Choose the pokemon whose nature you want to change.");
-			System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
-			System.out.println("2) Enter \"0\" to go back to the main menu.");
+			System.out.println("Enter the number correlating to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println();
-			String temp = input.next();
+			String temp = input.nextLine();
 			if (!isNumeric(temp)) {
 				System.out.println();
-				System.out.println("Input does not match an avalable choice.");
+				System.out.println("Input does not match an available choice.");
 				System.out.println();
 			} else {
 				int num = Integer.parseInt(temp);
@@ -1957,20 +1990,26 @@ public class Main {
 						case "Tier 1 Points":
 							if (p.getTier1() < 100)
 								enough = false;
+							break;
 						case "Tier 2 Points":
 							if (p.getTier2() < 100)
 								enough = false;
+							break;
 						case "Tier 3 Points":
 							if (p.getTier3() < 100)
 								enough = false;
+							break;
 						case "Tier 4 Points":
 							if (p.getTier4() < 100)
 								enough = false;
+							break;
 						case "Tier 5 Points":
 							if (p.getTier5() < 100)
 								enough = false;
+							break;
 						}
 						if (enough) {
+							System.out.println();
 							System.out.println("Changing this Pokemon's nature costs 100 " + typePoints);
 							System.out.println("Which nature would you like this Pokemon to have?");
 							System.out.println("1) Hardy");
@@ -1998,93 +2037,147 @@ public class Main {
 							System.out.println("23) Sassy");
 							System.out.println("24) Careful");
 							System.out.println("25) Quirky");
-							System.out.println("26) Enter \"0\" to go back to the main menu.");
+							System.out.println("Enter \"0\" to go back to the main menu.");
+							System.out.println();
 							boolean finished = false;
 							while (!finished) {
-								switch(input.next()) {
-								case "1":
-									changeNatureHelper(p, num, input, typePoints, "Hardy");
-									finished = true;
-								case "2":
-									changeNatureHelper(p, num, input, typePoints, "Lonely");
-									finished = true;
-								case "3":
-									changeNatureHelper(p, num, input, typePoints, "Brave");
-									finished = true;
-								case "4":
-									changeNatureHelper(p, num, input, typePoints, "Adamant");
-									finished = true;
-								case "5":
-									changeNatureHelper(p, num, input, typePoints, "Naughty");
-									finished = true;
-								case "6":
-									changeNatureHelper(p, num, input, typePoints, "Bold");
-									finished = true;
-								case "7":
-									changeNatureHelper(p, num, input, typePoints, "Docile");
-									finished = true;
-								case "8":
-									changeNatureHelper(p, num, input, typePoints, "Relaxed");
-									finished = true;
-								case "9":
-									changeNatureHelper(p, num, input, typePoints, "Impish");
-									finished = true;
-								case "10":
-									changeNatureHelper(p, num, input, typePoints, "Lax");
-									finished = true;
-								case "11":
-									changeNatureHelper(p, num, input, typePoints, "Timid");
-									finished = true;
-								case "12":
-									changeNatureHelper(p, num, input, typePoints, "Hasty");
-									finished = true;
-								case "13":
-									changeNatureHelper(p, num, input, typePoints, "Serious");
-									finished = true;
-								case "14":
-									changeNatureHelper(p, num, input, typePoints, "Jolly");
-									finished = true;
-								case "15":
-									changeNatureHelper(p, num, input, typePoints, "Naive");
-									finished = true;
-								case "16":
-									changeNatureHelper(p, num, input, typePoints, "Modest");
-									finished = true;
-								case "17":
-									changeNatureHelper(p, num, input, typePoints, "Mild");
-									finished = true;
-								case "18":
-									changeNatureHelper(p, num, input, typePoints, "Quiet");
-									finished = true;
-								case "19":
-									changeNatureHelper(p, num, input, typePoints, "Bashful");
-									finished = true;
-								case "20":
-									changeNatureHelper(p, num, input, typePoints, "Rash");
-									finished = true;
-								case "21":
-									changeNatureHelper(p, num, input, typePoints, "Calm");
-									finished = true;
-								case "22":
-									changeNatureHelper(p, num, input, typePoints, "Gentle");
-									finished = true;
-								case "23":
-									changeNatureHelper(p, num, input, typePoints, "Sassy");
-									finished = true;
-								case "24":
-									changeNatureHelper(p, num, input, typePoints, "Careful");
-									finished = true;
-								case "25":
-									changeNatureHelper(p, num, input, typePoints, "Quirky");
-									finished = true;
-								case "0":
-									System.out.println();
-									finished = true;
-								default:
-									System.out.println();
-									System.out.println("Input does not match an available choice.");
-									System.out.println();
-								}
+								if (input.hasNext())
+									switch(input.nextLine()) {
+									case "1":
+										changeNatureHelper(p, num, input, typePoints, "Hardy");
+										done = true;
+										finished = true;
+										break;
+									case "2":
+										changeNatureHelper(p, num, input, typePoints, "Lonely");
+										done = true;
+										finished = true;
+										break;
+									case "3":
+										changeNatureHelper(p, num, input, typePoints, "Brave");
+										done = true;
+										finished = true;
+										break;
+									case "4":
+										changeNatureHelper(p, num, input, typePoints, "Adamant");
+										done = true;
+										finished = true;
+										break;
+									case "5":
+										changeNatureHelper(p, num, input, typePoints, "Naughty");
+										done = true;
+										finished = true;
+										break;
+									case "6":
+										changeNatureHelper(p, num, input, typePoints, "Bold");
+										done = true;
+										finished = true;
+										break;
+									case "7":
+										changeNatureHelper(p, num, input, typePoints, "Docile");
+										done = true;
+										finished = true;
+										break;
+									case "8":
+										changeNatureHelper(p, num, input, typePoints, "Relaxed");
+										done = true;
+										finished = true;
+										break;
+									case "9":
+										changeNatureHelper(p, num, input, typePoints, "Impish");
+										done = true;
+										finished = true;
+										break;
+									case "10":
+										changeNatureHelper(p, num, input, typePoints, "Lax");
+										done = true;
+										finished = true;
+										break;
+									case "11":
+										changeNatureHelper(p, num, input, typePoints, "Timid");
+										done = true;
+										finished = true;
+										break;
+									case "12":
+										changeNatureHelper(p, num, input, typePoints, "Hasty");
+										done = true;
+										finished = true;
+										break;
+									case "13":
+										changeNatureHelper(p, num, input, typePoints, "Serious");
+										done = true;
+										finished = true;
+										break;
+									case "14":
+										changeNatureHelper(p, num, input, typePoints, "Jolly");
+										done = true;
+										finished = true;
+										break;
+									case "15":
+										changeNatureHelper(p, num, input, typePoints, "Naive");
+										done = true;
+										finished = true;
+										break;
+									case "16":
+										changeNatureHelper(p, num, input, typePoints, "Modest");
+										done = true;
+										finished = true;
+										break;
+									case "17":
+										changeNatureHelper(p, num, input, typePoints, "Mild");
+										done = true;
+										finished = true;
+										break;
+									case "18":
+										changeNatureHelper(p, num, input, typePoints, "Quiet");
+										done = true;
+										finished = true;
+										break;
+									case "19":
+										changeNatureHelper(p, num, input, typePoints, "Bashful");
+										done = true;
+										finished = true;
+										break;
+									case "20":
+										changeNatureHelper(p, num, input, typePoints, "Rash");
+										done = true;
+										finished = true;
+										break;
+									case "21":
+										changeNatureHelper(p, num, input, typePoints, "Calm");
+										done = true;
+										finished = true;
+										break;
+									case "22":
+										changeNatureHelper(p, num, input, typePoints, "Gentle");
+										done = true;
+										finished = true;
+										break;
+									case "23":
+										changeNatureHelper(p, num, input, typePoints, "Sassy");
+										done = true;
+										finished = true;
+										break;
+									case "24":
+										changeNatureHelper(p, num, input, typePoints, "Careful");
+										done = true;
+										finished = true;
+										break;
+									case "25":
+										changeNatureHelper(p, num, input, typePoints, "Quirky");
+										done = true;
+										finished = true;
+										break;
+									case "0":
+										System.out.println();
+										done = true;
+										finished = true;
+										break;
+									default:
+										System.out.println();
+										System.out.println("Input does not match an available choice.");
+										System.out.println();
+									}
 							}
 						} else {
 							System.out.println();
@@ -2103,44 +2196,43 @@ public class Main {
 	}
 
 	private static void changeNatureHelper(Player p, int num, Scanner input, String typePoints, String nature) {
-		if (p.getPC().get(num).getNature().equals(nature)) {
+		if (p.getPC().get(num - 1).getNature().equals(nature)) {
 			System.out.println();
 			System.out.println("This Pokemon already has the nature you selected.");
 			System.out.println();
 		} else {
 			if (typePoints.equals("Tier 1 Points")) {
 				System.out.println();
-				p.getPC().get(num).setNature(nature);
+				p.getPC().get(num - 1).setNature(nature);
 				p.spendTier1(100);
-				System.out.println("Your " + p.getPC().get(num).getName() + " now has a " + nature + " nature.");
-				System.out.println();
+				System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has a " + nature + " nature.");
 			}
 			if (typePoints.equals("Tier 2 Points")) {
 				System.out.println();
-				p.getPC().get(num).setNature(nature);
+				p.getPC().get(num - 1).setNature(nature);
 				p.spendTier2(100);
-				System.out.println("Your " + p.getPC().get(num).getName() + " now has a " + nature + " nature.");
+				System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has a " + nature + " nature.");
 				System.out.println();
 			}
 			if (typePoints.equals("Tier 3 Points")) {
 				System.out.println();
-				p.getPC().get(num).setNature(nature);
+				p.getPC().get(num - 1).setNature(nature);
 				p.spendTier3(100);
-				System.out.println("Your " + p.getPC().get(num).getName() + " now has a " + nature + " nature.");
+				System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has a " + nature + " nature.");
 				System.out.println();
 			}
 			if (typePoints.equals("Tier 4 Points")) {
 				System.out.println();
-				p.getPC().get(num).setNature(nature);
+				p.getPC().get(num - 1).setNature(nature);
 				p.spendTier4(100);
-				System.out.println("Your " + p.getPC().get(num).getName() + " now has a " + nature + " nature.");
+				System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has a " + nature + " nature.");
 				System.out.println();
 			}
 			if (typePoints.equals("Tier 5 Points")) {
 				System.out.println();
-				p.getPC().get(num).setNature(nature);
+				p.getPC().get(num - 1).setNature(nature);
 				p.spendTier5(100);
-				System.out.println("Your " + p.getPC().get(num).getName() + " now has a " + nature + " nature.");
+				System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has a " + nature + " nature.");
 				System.out.println();
 			}
 		}
@@ -2148,16 +2240,22 @@ public class Main {
 
 	private static void recycle(Player p, Scanner input) {
 		boolean done = false;
+		boolean first = true;
+		String temp;
 		while (!done) {
 			printOwnedPokemon(p);
 			System.out.println("Choose a Pokemon to recycle.");
-			System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
-			System.out.println("2) Enter \"0\" to go back to the main menu.");
+			System.out.println("Enter the number correlating to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println();
-			String temp = input.next();
+			if (first) {
+				temp = input.nextLine();
+				temp = input.nextLine();
+				first = false;
+			} else 
+				temp = input.nextLine();
 			if (!isNumeric(temp)) {
 				System.out.println();
-				System.out.println("Input does not match an avalable choice.");
+				System.out.println("Input does not match an available choice.");
 				System.out.println();
 			} else {
 				int num = Integer.parseInt(temp);
@@ -2180,61 +2278,66 @@ public class Main {
 							System.out.println("1) Yes");
 							System.out.println("2) No");
 							System.out.println();
-							switch (input.next()) {
-							case "1":
-								System.out.println();
-								if (typePoints.equals("Tier 1 Points")) {
-									p.addTier1(numPoints);
-									System.out.println("You now have " + p.getTier1() + " Tier 1 Points.");
+							if (input.hasNext())
+								switch (input.nextLine()) {
+								case "1":
+									System.out.println();
+									if (typePoints.equals("Tier 1 Points")) {
+										p.addTier1(numPoints);
+										System.out.println("You now have " + p.getTier1() + " Tier 1 Points.");
+									}
+									if (typePoints.equals("Tier 2 Points")) {
+										p.addTier2(numPoints);
+										System.out.println("You now have " + p.getTier2() + " Tier 2 Points.");
+									}
+									if (typePoints.equals("Tier 3 Points")) {
+										p.addTier3(numPoints);
+										System.out.println("You now have " + p.getTier3() + " Tier 3 Points.");
+									}
+									if (typePoints.equals("Tier 4 Points")) {
+										p.addTier4(numPoints);
+										System.out.println("You now have " + p.getTier4() + " Tier 4 Points.");
+									}
+									if (typePoints.equals("Tier 5 Points")) {
+										p.addTier5(numPoints);
+										System.out.println("You now have " + p.getTier5() + " Tier 5 Points.");
+									}
+									p.getPC().remove(num - 1);
+									System.out.println();
+									finished = true;
+									break;
+								case "2":
+									System.out.println();
+									finished = true;
+									break;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
 								}
-								if (typePoints.equals("Tier 2 Points")) {
-									p.addTier2(numPoints);
-									System.out.println("You now have " + p.getTier2() + " Tier 2 Points.");
-								}
-								if (typePoints.equals("Tier 3 Points")) {
-									p.addTier3(numPoints);
-									System.out.println("You now have " + p.getTier3() + " Tier 3 Points.");
-								}
-								if (typePoints.equals("Tier 4 Points")) {
-									p.addTier4(numPoints);
-									System.out.println("You now have " + p.getTier4() + " Tier 4 Points.");
-								}
-								if (typePoints.equals("Tier 5 Points")) {
-									p.addTier5(numPoints);
-									System.out.println("You now have " + p.getTier5() + " Tier 5 Points.");
-								}
-								p.getPC().remove(num - 1);
-								System.out.println();
-								finished = true;
-							case "2":
-								System.out.println();
-								finished = true;
-							default:
-								System.out.println();
-								System.out.println("Input does not match an avalable choice.");
-								System.out.println();
-							}
 						}
-						System.out.println();
 						boolean repeat = false;
 						while (!repeat) {
 							System.out.println("Would you like to choose another Pokemon to recycle?");
 							System.out.println("1) Yes");
 							System.out.println("2) No");
 							System.out.println();
-							switch (input.next()) {
-							case "1":
-								repeat = true;
-								break;
-							case "2":
-								done = true;
-								repeat = true;
-								break;
-							default:
-								System.out.println();
-								System.out.println("Input does not match an available choice.");
-								System.out.println();
-							}
+							if (input.hasNext())
+								switch (input.nextLine()) {
+								case "1":
+									System.out.println();
+									repeat = true;
+									break;
+								case "2":
+									System.out.println();
+									done = true;
+									repeat = true;
+									break;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								}
 						}
 					} else {
 						System.out.println();
