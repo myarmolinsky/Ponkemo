@@ -143,6 +143,58 @@ public class OwnedPokemon {
 		this.specialAttackIV = specialAttackIV;
 		this.specialDefenseIV = specialDefenseIV;
 		this.speedIV = speedIV;
+		switch(new Random().nextInt(25)) {
+		case 0:
+			nature = "Hardy";
+		case 1:
+			nature = "Lonely";
+		case 2:
+			nature = "Brave";
+		case 3:
+			nature = "Adamant";
+		case 4:
+			nature = "Naughty";
+		case 5:
+			nature = "Bold";
+		case 6:
+			nature = "Docile";
+		case 7:
+			nature = "Relaxed";
+		case 8:
+			nature = "Impish";
+		case 9:
+			nature = "Lax";
+		case 10:
+			nature = "Timid";
+		case 11:
+			nature = "Hasty";
+		case 12:
+			nature = "Serious";
+		case 13:
+			nature = "Jolly";
+		case 14:
+			nature = "Naive";
+		case 15:
+			nature = "Modest";
+		case 16:
+			nature = "Mild";
+		case 17:
+			nature = "Quiet";
+		case 18:
+			nature = "Bashful";
+		case 19:
+			nature = "Rash";
+		case 20:
+			nature = "Calm";
+		case 21:
+			nature = "Gentle";
+		case 22:
+			nature = "Sassy";
+		case 23:
+			nature = "Careful";
+		case 24:
+			nature = "Quirky";
+		}
 		calculateStats();
 	}
 
@@ -464,6 +516,14 @@ public class OwnedPokemon {
 
 	public String getName() {
 		return pokemon.getName();
+	}
+
+	public String getNature() {
+		return nature;
+	}
+
+	public void setNature(String nature) {
+		this.nature = nature;
 	}
 
 	public String toString() {

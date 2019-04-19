@@ -532,23 +532,35 @@ public class Main {
 		boolean done = false;
 		while (!done) {
 			System.out.println("Would you like to EV Train a Pokemon or reset a Pokemon's EVs?");
-			System.out.println("1) EV Train");
-			System.out.println("2) Reset EVs");
-			System.out.println("3) Enter \"0\" to go back to the main menu.");
+			System.out.println("1) Level Up");
+			System.out.println("2) EV Train");
+			System.out.println("3) Reset EVs");
+			System.out.println("4) Change Nature");
+			System.out.println("5) Enter \"0\" to go back to the main menu.");
 			System.out.println();
 			switch (input.next()) {
 			case "1":
 				System.out.println();
-				evTrain(p, input);
+				levelUp(p, input);
 				System.out.println();
 				done = true;
 				break;
 			case "2":
 				System.out.println();
+				evTrain(p, input);
+				System.out.println();
+				done = true;
+				break;
+			case "3":
+				System.out.println();
 				resetEVs(p, input);
 				System.out.println();
 				done = true;
 				break;
+			case "4":
+				System.out.println();
+				changeNature(p, input);
+				System.out.println();
 			case "0":
 				System.out.println();
 				done = true;
@@ -559,6 +571,11 @@ public class Main {
 				System.out.println();
 			}
 		}
+	}
+
+	private static void levelUp(Player p, Scanner input) {
+		// TODO Auto-generated method stub
+
 	}
 
 	private static void evTrain(Player p, Scanner input) {
@@ -1792,6 +1809,223 @@ public class Main {
 						System.out.println();
 					}
 				}
+			}
+		}
+	}
+
+
+
+	private static void changeNature(Player p, Scanner input) {
+		boolean done = false;
+		while (!done) {
+			printOwnedPokemon(p);
+			System.out.println("Choose the pokemon whose nature you want to change.");
+			System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
+			System.out.println("2) Enter \"0\" to go back to the main menu.");
+			System.out.println();
+			String temp = input.next();
+			if (!isNumeric(temp)) {
+				System.out.println();
+				System.out.println("Input does not match an avalable choice.");
+				System.out.println();
+			} else {
+				int num = Integer.parseInt(temp);
+				if (num < 0 || num >= p.getPC().size() + 1) {
+					System.out.println();
+					System.out.println("Input does not match an available choice.");
+					System.out.println();
+				} else {
+					if (num != 0) {
+						String typePoints = chooseTypePoints(p, num);
+						boolean enough = true;
+						switch (typePoints) {
+						case "Tier 1 Points":
+							if (p.getTier1() < 100)
+								enough = false;
+						case "Tier 2 Points":
+							if (p.getTier2() < 100)
+								enough = false;
+						case "Tier 3 Points":
+							if (p.getTier3() < 100)
+								enough = false;
+						case "Tier 4 Points":
+							if (p.getTier4() < 100)
+								enough = false;
+						case "Tier 5 Points":
+							if (p.getTier5() < 100)
+								enough = false;
+						}
+						if (enough) {
+							System.out.println("Changing this Pokemon's nature costs 100 " + typePoints);
+							System.out.println("Which nature would you like this Pokemon to have?");
+							System.out.println("1) Hardy");
+							System.out.println("2) Lonely");
+							System.out.println("3) Brave");
+							System.out.println("4) Adamant");
+							System.out.println("5) Naughty");
+							System.out.println("6) Bold");
+							System.out.println("7) Docile");
+							System.out.println("8) Relaxed");
+							System.out.println("9) Impish");
+							System.out.println("10) Lax");
+							System.out.println("11) Timid");
+							System.out.println("12) Hasty");
+							System.out.println("13) Serious");
+							System.out.println("14) Jolly");
+							System.out.println("15) Naive");
+							System.out.println("16) Modest");
+							System.out.println("17) Mild");
+							System.out.println("18) Quiet");
+							System.out.println("19) Bashful");
+							System.out.println("20) Rash");
+							System.out.println("21) Calm");
+							System.out.println("22) Gentle");
+							System.out.println("23) Sassy");
+							System.out.println("24) Careful");
+							System.out.println("25) Quirky");
+							System.out.println("26) Enter \"0\" to go back to the main menu.");
+							boolean finished = false;
+							while (!finished) {
+								switch(input.next()) {
+								case "1":
+									changeNatureHelper(p, num, input, typePoints, "Hardy");
+									finished = true;
+								case "2":
+									changeNatureHelper(p, num, input, typePoints, "Lonely");
+									finished = true;
+								case "3":
+									changeNatureHelper(p, num, input, typePoints, "Brave");
+									finished = true;
+								case "4":
+									changeNatureHelper(p, num, input, typePoints, "Adamant");
+									finished = true;
+								case "5":
+									changeNatureHelper(p, num, input, typePoints, "Naughty");
+									finished = true;
+								case "6":
+									changeNatureHelper(p, num, input, typePoints, "Bold");
+									finished = true;
+								case "7":
+									changeNatureHelper(p, num, input, typePoints, "Docile");
+									finished = true;
+								case "8":
+									changeNatureHelper(p, num, input, typePoints, "Relaxed");
+									finished = true;
+								case "9":
+									changeNatureHelper(p, num, input, typePoints, "Impish");
+									finished = true;
+								case "10":
+									changeNatureHelper(p, num, input, typePoints, "Lax");
+									finished = true;
+								case "11":
+									changeNatureHelper(p, num, input, typePoints, "Timid");
+									finished = true;
+								case "12":
+									changeNatureHelper(p, num, input, typePoints, "Hasty");
+									finished = true;
+								case "13":
+									changeNatureHelper(p, num, input, typePoints, "Serious");
+									finished = true;
+								case "14":
+									changeNatureHelper(p, num, input, typePoints, "Jolly");
+									finished = true;
+								case "15":
+									changeNatureHelper(p, num, input, typePoints, "Naive");
+									finished = true;
+								case "16":
+									changeNatureHelper(p, num, input, typePoints, "Modest");
+									finished = true;
+								case "17":
+									changeNatureHelper(p, num, input, typePoints, "Mild");
+									finished = true;
+								case "18":
+									changeNatureHelper(p, num, input, typePoints, "Quiet");
+									finished = true;
+								case "19":
+									changeNatureHelper(p, num, input, typePoints, "Bashful");
+									finished = true;
+								case "20":
+									changeNatureHelper(p, num, input, typePoints, "Rash");
+									finished = true;
+								case "21":
+									changeNatureHelper(p, num, input, typePoints, "Calm");
+									finished = true;
+								case "22":
+									changeNatureHelper(p, num, input, typePoints, "Gentle");
+									finished = true;
+								case "23":
+									changeNatureHelper(p, num, input, typePoints, "Sassy");
+									finished = true;
+								case "24":
+									changeNatureHelper(p, num, input, typePoints, "Careful");
+									finished = true;
+								case "25":
+									changeNatureHelper(p, num, input, typePoints, "Quirky");
+									finished = true;
+								case "0":
+									System.out.println();
+									finished = true;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								}
+							}
+						} else {
+							System.out.println();
+							System.out.println("Changing this Pokemon's nature costs 100 " + typePoints);
+							System.out.println("You do not have enough " + typePoints + " to change this Pokemon's nature");
+							System.out.println();
+						}
+					} else {
+						System.out.println();
+						done = true;
+					}
+				}
+			}
+		}
+	}
+
+	private static void changeNatureHelper(Player p, int num, Scanner input, String typePoints, String nature) {
+		if (p.getPC().get(num).getNature().equals(nature)) {
+			System.out.println();
+			System.out.println("This Pokemon already has the nature you selected.");
+			System.out.println();
+		} else {
+			if (typePoints.equals("Tier 1 Points")) {
+				System.out.println();
+				p.getPC().get(num).setNature(nature);
+				p.spendTier1(100);
+				System.out.println("Your " + p.getPC().get(num).getName() + " now has a " + nature + " nature.");
+				System.out.println();
+			}
+			if (typePoints.equals("Tier 2 Points")) {
+				System.out.println();
+				p.getPC().get(num).setNature(nature);
+				p.spendTier2(100);
+				System.out.println("Your " + p.getPC().get(num).getName() + " now has a " + nature + " nature.");
+				System.out.println();
+			}
+			if (typePoints.equals("Tier 3 Points")) {
+				System.out.println();
+				p.getPC().get(num).setNature(nature);
+				p.spendTier3(100);
+				System.out.println("Your " + p.getPC().get(num).getName() + " now has a " + nature + " nature.");
+				System.out.println();
+			}
+			if (typePoints.equals("Tier 4 Points")) {
+				System.out.println();
+				p.getPC().get(num).setNature(nature);
+				p.spendTier4(100);
+				System.out.println("Your " + p.getPC().get(num).getName() + " now has a " + nature + " nature.");
+				System.out.println();
+			}
+			if (typePoints.equals("Tier 5 Points")) {
+				System.out.println();
+				p.getPC().get(num).setNature(nature);
+				p.spendTier5(100);
+				System.out.println("Your " + p.getPC().get(num).getName() + " now has a " + nature + " nature.");
+				System.out.println();
 			}
 		}
 	}
