@@ -526,6 +526,11 @@ public class OwnedPokemon {
 		this.nature = nature;
 	}
 
+	public void levelUp() {
+		level += 1;
+	}
+
+
 	public String toString() {
 		if (shiny)
 			return String.format("SHINY\n"
@@ -564,5 +569,4 @@ public class OwnedPokemon {
 				+ "Special Defense Stat: " + specialDefenseStat + "\n"
 				+ "Speed Stat: " + speedStat + "\n");
 	}
-
 }

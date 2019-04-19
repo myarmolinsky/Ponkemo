@@ -574,8 +574,123 @@ public class Main {
 	}
 
 	private static void levelUp(Player p, Scanner input) {
-		// TODO Auto-generated method stub
+		boolean done = false;
+		while (!done) {
+			printOwnedPokemon(p);
+			System.out.println("Choose the pokemon you want to level up.");
+			System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
+			System.out.println("2) Enter \"0\" to go back to the main menu.");
+			System.out.println();
+			String temp = input.next();
+			if (!isNumeric(temp)) {
+				System.out.println();
+				System.out.println("Input does not match an avalable choice.");
+				System.out.println();
+			} else {
+				int num = Integer.parseInt(temp);
+				if (num < 0 || num >= p.getPC().size() + 1) {
+					System.out.println();
+					System.out.println("Input does not match an available choice.");
+					System.out.println();
+				} else {
+					if (num != 0) {
+						if (p.getPC().get(num).getLevel() < 100) {
+							String typePoints = chooseTypePoints(p, num);
+							System.out.println("Each level-up has a point-cost equal to its current level.");
+							boolean finished = false;
+							while (!finished) {
+								System.out.println("A level-up for this Pokemon will cost you " + p.getPC().get(num).getLevel() + " " + typePoints);
+								System.out.println("1) Level Up");
+								System.out.println("2) Enter \"0\" to go back to the main menu.");
+								switch (input.next()) {
+								case "1":
+									boolean enough = true;
+									switch (typePoints) {
+									case "Tier 1 Points":
+										if (p.getTier1() < 100)
+											enough = false;
+									case "Tier 2 Points":
+										if (p.getTier2() < 100)
+											enough = false;
+									case "Tier 3 Points":
+										if (p.getTier3() < 100)
+											enough = false;
+									case "Tier 4 Points":
+										if (p.getTier4() < 100)
+											enough = false;
+									case "Tier 5 Points":
+										if (p.getTier5() < 100)
+											enough = false;
+									}
+									if (enough) {
+										levelUpHelper(p, input, num, typePoints);
+									} else {
+										System.out.println();
+										System.out.println("Changing this Pokemon's nature costs " + p.getPC().get(num).getLevel() + " " + typePoints);
+										System.out.println("You do not have enough " + typePoints + " to level up this Pokemon");
+										System.out.println();
+										finished = true;
+										done = true;
+									}
+								case "0":
+									System.out.println();
+									done = true;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an avalable choice.");
+									System.out.println();
+								}
+							}
+						} else {
+							System.out.println();
+							System.out.println("This Pokemon is already level 100.  Make a different choice.");
+							System.out.println();
+						}
+					} else {
+						System.out.println();
+						done = true;
+					}
+				}
+			}
+		}
+	}
 
+	private static void levelUpHelper(Player p, Scanner input, int num, String typePoints) {
+		if (typePoints.equals("Tier 1 Points")) {
+			System.out.println();
+			p.spendTier1(p.getPC().get(num).getLevel());
+			p.getPC().get(num).levelUp();
+			System.out.println("Your " + p.getPC().get(num).getName() + " is now level " + p.getPC().get(num).getLevel());
+			System.out.println();
+		}
+		if (typePoints.equals("Tier 2 Points")) {
+			System.out.println();
+			p.spendTier2(p.getPC().get(num).getLevel());
+			p.getPC().get(num).levelUp();
+			System.out.println("Your " + p.getPC().get(num).getName() + " is now level " + p.getPC().get(num).getLevel());
+			System.out.println();
+		}
+		if (typePoints.equals("Tier 3 Points")) {
+			System.out.println();
+			p.spendTier3(p.getPC().get(num).getLevel());
+			p.getPC().get(num).levelUp();
+			System.out.println("Your " + p.getPC().get(num).getName() + " is now level " + p.getPC().get(num).getLevel());
+			System.out.println();
+		}
+		if (typePoints.equals("Tier 4 Points")) {
+			System.out.println();
+			p.spendTier4(p.getPC().get(num).getLevel());
+			p.getPC().get(num).levelUp();
+			System.out.println("Your " + p.getPC().get(num).getName() + " is now level " + p.getPC().get(num).getLevel());
+			System.out.println();
+		}
+		if (typePoints.equals("Tier 5 Points")) {
+			System.out.println();
+			p.spendTier5(p.getPC().get(num).getLevel());
+			p.getPC().get(num).levelUp();
+			System.out.println("Your " + p.getPC().get(num).getName() + " is now level " + p.getPC().get(num).getLevel());
+			System.out.println();
+		}
 	}
 
 	private static void evTrain(Player p, Scanner input) {
@@ -1976,6 +2091,7 @@ public class Main {
 							System.out.println("Changing this Pokemon's nature costs 100 " + typePoints);
 							System.out.println("You do not have enough " + typePoints + " to change this Pokemon's nature");
 							System.out.println();
+							done = true;
 						}
 					} else {
 						System.out.println();
