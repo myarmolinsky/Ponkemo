@@ -262,7 +262,7 @@ public class Main {
 		String temp;
 		while (!done) {
 			printOwnedPokemon(p);
-			System.out.println("Enter the number correlating to a Pokemon in your PC to view it or enter \"0\" to go back to the main menu.");
+			System.out.println("Enter the number corresponding to a Pokemon in your PC to view it or enter \"0\" to go back to the main menu.");
 			System.out.println();
 			if (input.hasNext()) {
 				if (first) {
@@ -604,7 +604,7 @@ public class Main {
 		while (!done) {
 			printOwnedPokemon(p);
 			System.out.println("Choose the pokemon you want to level up.");
-			System.out.println("Enter the number correlating to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
+			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println();
 			String temp = input.nextLine();
 			if (!isNumeric(temp)) {
@@ -731,7 +731,7 @@ public class Main {
 		while (!done) {
 			printOwnedPokemon(p);
 			System.out.println("Choose a Pokemon to EV Train.");
-			System.out.println("Enter the number correlating to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
+			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println();
 			String temp = input.nextLine();
 			if (!isNumeric(temp)) {
@@ -1936,7 +1936,7 @@ public class Main {
 			printOwnedPokemon(p);
 			System.out.println("Choose a Pokemon whose EVs you would like to reset.");
 			System.out.println("NOTE: YOU WILL NOT BE REFUNDED THE POINTS SPENT IN GETTING THE RESET EVS");
-			System.out.println("Enter the number correlating to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
+			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println();
 			String temp = input.nextLine();
 			if (!isNumeric(temp)) {
@@ -2025,7 +2025,7 @@ public class Main {
 		while (!done) {
 			printOwnedPokemon(p);
 			System.out.println("Choose the pokemon whose nature you want to change.");
-			System.out.println("Enter the number correlating to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
+			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println();
 			String temp = input.nextLine();
 			if (!isNumeric(temp)) {
@@ -2301,7 +2301,7 @@ public class Main {
 		while (!done) {
 			printOwnedPokemon(p);
 			System.out.println("Choose a Pokemon to recycle.");
-			System.out.println("Enter the number correlating to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
+			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println();
 			if (first) {
 				temp = input.nextLine();
