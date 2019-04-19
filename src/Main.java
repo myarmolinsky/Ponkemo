@@ -16,7 +16,7 @@ public class Main {
 			System.out.println("1) Search for Pokemon");
 			System.out.println("2) View Owned Pokemon");
 			System.out.println("3) Breed Pokemon");
-			System.out.println("4) EV Train");
+			System.out.println("4) Train Pokemon");
 			System.out.println("5) Recycle Pokemon");
 			System.out.println("6) View Player Data");
 			System.out.println("7) Quit");
@@ -36,7 +36,7 @@ public class Main {
 				break;
 			case "4":
 				System.out.println();
-				evTraining(p, input);
+				training(p, input);
 				break;
 			case "5":
 				System.out.println();
@@ -214,6 +214,23 @@ public class Main {
 		pokedex.add(new Pokemon("Mew", "Psychic", null, 100, 100, 100, 100, 100, 100, 27, new String[] {"undiscovered"}, -1, new String[] {"Mew"}));
 	}
 
+	private static void printOwnedPokemon(Player p) {
+		System.out.println("Your Pokemon:");
+		for (int i = 0; i < p.getPC().size(); i++) {
+			System.out.println(i + 1 + ") " + p.getPC().get(i).getNickname());
+		}
+		System.out.println();
+	}
+
+	private static boolean isNumeric(String temp) {
+		try {
+			Integer.parseInt(temp);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+
 	private static void search(ArrayList<Pokemon> pokedex, Player p, int[] spawnRateCounter) {
 		int rand = new Random().nextInt(20);
 		if (rand == 0) {
@@ -239,203 +256,226 @@ public class Main {
 	}
 
 	private static void viewOwnedPokemon(Player p, Scanner input) {
-		printOwnedPokemon(p);
-		viewAnotherOwnedPokemon(p, input);
-	}
-
-	private static void printOwnedPokemon(Player p) {
-		System.out.println("Your Pokemon:");
-		for (int i = 0; i < p.getPC().size(); i++) {
-			System.out.println(i + 1 + ") " + p.getPC().get(i).getNickname());
-		}
-		System.out.println();
-	}
-
-	private static void viewAnotherOwnedPokemon(Player p, Scanner input) {
-		System.out.println("Would you like to view any Pokemon in particular?");
-		System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
-		System.out.println("2) Enter \"0\" to go back to the previous menu.");
-		System.out.println();
-		String temp = input.next();
-		if (!isNumeric(temp)) {
+		boolean done = false;
+		while (!done) {
+			printOwnedPokemon(p);
+			System.out.println("Enter the number correlating to a Pokemon in your PC to view it or enter \"0\" to go back to the main menu.");
 			System.out.println();
-			System.out.println("Input does not match an avalable choice.");
-			System.out.println();
-			viewOwnedPokemon(p, input);
-		} else {
-			int num = Integer.parseInt(temp);
-			if (num < 0 || num >= p.getPC().size() + 1) {
+			String temp = input.next();
+			if (!isNumeric(temp)) {
 				System.out.println();
-				System.out.println("Input does not match an available choice.");
+				System.out.println("Input does not match an avalable choice.");
 				System.out.println();
-				viewOwnedPokemon(p, input);
 			} else {
-				if (num != 0) {
+				int num = Integer.parseInt(temp);
+				if (num < 0 || num >= p.getPC().size() + 1) {
 					System.out.println();
-					System.out.println(p.getPC().get(num - 1));
+					System.out.println("Input does not match an available choice.");
 					System.out.println();
-					viewAnotherOwnedPokemon(p, input);
 				} else {
-					System.out.println();
+					if (num != 0) {
+						System.out.println();
+						System.out.println(p.getPC().get(num - 1));
+						System.out.println();
+						boolean repeat = false;
+						while (!repeat) {
+							System.out.println("Would you like to view another Pokemon?");
+							System.out.println("1) Yes");
+							System.out.println("2) No");
+							System.out.println();
+							switch (input.next()) {
+							case "1":
+								repeat = true;
+								break;
+							case "2":
+								done = true;
+								repeat = true;
+								break;
+							default:
+								System.out.println();
+								System.out.println("Input does not match an available choice.");
+								System.out.println();
+							}
+						}
+					} else {
+						System.out.println();
+						done = true;
+					}
 				}
 			}
-		}
-	}
-
-	private static boolean isNumeric(String temp) {
-		try {
-			Integer.parseInt(temp);
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
 		}
 	}
 
 	private static void breed(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
-		printOwnedPokemon(p);
-		breedOne(p, input, pokedex);
-	}
-
-	private static void breedOne(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
-		System.out.println("Enter the number corresponding to the first Pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
-		System.out.println();
-		String temp = input.next();
-		if (!isNumeric(temp)) {
+		boolean done = false;
+		while (!done) {
+			printOwnedPokemon(p);
+			System.out.println("Enter the number corresponding to the first Pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
 			System.out.println();
-			System.out.println("Input does not match an avalable choice.");
-			System.out.println();
-			breed(p, input, pokedex);
-		} else {
-			int num = Integer.parseInt(temp);
-			if (num < 0 || num > p.getPC().size()) {
+			String temp = input.next();
+			if (!isNumeric(temp)) {
 				System.out.println();
-				System.out.println("Input does not match an available choice.");
+				System.out.println("Input does not match an avalable choice.");
 				System.out.println();
-				breed(p, input, pokedex);
 			} else {
-				if (num != 0) {
-					breedTwo(p, input, num, pokedex);
-				} else {
+				int num = Integer.parseInt(temp);
+				if (num < 0 || num > p.getPC().size()) {
 					System.out.println();
-				}
-			}
-		}
-	}
-
-	private static void breedTwo(Player p, Scanner input, int num, ArrayList<Pokemon> pokedex) {
-		System.out.println();
-		System.out.println("Enter the number corresponding to the second Pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
-		System.out.println();
-		String temp = input.next();
-		if (!isNumeric(temp)) {
-			System.out.println();
-			System.out.println("Input does not match an avalable choice.");
-			System.out.println();
-			breed(p, input, pokedex);
-		} else {
-			int numTwo = Integer.parseInt(temp);
-			if (numTwo < 0 || numTwo > p.getPC().size() || num == numTwo) {
-				System.out.println();
-				System.out.println("Input does not match an available choice.");
-				System.out.println();
-				breed(p, input, pokedex);
-			} else {
-				if (numTwo != 0) {
-					if (breedable(p, num, numTwo)) {
-						OwnedPokemon oldOne = new OwnedPokemon(p.getPC().get(num - 1));
-						OwnedPokemon oldTwo = new OwnedPokemon(p.getPC().get(numTwo - 1));
-						Pokemon pokemon;
-						boolean ditto = false;
-						for (int i = 0; i < oldOne.getEggGroup().length; i++)
-							if (oldOne.getEggGroup()[i].equals("ditto")) {
-								pokemon = getBabyPokemon(pokedex, oldTwo);
-								ditto = true;
-								p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+					System.out.println("Input does not match an available choice.");
+					System.out.println();
+				} else {
+					if (num != 0) {
+						System.out.println();
+						System.out.println("Enter the number corresponding to the second Pokemon you would like to breed, or enter \"0\" to go back to the main menu.");
+						System.out.println();
+						temp = input.next();
+						if (!isNumeric(temp)) {
+							System.out.println();
+							System.out.println("Input does not match an avalable choice.");
+							System.out.println();
+						} else {
+							int numTwo = Integer.parseInt(temp);
+							if (numTwo < 0 || numTwo > p.getPC().size() || num == numTwo) {
 								System.out.println();
-								System.out.println("Congratulations on your newly bred Pokemon!");
+								System.out.println("Input does not match an available choice.");
 								System.out.println();
+							} else {
+								if (numTwo != 0) {
+									boolean breedable = false;
+									boolean validEggGroup = false;
+									for (int i = 0; i < p.getPC().get(num - 1).getEggGroup().length; i++)
+										for (int j = 0; j < p.getPC().get(numTwo - 1).getEggGroup().length; j++)
+											if (p.getPC().get(num - 1).getEggGroup()[i].equals(p.getPC().get(numTwo - 1).getEggGroup()[j]))
+												validEggGroup = true;
+									if (validEggGroup) {
+										if ((p.getPC().get(num - 1).getGender().equals("male") && p.getPC().get(numTwo - 1).getGender().equals("female"))
+												|| (p.getPC().get(num - 1).getGender().equals("female") && p.getPC().get(numTwo - 1).getGender().equals("male"))
+												|| (p.getPC().get(num - 1).getGender().equals("genderless") && p.getPC().get(numTwo - 1).getGender().equals("genderless")))
+											breedable = true;
+										if (p.getPC().get(num - 1).getEggGroup()[0].equals("undiscovered") 
+												&& p.getPC().get(numTwo - 1).getEggGroup()[0].equals("undiscovered") 
+												&& !p.getPC().get(numTwo - 1).getName().equals(p.getPC().get(num - 1).getName()))
+											breedable = false;
+									}
+									if (p.getPC().get(num - 1).getEggGroup()[0].equals("ditto"))
+										breedable = true;
+									if (p.getPC().get(numTwo - 1).getEggGroup()[0].equals("ditto"))
+										breedable = true;
+									if (breedable) {
+										OwnedPokemon oldOne = new OwnedPokemon(p.getPC().get(num - 1));
+										OwnedPokemon oldTwo = new OwnedPokemon(p.getPC().get(numTwo - 1));
+										Pokemon pokemon;
+										boolean ditto = false;
+										for (int i = 0; i < oldOne.getEggGroup().length; i++)
+											if (oldOne.getEggGroup()[i].equals("ditto")) {
+												pokemon = getBabyPokemon(pokedex, oldTwo);
+												ditto = true;
+												p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+												System.out.println();
+												System.out.println("Congratulations on your newly bred Pokemon!");
+												System.out.println();
+												done = true;
+											}
+										if (!ditto)
+											for (int i = 0; i < oldTwo.getEggGroup().length; i++)
+												if (oldTwo.getEggGroup()[i].equals("ditto")) {
+													pokemon = getBabyPokemon(pokedex, oldOne);
+													ditto = true;
+													p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+													System.out.println();
+													System.out.println("Congratulations on your newly bred Pokemon!");
+													System.out.println();
+													done = true;
+												}
+										if (!ditto)
+											if (oldOne.getGender().equals("genderless")) {
+												int choose = new Random().nextInt(2);
+												if (choose == 0) {
+													pokemon = getBabyPokemon(pokedex, oldOne);
+													p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+													System.out.println();
+													System.out.println("Congratulations on your newly bred Pokemon!");
+													System.out.println();
+													done = true;
+												} else {
+													pokemon = getBabyPokemon(pokedex, oldTwo);
+													p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+													System.out.println();
+													System.out.println("Congratulations on your newly bred Pokemon!");
+													System.out.println();
+													done = true;
+												}
+											} else
+												if (oldOne.getGender().equals("female")) {
+													if (oldOne.getName().equals("NidoranF") || oldOne.getName().equals("Nidorina") || oldOne.getName().equals("Nidoqueen")) {
+														int rand = new Random().nextInt(2);
+														if (rand == 0) {
+															pokemon = pokedex.get(28);
+															p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+															System.out.println();
+															System.out.println("Congratulations on your newly bred Pokemon!");
+															System.out.println();
+															done = true;
+														} else {
+															pokemon = pokedex.get(31);
+															p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+															System.out.println();
+															System.out.println("Congratulations on your newly bred Pokemon!");
+															System.out.println();
+															done = true;
+														}
+													} else {
+														pokemon = getBabyPokemon(pokedex, oldOne);
+														p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+														System.out.println();
+														System.out.println("Congratulations on your newly bred Pokemon!");
+														System.out.println();
+														done = true;
+													}
+												} else {
+													if (oldTwo.getName().equals("NidoranF") || oldTwo.getName().equals("Nidorina") || oldTwo.getName().equals("Nidoqueen")) {
+														int rand = new Random().nextInt(2);
+														if (rand == 0) {
+															pokemon = pokedex.get(28);
+															p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+															System.out.println();
+															System.out.println("Congratulations on your newly bred Pokemon!");
+															System.out.println();
+															done = true;
+														} else {
+															pokemon = pokedex.get(31);
+															p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+															System.out.println();
+															System.out.println("Congratulations on your newly bred Pokemon!");
+															System.out.println();
+															done = true;
+														}
+													} else {
+														pokemon = getBabyPokemon(pokedex, oldTwo);
+														p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+														System.out.println();
+														System.out.println("Congratulations on your newly bred Pokemon!");
+														System.out.println();
+														done = true;
+													}
+												}
+									} else {
+										System.out.println();
+										System.out.println("These two Pokemon are not breedable.");
+										System.out.println();
+										done = true;
+									}
+								} else {
+									System.out.println();
+									done = true;
+								}
 							}
-						if (!ditto)
-							for (int i = 0; i < oldTwo.getEggGroup().length; i++)
-								if (oldTwo.getEggGroup()[i].equals("ditto")) {
-									pokemon = getBabyPokemon(pokedex, oldOne);
-									ditto = true;
-									p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-									System.out.println();
-									System.out.println("Congratulations on your newly bred Pokemon!");
-									System.out.println();
-								}
-						if (!ditto)
-							if (oldOne.getGender().equals("genderless")) {
-								int choose = new Random().nextInt(2);
-								if (choose == 0) {
-									pokemon = getBabyPokemon(pokedex, oldOne);
-									p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-									System.out.println();
-									System.out.println("Congratulations on your newly bred Pokemon!");
-									System.out.println();
-								} else {
-									pokemon = getBabyPokemon(pokedex, oldTwo);
-									p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-									System.out.println();
-									System.out.println("Congratulations on your newly bred Pokemon!");
-									System.out.println();
-								}
-							} else
-								if (oldOne.getGender().equals("female")) {
-									if (oldOne.getName().equals("NidoranF") || oldOne.getName().equals("Nidorina") || oldOne.getName().equals("Nidoqueen")) {
-										int rand = new Random().nextInt(2);
-										if (rand == 0) {
-											pokemon = pokedex.get(28);
-											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-											System.out.println();
-											System.out.println("Congratulations on your newly bred Pokemon!");
-											System.out.println();
-										} else {
-											pokemon = pokedex.get(31);
-											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-											System.out.println();
-											System.out.println("Congratulations on your newly bred Pokemon!");
-											System.out.println();
-										}
-									} else {
-										pokemon = getBabyPokemon(pokedex, oldOne);
-										p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-										System.out.println();
-										System.out.println("Congratulations on your newly bred Pokemon!");
-										System.out.println();
-									}
-								} else {
-									if (oldTwo.getName().equals("NidoranF") || oldTwo.getName().equals("Nidorina") || oldTwo.getName().equals("Nidoqueen")) {
-										int rand = new Random().nextInt(2);
-										if (rand == 0) {
-											pokemon = pokedex.get(28);
-											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-											System.out.println();
-											System.out.println("Congratulations on your newly bred Pokemon!");
-											System.out.println();
-										} else {
-											pokemon = pokedex.get(31);
-											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-											System.out.println();
-											System.out.println("Congratulations on your newly bred Pokemon!");
-											System.out.println();
-										}
-									} else {
-										pokemon = getBabyPokemon(pokedex, oldTwo);
-										p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-										System.out.println();
-										System.out.println("Congratulations on your newly bred Pokemon!");
-										System.out.println();
-									}
-								}
+						}
 					} else {
 						System.out.println();
-						System.out.println("These two Pokemon are not breedable.");
-						System.out.println();
+						done = true;
 					}
-				} else
-					System.out.println();
+				}
 			}
 		}
 	}
@@ -488,162 +528,152 @@ public class Main {
 		return poke.getPokemon();
 	}
 
-	private static boolean breedable(Player p, int num, int numTwo) {
-		boolean temp = false;
-		if (p.getPC().get(num - 1).getEggGroup()[0].equals("ditto"))
-			return true;
-		if (p.getPC().get(numTwo - 1).getEggGroup()[0].equals("ditto"))
-			return true;
-		for (int i = 0; i < p.getPC().get(num - 1).getEggGroup().length; i++)
-			for (int j = 0; j < p.getPC().get(numTwo - 1).getEggGroup().length; j++)
-				if (p.getPC().get(num - 1).getEggGroup()[i].equals(p.getPC().get(numTwo - 1).getEggGroup()[j]))
-					temp = true;
-		if (temp)
-			if (p.getPC().get(num - 1).getEggGroup()[0].equals("undiscovered") && !p.getPC().get(numTwo - 1).getName().equals(p.getPC().get(num - 1).getName()))
-				return false;
-		if ((p.getPC().get(num - 1).getGender().equals("male") && p.getPC().get(numTwo - 1).getGender().equals("female"))
-				|| (p.getPC().get(num - 1).getGender().equals("female") && p.getPC().get(numTwo - 1).getGender().equals("male"))
-				|| (p.getPC().get(num - 1).getGender().equals("genderless") && p.getPC().get(numTwo - 1).getGender().equals("genderless")))
-			return true;
-		return false;
-	}
-
-	private static void evTraining(Player p, Scanner input) {
-		System.out.println("Would you like to EV Train a Pokemon or reset a Pokemon's EVs?");
-		System.out.println("1) EV Train");
-		System.out.println("2) Reset EVs");
-		System.out.println("3) Enter \"0\" to go back to the previous menu.");
-		System.out.println();
-		String temp = input.next();
-		if (!isNumeric(temp)) {
+	private static void training(Player p, Scanner input) {
+		boolean done = false;
+		while (!done) {
+			System.out.println("Would you like to EV Train a Pokemon or reset a Pokemon's EVs?");
+			System.out.println("1) EV Train");
+			System.out.println("2) Reset EVs");
+			System.out.println("3) Enter \"0\" to go back to the main menu.");
 			System.out.println();
-			System.out.println("Input does not match an avalable choice.");
-			System.out.println();
-			evTraining(p, input);
-		} else {
-			int num = Integer.parseInt(temp);
-			if (num != 0 && num != 1 && num != 2 && num != 3) {
+			switch (input.next()) {
+			case "1":
 				System.out.println();
-				System.out.println("Input does not match an available choice.");
+				evTrain(p, input);
 				System.out.println();
-				evTraining(p, input);
-			} else {
-				if (num == 1) {
-					System.out.println();
-					evTrain(p, input);
-					System.out.println();
-				} else {
-					if (num == 2) {
-						System.out.println();
-						resetEVs(p, input);
-						System.out.println();
-					} else {
-						System.out.println();
-					}
-				}
+				done = true;
+				break;
+			case "2":
+				System.out.println();
+				resetEVs(p, input);
+				System.out.println();
+				done = true;
+				break;
+			case "0":
+				System.out.println();
+				done = true;
+				break;
+			default:
+				System.out.println();
+				System.out.println("Input does not match an avalable choice.");
+				System.out.println();
 			}
 		}
 	}
 
 	private static void evTrain(Player p, Scanner input) {
-		printOwnedPokemon(p);
-		System.out.println("Choose a Pokemon to EV Train.");
-		System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
-		System.out.println("2) Enter \"0\" to go back to the previous menu.");
-		System.out.println();
-		String temp = input.next();
-		if (!isNumeric(temp)) {
+		boolean done = false;
+		while (!done) {
+			printOwnedPokemon(p);
+			System.out.println("Choose a Pokemon to EV Train.");
+			System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
+			System.out.println("2) Enter \"0\" to go back to the main menu.");
 			System.out.println();
-			System.out.println("Input does not match an avalable choice.");
-			System.out.println();
-			evTrain(p, input);
-		} else {
-			int num = Integer.parseInt(temp);
-			if (num < 0 || num >= p.getPC().size() + 1) {
+			String temp = input.next();
+			if (!isNumeric(temp)) {
 				System.out.println();
-				System.out.println("Input does not match an available choice.");
+				System.out.println("Input does not match an avalable choice.");
 				System.out.println();
-				evTrain(p, input);
 			} else {
-				if (num != 0) {
+				int num = Integer.parseInt(temp);
+				if (num < 0 || num >= p.getPC().size() + 1) {
 					System.out.println();
-					System.out.println("Your " + p.getPC().get(num).getName() + "'s EVs:");
-					System.out.println("Health EV: " + p.getPC().get(num).getHealthEV());
-					System.out.println("Attack EV: " + p.getPC().get(num).getAttackEV());
-					System.out.println("Defense EV: " + p.getPC().get(num).getDefenseEV());
-					System.out.println("Special Attack EV: " + p.getPC().get(num).getSpecialAttackEV());
-					System.out.println("Special Defense EV: " + p.getPC().get(num).getSpecialDefenseEV());
-					System.out.println("Speed EV: " + p.getPC().get(num).getSpeedEV());
+					System.out.println("Input does not match an available choice.");
 					System.out.println();
-					evTrainContinued(p, input, num);
-					System.out.println();
-					evTrain(p, input);
 				} else {
-					System.out.println();
-				}
-			}
-		}
-	}
-
-	private static void evTrainContinued(Player p, Scanner input, int num) {
-		System.out.println("Which stat would you like to EV Train?");
-		System.out.println("1) Health");
-		System.out.println("2) Attack");
-		System.out.println("3) Defense");
-		System.out.println("4) Special Attack");
-		System.out.println("5) Special Defense");
-		System.out.println("6) Speed");
-		System.out.println("7) Enter \"0\" to go back to the previous menu.");
-		System.out.println();
-		String temp = input.next();
-		if (!isNumeric(temp)) {
-			System.out.println();
-			System.out.println("Input does not match an avalable choice.");
-			System.out.println();
-			evTrainContinued(p, input, num);
-		} else {
-			int tempNum = Integer.parseInt(temp);
-			if (tempNum != 0 && tempNum !=1 && tempNum !=2 && tempNum !=3 && tempNum !=4 && tempNum !=5 && tempNum !=6) {
-				System.out.println();
-				System.out.println("Input does not match an available choice.");
-				System.out.println();
-				evTrainContinued(p, input, num);
-			} else {
-				switch(num) {
-				case 1:
-					System.out.println();
-					trainHealthEV(p, input, num);
-					System.out.println();
-					break;
-				case 2:
-					System.out.println();
-					trainAttackEV(p, input, num);
-					System.out.println();
-					break;
-				case 3:
-					System.out.println();
-					trainDefenseEV(p, input, num);
-					System.out.println();
-					break;
-				case 4:
-					System.out.println();
-					trainSpecialAttackEV(p, input, num);
-					System.out.println();
-					break;
-				case 5:
-					System.out.println();
-					trainSpecialDefenseEV(p, input, num);
-					System.out.println();
-					break;
-				case 6:
-					System.out.println();
-					trainSpeedEV(p, input, num);
-					System.out.println();
-					break;
-				case 0:
-					System.out.println();
-					break;
-				default:
+					if (num != 0) {
+						System.out.println();
+						System.out.println("Your " + p.getPC().get(num).getName() + "'s EVs:");
+						System.out.println("Health EV: " + p.getPC().get(num).getHealthEV());
+						System.out.println("Attack EV: " + p.getPC().get(num).getAttackEV());
+						System.out.println("Defense EV: " + p.getPC().get(num).getDefenseEV());
+						System.out.println("Special Attack EV: " + p.getPC().get(num).getSpecialAttackEV());
+						System.out.println("Special Defense EV: " + p.getPC().get(num).getSpecialDefenseEV());
+						System.out.println("Speed EV: " + p.getPC().get(num).getSpeedEV());
+						System.out.println();
+						System.out.println("Which stat would you like to EV Train?");
+						System.out.println("1) Health");
+						System.out.println("2) Attack");
+						System.out.println("3) Defense");
+						System.out.println("4) Special Attack");
+						System.out.println("5) Special Defense");
+						System.out.println("6) Speed");
+						System.out.println("7) Enter \"0\" to go back to the main menu.");
+						System.out.println();
+						boolean finished = false;
+						while (!finished) {
+							switch (input.next()) {
+							case "1":
+								System.out.println();
+								trainHealthEV(p, input, num);
+								System.out.println();
+								finished = true;
+								break;
+							case "2":
+								System.out.println();
+								trainAttackEV(p, input, num);
+								System.out.println();
+								finished = true;
+								break;
+							case "3":
+								System.out.println();
+								trainDefenseEV(p, input, num);
+								System.out.println();
+								finished = true;
+								break;
+							case "4":
+								System.out.println();
+								trainSpecialAttackEV(p, input, num);
+								System.out.println();
+								finished = true;
+								break;
+							case "5":
+								System.out.println();
+								trainSpecialDefenseEV(p, input, num);
+								System.out.println();
+								finished = true;
+								break;
+							case "6":
+								System.out.println();
+								trainSpeedEV(p, input, num);
+								System.out.println();
+								finished = true;
+								break;
+							case "0":
+								System.out.println();
+								finished = true;
+								break;
+							default:
+								System.out.println();
+								System.out.println("Input does not match an avalable choice.");
+								System.out.println();
+							}
+						}
+						System.out.println();
+						boolean repeat = false;
+						while (!repeat) {
+							System.out.println("Would you like to EV Train Pokemon?");
+							System.out.println("1) Yes");
+							System.out.println("2) No");
+							System.out.println();
+							switch (input.next()) {
+							case "1":
+								repeat = true;
+								break;
+							case "2":
+								done = true;
+								repeat = true;
+								break;
+							default:
+								System.out.println();
+								System.out.println("Input does not match an available choice.");
+								System.out.println();
+							}
+						}
+					} else {
+						System.out.println();
+						done = true;
+					}
 				}
 			}
 		}
@@ -652,7 +682,7 @@ public class Main {
 	private static void trainHealthEV(Player p, Scanner input, int num) {
 		String typePoints = chooseTypePoints(p, num);
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
-		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points per into one Pokemon.");
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
 		boolean invested = false;
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
@@ -824,7 +854,7 @@ public class Main {
 	private static void trainAttackEV(Player p, Scanner input, int num) {
 		String typePoints = chooseTypePoints(p, num);
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
-		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points per into one Pokemon.");
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
 		boolean invested = false;
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
@@ -996,7 +1026,7 @@ public class Main {
 	private static void trainDefenseEV(Player p, Scanner input, int num) {
 		String typePoints = chooseTypePoints(p, num);
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
-		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points per into one Pokemon.");
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
 		boolean invested = false;
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
@@ -1168,7 +1198,7 @@ public class Main {
 	private static void trainSpecialAttackEV(Player p, Scanner input, int num) {
 		String typePoints = chooseTypePoints(p, num);
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
-		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points per into one Pokemon.");
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
 		boolean invested = false;
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
@@ -1340,7 +1370,7 @@ public class Main {
 	private static void trainSpecialDefenseEV(Player p, Scanner input, int num) {
 		String typePoints = chooseTypePoints(p, num);
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
-		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points per into one Pokemon.");
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
 		boolean invested = false;
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
@@ -1512,7 +1542,7 @@ public class Main {
 	private static void trainSpeedEV(Player p, Scanner input, int num) {
 		String typePoints = chooseTypePoints(p, num);
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
-		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points per into one Pokemon.");
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
 		boolean invested = false;
 		if (typePoints.equals("Tier 1 Points")) {
 			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
@@ -1682,122 +1712,187 @@ public class Main {
 	}
 
 	private static void resetEVs(Player p, Scanner input) {
-		printOwnedPokemon(p);
-		System.out.println("Choose a Pokemon whose EVs you would like to reset.");
-		System.out.println("NOTE: YOU WILL NOT BE REFUNDED THE POINTS SPENT IN GETTING THOSE EVS");
-		System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
-		System.out.println("2) Enter \"0\" to go back to the previous menu.");
-		System.out.println();
-		String temp = input.next();
-		if (!isNumeric(temp)) {
+		boolean done = false;
+		while (!done) {
+			printOwnedPokemon(p);
+			System.out.println("Choose a Pokemon whose EVs you would like to reset.");
+			System.out.println("NOTE: YOU WILL NOT BE REFUNDED THE POINTS SPENT IN GETTING THE RESET EVS");
+			System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
+			System.out.println("2) Enter \"0\" to go back to the main menu.");
 			System.out.println();
-			System.out.println("Input does not match an avalable choice.");
-			System.out.println();
-			resetEVs(p, input);
-		} else {
-			int num = Integer.parseInt(temp);
-			if (num < 0 || num >= p.getPC().size() + 1) {
+			String temp = input.next();
+			if (!isNumeric(temp)) {
 				System.out.println();
-				System.out.println("Input does not match an available choice.");
+				System.out.println("Input does not match an avalable choice.");
 				System.out.println();
-				resetEVs(p, input);
 			} else {
-				if (num != 0) {
+				int num = Integer.parseInt(temp);
+				if (num < 0 || num >= p.getPC().size() + 1) {
 					System.out.println();
-					System.out.println("Your " + p.getPC().get(num).getName() + "'s EVs:");
-					System.out.println("Health EV: " + p.getPC().get(num).getHealthEV());
-					System.out.println("Attack EV: " + p.getPC().get(num).getAttackEV());
-					System.out.println("Defense EV: " + p.getPC().get(num).getDefenseEV());
-					System.out.println("Special Attack EV: " + p.getPC().get(num).getSpecialAttackEV());
-					System.out.println("Special Defense EV: " + p.getPC().get(num).getSpecialDefenseEV());
-					System.out.println("Speed EV: " + p.getPC().get(num).getSpeedEV());
-					System.out.println();
-					resetEVsContinued(p, input, num);
-					System.out.println();
-					resetEVs(p, input);
-				} else {
-					System.out.println();
-				}
-			}
-		}
-	}
-
-	private static void resetEVsContinued(Player p, Scanner input, int num) {
-		System.out.println("Would you like to reset " + p.getPC().get(num).getName() + "'s EVs?");
-		System.out.println();
-		System.out.println("1) Yes");
-		System.out.println("2) No");
-		System.out.println();
-		String temp = input.next();
-		if (!isNumeric(temp)) {
-			System.out.println();
-			System.out.println("Input does not match an avalable choice.");
-			System.out.println();
-			resetEVsContinued(p, input, num);
-		} else {
-			int tempNum = Integer.parseInt(temp);
-			if (tempNum != 1 && tempNum != 2) {
-				System.out.println();
-				System.out.println("Input does not match an available choice.");
-				System.out.println();
-				resetEVsContinued(p, input, num);
-			} else {
-				if (num != 2) {
-					System.out.println();
-					p.getPC().get(num).resetEVs();
-					System.out.println("Your " + p.getPC().get(num).getName() + "'s EVs have been reset.");
+					System.out.println("Input does not match an available choice.");
 					System.out.println();
 				} else {
-					System.out.println();
+					if (num != 0) {
+						System.out.println();
+						System.out.println("Your " + p.getPC().get(num).getName() + "'s EVs:");
+						System.out.println("Health EV: " + p.getPC().get(num).getHealthEV());
+						System.out.println("Attack EV: " + p.getPC().get(num).getAttackEV());
+						System.out.println("Defense EV: " + p.getPC().get(num).getDefenseEV());
+						System.out.println("Special Attack EV: " + p.getPC().get(num).getSpecialAttackEV());
+						System.out.println("Special Defense EV: " + p.getPC().get(num).getSpecialDefenseEV());
+						System.out.println("Speed EV: " + p.getPC().get(num).getSpeedEV());
+						System.out.println();
+						boolean finished = false;
+						while (!finished) {
+							System.out.println("Would you like to reset " + p.getPC().get(num).getName() + "'s EVs?");
+							System.out.println();
+							System.out.println("1) Yes");
+							System.out.println("2) No");
+							System.out.println();
+							switch (input.next()) {
+							case "1":
+								System.out.println();
+								p.getPC().get(num).resetEVs();
+								System.out.println("Your " + p.getPC().get(num).getName() + "'s EVs have been reset.");
+								System.out.println();
+								finished = true;
+								break;
+							case "2":
+								System.out.println();
+								finished = true;
+								break;
+							default:
+								System.out.println();
+								System.out.println("Input does not match an avalable choice.");
+								System.out.println();
+							}
+						}
+						System.out.println();
+						boolean repeat = false;
+						while (!repeat) {
+							System.out.println("Would you like to reset another Pokemon's EVs?");
+							System.out.println("1) Yes");
+							System.out.println("2) No");
+							System.out.println();
+							switch (input.next()) {
+							case "1":
+								repeat = true;
+								break;
+							case "2":
+								done = true;
+								repeat = true;
+								break;
+							default:
+								System.out.println();
+								System.out.println("Input does not match an available choice.");
+								System.out.println();
+							}
+						}
+					} else {
+						System.out.println();
+					}
 				}
 			}
 		}
 	}
 
 	private static void recycle(Player p, Scanner input) {
-		printOwnedPokemon(p);
-		chooseRecyclePokemon(p, input);
-	}
-
-	private static void chooseRecyclePokemon(Player p, Scanner input) {
-		System.out.println("Choose a Pokemon to recycle.");
-		System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
-		System.out.println("2) Enter \"0\" to go back to the previous menu.");
-		System.out.println();
-		String temp = input.next();
-		if (!isNumeric(temp)) {
+		boolean done = false;
+		while (!done) {
+			printOwnedPokemon(p);
+			System.out.println("Choose a Pokemon to recycle.");
+			System.out.println("1) Enter the number correlating to a Pokemon in your PC.");
+			System.out.println("2) Enter \"0\" to go back to the main menu.");
 			System.out.println();
-			System.out.println("Input does not match an avalable choice.");
-			System.out.println();
-			chooseRecyclePokemon(p, input);
-		} else {
-			int num = Integer.parseInt(temp);
-			if (num < 0 || num >= p.getPC().size() + 1) {
+			String temp = input.next();
+			if (!isNumeric(temp)) {
 				System.out.println();
-				System.out.println("Input does not match an available choice.");
+				System.out.println("Input does not match an avalable choice.");
 				System.out.println();
-				chooseRecyclePokemon(p, input);
 			} else {
-				if (num != 0) {
+				int num = Integer.parseInt(temp);
+				if (num < 0 || num >= p.getPC().size() + 1) {
 					System.out.println();
-					verifyRecycle(p, num, input);
+					System.out.println("Input does not match an available choice.");
 					System.out.println();
-					chooseRecyclePokemon(p, input);
 				} else {
-					System.out.println();
+					if (num != 0) {
+						System.out.println();
+						System.out.println(p.getPC().get(num - 1));
+						System.out.println();
+						int numPoints = roundProperlyRecyclePoints(p.getPC().get(num - 1).getTotalIVPercentage()/10);
+						String typePoints = chooseTypePoints(p, num);
+						boolean finished = false;
+						while (!finished) {
+							System.out.println("Are you sure you would like to recycle this pokemon?  You will receive " + numPoints + " " + typePoints);
+							System.out.println();
+							System.out.println("Input the number corresponding to your choice:");
+							System.out.println("1) Yes");
+							System.out.println("2) No");
+							System.out.println();
+							switch (input.next()) {
+							case "1":
+								System.out.println();
+								if (typePoints.equals("Tier 1 Points")) {
+									p.addTier1(numPoints);
+									System.out.println("You now have " + p.getTier1() + " Tier 1 Points.");
+								}
+								if (typePoints.equals("Tier 2 Points")) {
+									p.addTier2(numPoints);
+									System.out.println("You now have " + p.getTier2() + " Tier 2 Points.");
+								}
+								if (typePoints.equals("Tier 3 Points")) {
+									p.addTier3(numPoints);
+									System.out.println("You now have " + p.getTier3() + " Tier 3 Points.");
+								}
+								if (typePoints.equals("Tier 4 Points")) {
+									p.addTier4(numPoints);
+									System.out.println("You now have " + p.getTier4() + " Tier 4 Points.");
+								}
+								if (typePoints.equals("Tier 5 Points")) {
+									p.addTier5(numPoints);
+									System.out.println("You now have " + p.getTier5() + " Tier 5 Points.");
+								}
+								p.getPC().remove(num - 1);
+								System.out.println();
+								finished = true;
+							case "2":
+								System.out.println();
+								finished = true;
+							default:
+								System.out.println();
+								System.out.println("Input does not match an avalable choice.");
+								System.out.println();
+							}
+						}
+						System.out.println();
+						boolean repeat = false;
+						while (!repeat) {
+							System.out.println("Would you like to choose another Pokemon to recycle?");
+							System.out.println("1) Yes");
+							System.out.println("2) No");
+							System.out.println();
+							switch (input.next()) {
+							case "1":
+								repeat = true;
+								break;
+							case "2":
+								done = true;
+								repeat = true;
+								break;
+							default:
+								System.out.println();
+								System.out.println("Input does not match an available choice.");
+								System.out.println();
+							}
+						}
+					} else {
+						System.out.println();
+						done = true;
+					}
 				}
 			}
 		}
-	}
-
-	private static void verifyRecycle(Player p, int num, Scanner input) {
-		System.out.println(p.getPC().get(num - 1));
-		System.out.println();
-		int numPoints = roundProperlyRecyclePoints(p.getPC().get(num - 1).getTotalIVPercentage()/10);
-		String typePoints = chooseTypePoints(p, num);
-		System.out.println("Are you sure you would like to recycle this pokemon?  You will receive " + numPoints + " " + typePoints);
-		System.out.println();
-		recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
 	}
 
 	private static String chooseTypePoints(Player p, int num) {
@@ -1845,56 +1940,6 @@ public class Main {
 		}
 		return 1;
 	}
-
-	private static void recycleVerificationStepTwo(Player p, int num, Scanner input, int numPoints, String typePoints) {
-		System.out.println("Input the number corresponding to your choice:");
-		System.out.println("1) Yes");
-		System.out.println("2) No");
-		System.out.println();
-		String temp = input.next();
-		if (!isNumeric(temp)) {
-			System.out.println();
-			System.out.println("Input does not match an avalable choice.");
-			System.out.println();
-			recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
-		} else {
-			int tempNum = Integer.parseInt(temp);
-			if (tempNum != 1 && tempNum != 2) {
-				System.out.println();
-				System.out.println("Input does not match an available choice.");
-				System.out.println();
-				recycleVerificationStepTwo(p, num, input, numPoints, typePoints);
-			} else {
-				if (tempNum == 1) {
-					System.out.println();
-					if (typePoints.equals("Tier 1 Points")) {
-						p.addTier1(numPoints);
-						System.out.println("You now have " + p.getTier1() + " Tier 1 Points.");
-					}
-					if (typePoints.equals("Tier 2 Points")) {
-						p.addTier2(numPoints);
-						System.out.println("You now have " + p.getTier2() + " Tier 2 Points.");
-					}
-					if (typePoints.equals("Tier 3 Points")) {
-						p.addTier3(numPoints);
-						System.out.println("You now have " + p.getTier3() + " Tier 3 Points.");
-					}
-					if (typePoints.equals("Tier 4 Points")) {
-						p.addTier4(numPoints);
-						System.out.println("You now have " + p.getTier4() + " Tier 4 Points.");
-					}
-					if (typePoints.equals("Tier 5 Points")) {
-						p.addTier5(numPoints);
-						System.out.println("You now have " + p.getTier5() + " Tier 5 Points.");
-					}
-					p.getPC().remove(num - 1);
-					System.out.println();
-				} else {
-					System.out.println();
-				}
-			}
-		}
-	}	
 
 	private static void printPlayerData(Player p) {
 		System.out.println(p);
