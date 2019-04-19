@@ -578,6 +578,7 @@ public class OwnedPokemon {
 
 	public void levelUp() {
 		level += 1;
+		calculateStats();
 	}
 
 

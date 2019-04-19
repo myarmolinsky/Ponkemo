@@ -634,28 +634,36 @@ public class Main {
 										boolean enough = true;
 										switch (typePoints) {
 										case "Tier 1 Points":
-											if (p.getTier1() < 100)
+											if (p.getTier1() < p.getPC().get(num - 1).getLevel())
 												enough = false;
 											break;
 										case "Tier 2 Points":
-											if (p.getTier2() < 100)
+											if (p.getTier2() < p.getPC().get(num - 1).getLevel())
 												enough = false;
 											break;
 										case "Tier 3 Points":
-											if (p.getTier3() < 100)
+											if (p.getTier3() < p.getPC().get(num - 1).getLevel())
 												enough = false;
 											break;
 										case "Tier 4 Points":
-											if (p.getTier4() < 100)
+											if (p.getTier4() < p.getPC().get(num - 1).getLevel())
 												enough = false;
 											break;
 										case "Tier 5 Points":
-											if (p.getTier5() < 100)
+											if (p.getTier5() < p.getPC().get(num - 1).getLevel())
 												enough = false;
 											break;
 										}
 										if (enough) {
-											levelUpHelper(p, input, num, typePoints);
+											if (p.getPC().get(num - 1).getLevel() < 100) {
+												levelUpHelper(p, input, num, typePoints);
+											} else {
+												System.out.println();
+												System.out.println("This Pokemon is already level 100.  Make a different choice.");
+												System.out.println();
+												finished = true;
+												done = true;
+											}
 										} else {
 											System.out.println();
 											System.out.println("Leveling up this Pokemon costs " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
@@ -667,6 +675,7 @@ public class Main {
 										break;
 									case "0":
 										System.out.println();
+										finished = true;
 										done = true;
 										break;
 									default:
