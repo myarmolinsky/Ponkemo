@@ -479,7 +479,13 @@ public class OwnedPokemon {
 					+ "Special Attack IVs: " + specialAttackIV + "\n"
 					+ "Special Defense IVs: " + specialDefenseIV + "\n"
 					+ "Speed IVs: " + speedIV + "\n"
-					+ "Total IV Percentage: " + getTotalIVPercentage() + "%%");
+					+ "Total IV Percentage: " + getTotalIVPercentage() + "%%\n"
+					+ "Health Stat: " + healthStat + "\n"
+					+ "Attack Stat: " + attackStat + "\n"
+					+ "Defense Stat: " + defenseStat + "\n"
+					+ "Special Attack Stat: " + specialAttackStat + "\n"
+					+ "Special Defense Stat: " + specialDefenseStat + "\n"
+					+ "Speed Stat: " + speedStat + "\n");
 		return String.format("Name: " + pokemon.getName() + "\n"
 				+ "Nickname: " + nickname + "\n"
 				+ "Gender: " + gender + "\n"
@@ -490,7 +496,13 @@ public class OwnedPokemon {
 				+ "Special Attack IVs: " + specialAttackIV + "\n"
 				+ "Special Defense IVs: " + specialDefenseIV + "\n"
 				+ "Speed IVs: " + speedIV + "\n"
-				+ "Total IV Percentage: " + getTotalIVPercentage() + "%%");
+				+ "Total IV Percentage: " + getTotalIVPercentage() + "%%\n"
+				+ "Health Stat: " + healthStat + "\n"
+				+ "Attack Stat: " + attackStat + "\n"
+				+ "Defense Stat: " + defenseStat + "\n"
+				+ "Special Attack Stat: " + specialAttackStat + "\n"
+				+ "Special Defense Stat: " + specialDefenseStat + "\n"
+				+ "Speed Stat: " + speedStat + "\n");
 	}
 
 }
