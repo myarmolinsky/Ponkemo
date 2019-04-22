@@ -581,7 +581,6 @@ public class OwnedPokemon {
 		calculateStats();
 	}
 
-
 	public String toString() {
 		if (shiny)
 			return String.format("SHINY\n"

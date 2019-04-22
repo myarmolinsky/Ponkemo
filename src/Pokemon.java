@@ -13,10 +13,12 @@ public class Pokemon {
 	private String[] eggGroup;
 	private double genderRatio;
 	private String[] evolutionTree;
+	private int evolutionStage;
+	private int evolutionLevel;
 
 
 	public Pokemon(String name, String type1, String type2, int hp, int atk, int def, int spa, int spd, int spe, 
-			int spawnRate, String[] eggGroup, double genderRatio, String[] evoTree) {
+			int spawnRate, String[] eggGroup, double genderRatio, String[] evoTree, int evoStage, int evoLevel) {
 		this.name = name;
 		this.type1 = type1;
 		this.type2 = type2;
@@ -30,6 +32,8 @@ public class Pokemon {
 		this.eggGroup = eggGroup;
 		this.genderRatio = genderRatio;
 		evolutionTree = evoTree;
+		evolutionStage = evoStage;
+		evolutionLevel = evoLevel;
 	}
 
 	public String getName() {
@@ -82,6 +86,14 @@ public class Pokemon {
 	
 	public String[] getEvolutionTree() {
 		return evolutionTree;
+	}
+	
+	public int getEvolutionStage() {
+		return evolutionStage;
+	}
+
+	public int getEvolutionLevel() {
+		return evolutionLevel;
 	}
 
 }
