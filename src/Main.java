@@ -10,12 +10,12 @@ public class Main {
 		int[] spawnRateCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		boolean finished = false;
 //		p.catchPokemon(new OwnedPokemon(pokedex.get(28)));
-		p.catchPokemon(new OwnedPokemon(pokedex.get(132)));
-		p.addTier4(600);
+//		p.catchPokemon(new OwnedPokemon(pokedex.get(132)));
+//		p.addTier4(600);
 		while(!finished) {
 			System.out.println("Input the number corresponding to your choice:");
 			System.out.println("1) Search for Pokemon");
-			System.out.println("2) View Owned Pokemon");
+			System.out.println("2) Edit/View Owned Pokemon");
 			System.out.println("3) Breed Pokemon");
 			System.out.println("4) Train Pokemon");
 			System.out.println("5) Recycle Pokemon");
@@ -29,7 +29,7 @@ public class Main {
 				break;
 			case "2":
 				System.out.println();
-				viewOwnedPokemon(p, input);
+				editOwnedPokemon(p, input);
 				break;
 			case "3":
 				System.out.println();
@@ -256,7 +256,7 @@ public class Main {
 		}
 	}
 
-	private static void viewOwnedPokemon(Player p, Scanner input) {
+	private static void editOwnedPokemon(Player p, Scanner input) {
 		boolean done = false;
 		String temp;
 		while (!done) {
@@ -282,6 +282,45 @@ public class Main {
 							System.out.println(p.getPC().get(num - 1));
 							System.out.println();
 							boolean repeat = false;
+							while (!repeat) {
+								System.out.println("Would you like to change this Pokemon's nickname?");
+								System.out.println("1) Yes");
+								System.out.println("2) No");
+								System.out.println();
+								if (input.hasNext())
+									switch (input.nextLine()) {
+									case "1":
+										System.out.println();
+										while (!repeat) {
+											System.out.println("What would you like it's nickname to be? (Nicknames must be at least 1 character and a maximum of 20 characters long)");
+											System.out.println();
+											if (input.hasNext())
+												temp = input.nextLine();
+												if (temp.length() > 20) {
+													System.out.println();
+													System.out.println("The name you have input is either less than 1 character ir longer than 20 characters");
+													System.out.println();
+												} else {
+													p.getPC().get(num - 1).setNickname(temp);
+													System.out.println();
+													System.out.println("Your " + p.getPC().get(num - 1).getPokemon().getName() + " nickname is now " + temp + ".");
+													System.out.println();
+													repeat = true;
+												}
+										}
+										System.out.println();
+										break;
+									case "2":
+										System.out.println();
+										repeat = true;
+										break;
+									default:
+										System.out.println();
+										System.out.println("Input does not match an available choice.");
+										System.out.println();
+									}
+							}
+							repeat = false;
 							while (!repeat) {
 								System.out.println("Would you like to view another Pokemon?");
 								System.out.println("1) Yes");
