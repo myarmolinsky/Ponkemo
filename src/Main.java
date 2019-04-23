@@ -15,7 +15,7 @@ public class Main {
 		while(!finished) {
 			System.out.println("Input the number corresponding to your choice:");
 			System.out.println("1) Search for Pokemon");
-			System.out.println("2) Edit/View Owned Pokemon");
+			System.out.println("2) View/Nickname Owned Pokemon");
 			System.out.println("3) Breed Pokemon");
 			System.out.println("4) Train Pokemon");
 			System.out.println("5) Recycle Pokemon");
@@ -29,7 +29,7 @@ public class Main {
 				break;
 			case "2":
 				System.out.println();
-				editOwnedPokemon(p, input);
+				viewOwnedPokemon(p, input);
 				break;
 			case "3":
 				System.out.println();
@@ -256,7 +256,7 @@ public class Main {
 		}
 	}
 
-	private static void editOwnedPokemon(Player p, Scanner input) {
+	private static void viewOwnedPokemon(Player p, Scanner input) {
 		boolean done = false;
 		String temp;
 		while (!done) {
