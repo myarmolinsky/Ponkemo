@@ -9,9 +9,9 @@ public class Main {
 		Player p = new Player();
 		int[] spawnRateCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		boolean finished = false;
-		//		p.catchPokemon(new OwnedPokemon(pokedex.get(28)));
-		//		p.catchPokemon(new OwnedPokemon(pokedex.get(31)));
-		// p.addTier1(600);
+//		p.catchPokemon(new OwnedPokemon(pokedex.get(28)));
+		p.catchPokemon(new OwnedPokemon(pokedex.get(132)));
+		p.addTier4(600);
 		while(!finished) {
 			System.out.println("Input the number corresponding to your choice:");
 			System.out.println("1) Search for Pokemon");
@@ -37,7 +37,7 @@ public class Main {
 				break;
 			case "4":
 				System.out.println();
-				training(p, input);
+				training(p, input, pokedex);
 				break;
 			case "5":
 				System.out.println();
@@ -258,19 +258,13 @@ public class Main {
 
 	private static void viewOwnedPokemon(Player p, Scanner input) {
 		boolean done = false;
-		boolean first = true;
 		String temp;
 		while (!done) {
 			printOwnedPokemon(p);
 			System.out.println("Enter the number corresponding to a Pokemon in your PC to view it or enter \"0\" to go back to the main menu.");
 			System.out.println();
 			if (input.hasNext()) {
-				if (first) {
-					temp = input.nextLine();
-					temp = input.nextLine();
-					first = false;
-				} else 
-					temp = input.nextLine();
+				temp = input.nextLine();
 				if (!isNumeric(temp)) {
 					System.out.println();
 					System.out.println("CALLED");
@@ -369,8 +363,8 @@ public class Main {
 											if (p.getPC().get(num - 1).getEggGroup()[i].equals(p.getPC().get(numTwo - 1).getEggGroup()[j]))
 												validEggGroup = true;
 									if (validEggGroup) {
-										if ((p.getPC().get(num - 1).getGender().equals("male") && p.getPC().get(numTwo - 1).getGender().equals("female"))
-												|| (p.getPC().get(num - 1).getGender().equals("female") && p.getPC().get(numTwo - 1).getGender().equals("male"))
+										if ((p.getPC().get(num - 1).getGender().equals("Male") && p.getPC().get(numTwo - 1).getGender().equals("Female"))
+												|| (p.getPC().get(num - 1).getGender().equals("Female") && p.getPC().get(numTwo - 1).getGender().equals("Male"))
 												|| (p.getPC().get(num - 1).getGender().equals("genderless") && p.getPC().get(numTwo - 1).getGender().equals("genderless")))
 											breedable = true;
 										if (p.getPC().get(num - 1).getEggGroup()[0].equals("undiscovered") 
@@ -427,7 +421,7 @@ public class Main {
 													done = true;
 												}
 											} else
-												if (oldOne.getGender().equals("female")) {
+												if (oldOne.getGender().equals("Female")) {
 													if (oldOne.getName().equals("NidoranF") || oldOne.getName().equals("Nidorina") || oldOne.getName().equals("Nidoqueen")) {
 														int rand = new Random().nextInt(2);
 														if (rand == 0) {
@@ -549,15 +543,16 @@ public class Main {
 		return poke.getPokemon();
 	}
 
-	private static void training(Player p, Scanner input) {
+	private static void training(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
 		boolean done = false;
-		String temp = "";
+		String temp;
 		while (!done) {
-			System.out.println("Would you like to Level Up a Pokemon, EV Train a Pokemon, Reset a Pokemon's EVs, or Change a Pokemon's Nature?");
+			System.out.println("Would you like to Level Up a Pokemon, Evolve a Pokemon which requires a Special Condition to Evolve, EV Train a Pokemon, Reset a Pokemon's EVs, or Change a Pokemon's Nature?");
 			System.out.println("1) Level Up");
-			System.out.println("2) EV Train");
-			System.out.println("3) Reset EVs");
-			System.out.println("4) Change Nature");
+			System.out.println("2) Evolve");
+			System.out.println("3) EV Train");
+			System.out.println("4) Reset EVs");
+			System.out.println("5) Change Nature");
 			System.out.println("Enter \"0\" to go back to the main menu.");
 			System.out.println();
 			if (input.hasNext()) {
@@ -565,23 +560,29 @@ public class Main {
 				switch (temp) {
 				case "1":
 					System.out.println();
-					levelUp(p, input);
+					levelUp(p, input, pokedex);
 					System.out.println();
 					done = true;
 					break;
 				case "2":
 					System.out.println();
-					evTrain(p, input);
+					evolve(p, input, pokedex);
 					System.out.println();
 					done = true;
 					break;
 				case "3":
 					System.out.println();
-					resetEVs(p, input);
+					evTrain(p, input);
 					System.out.println();
 					done = true;
 					break;
 				case "4":
+					System.out.println();
+					resetEVs(p, input);
+					System.out.println();
+					done = true;
+					break;
+				case "5":
 					System.out.println();
 					changeNature(p, input);
 					System.out.println();
@@ -599,7 +600,7 @@ public class Main {
 		}
 	}
 
-	private static void levelUp(Player p, Scanner input) {
+	private static void levelUp(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
 		boolean done = false;
 		while (!done) {
 			printOwnedPokemon(p);
@@ -656,7 +657,38 @@ public class Main {
 										}
 										if (enough) {
 											if (p.getPC().get(num - 1).getLevel() < 100) {
-												levelUpHelper(p, input, num, typePoints);
+												System.out.println();
+												switch (typePoints) {
+												case "Tier 1 Points":
+													p.spendTier1(p.getPC().get(num - 1).getLevel());
+													break;
+												case "Tier 2 Points":
+													p.spendTier2(p.getPC().get(num - 1).getLevel());
+													break;
+												case "Tier 3 Points":
+													p.spendTier3(p.getPC().get(num - 1).getLevel());
+													break;
+												case "Tier 4 Points":
+													p.spendTier4(p.getPC().get(num - 1).getLevel());
+													break;
+												case "Tier 5 Points":
+													p.spendTier5(p.getPC().get(num - 1).getLevel());
+													break;
+												}
+												p.getPC().get(num - 1).levelUp();
+												System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
+												if (p.getPC().get(num - 1).getLevel() > p.getPC().get(num - 1).getPokemon().getEvolutionLevel() && p.getPC().get(num - 1).getPokemon().getEvolutionLevel() != 0 && p.getPC().get(num - 1).getPokemon().getEvolutionLevel() != -1) {
+													Pokemon poke = p.getPC().get(num - 1).getPokemon();
+													for (int i = 0; i < pokedex.size(); i++) {
+														if (pokedex.get(i).getName().equals(p.getPC().get(num - 1).getPokemon().getEvolutionTree()[p.getPC().get(num - 1).getPokemon().getEvolutionStage() + 1]))
+															poke = pokedex.get(i);
+													}
+													p.catchPokemon(new OwnedPokemon(p.getPC().get(num - 1), poke));
+													String oldName = p.getPC().get(num - 1).getName();
+													p.getPC().remove(num - 1);
+													System.out.println("Congratulations, your " + oldName + " has evolved into a " + p.getPC().get(p.getPC().size() - 1).getName() + "!");
+												}
+												System.out.println();
 											} else {
 												System.out.println();
 												System.out.println("This Pokemon is already level 100.  Make a different choice.");
@@ -674,7 +706,6 @@ public class Main {
 										}
 										break;
 									case "0":
-										System.out.println();
 										finished = true;
 										done = true;
 										break;
@@ -697,44 +728,181 @@ public class Main {
 		}
 	}
 
-	private static void levelUpHelper(Player p, Scanner input, int num, String typePoints) {
-		if (typePoints.equals("Tier 1 Points")) {
+	private static void evolve(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
+		boolean done = false;
+		while (!done) {
+			printOwnedPokemon(p);
+			System.out.println("Choose the pokemon you want to evolve.");
+			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println();
-			p.spendTier1(p.getPC().get(num - 1).getLevel());
-			p.getPC().get(num - 1).levelUp();
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
-			if (p.getPC().get(num - 1).getLevel() > p.getPC().get(num - 1).getPokemon().getEvolutionLevel() && p.getPC().get(num - 1).getPokemon().getEvolutionLevel() != 0 && p.getPC().get(num - 1).getPokemon().getEvolutionLevel() != -1) {
-				// TO-DO
+			String temp = input.nextLine();
+			if (!isNumeric(temp)) {
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+			} else {
+				int num = Integer.parseInt(temp);
+				if (num < 0 || num >= p.getPC().size() + 1) {
+					System.out.println();
+					System.out.println("Input does not match an available choice.");
+					System.out.println();
+				} else {
+					if (num != 0) {
+						if (p.getPC().get(num - 1).getPokemon().getEvolutionLevel() == -1) {
+							String typePoints = chooseTypePoints(p, num);
+							System.out.println();
+							boolean finished = false;
+							while (!finished) {
+								System.out.println("Evolving this Pokemon will cost you 100 " + typePoints);
+								System.out.println("Enter \"1\" to level up or enter \"0\" to go back to the main menu.");
+								System.out.println();
+								if (input.hasNext())
+									switch (input.nextLine()) {
+									case "1":
+										boolean enough = true;
+										switch (typePoints) {
+										case "Tier 1 Points":
+											if (p.getTier1() < 100)
+												enough = false;
+											break;
+										case "Tier 2 Points":
+											if (p.getTier2() < 100)
+												enough = false;
+											break;
+										case "Tier 3 Points":
+											if (p.getTier3() < 100)
+												enough = false;
+											break;
+										case "Tier 4 Points":
+											if (p.getTier4() < 100)
+												enough = false;
+											break;
+										case "Tier 5 Points":
+											if (p.getTier5() < 100)
+												enough = false;
+											break;
+										}
+										if (enough) {
+											if (p.getPC().get(num - 1).getPokemon().getName().equals("Eevee")){
+												System.out.println();
+												boolean repeat = false;
+												while (!repeat) {
+													System.out.println("What would you like to evolve you Eevee into?");
+													System.out.println("1) Vaporeon");
+													System.out.println("2) Jolteon");
+													System.out.println("3) Flareon");
+													System.out.println("Enter \"0\" to go back to the main menu.");
+													System.out.println();
+													Pokemon poke = p.getPC().get(num - 1).getPokemon();
+													if (input.hasNext())
+														switch (input.nextLine()) {
+														case "1":
+															System.out.println();
+															p.spendTier4(100);
+															poke = new Pokemon("Vaporeon", "Water", null, 130, 65, 60, 110, 95, 65, 27, new String[] {"field"}, 87.5, new String[] {"Eevee", "Vaporeon"}, 1, 0);
+															p.catchPokemon(new OwnedPokemon(p.getPC().get(num - 1), poke));
+															p.getPC().remove(num - 1);
+															System.out.println("Congratulations, your Eevee has evolved into a Vaporeon!");
+															System.out.println();
+															done = true;
+															finished = true;
+															repeat = true;
+															break;
+														case "2":
+															System.out.println();
+															p.spendTier4(100);
+															poke = new Pokemon("Jolteon", "Electric", null, 65, 65, 60, 110, 95, 130, 27, new String[] {"field"}, 87.5, new String[] {"Eevee", "Jolteon"}, 1, 0);
+															p.catchPokemon(new OwnedPokemon(p.getPC().get(num - 1), poke));
+															p.getPC().remove(num - 1);
+															System.out.println("Congratulations, your Eevee has evolved into a Jolteon!");
+															System.out.println();
+															done = true;
+															finished = true;
+															repeat = true;
+															break;
+														case "3":
+															System.out.println();
+															p.spendTier4(100);
+															poke = new Pokemon("Flareon", "Fire", null, 65, 130, 60, 95, 110, 65, 27, new String[] {"field"}, 87.5, new String[] {"Eevee", "Flareon"}, 1, 0);
+															p.catchPokemon(new OwnedPokemon(p.getPC().get(num - 1), poke));
+															p.getPC().remove(num - 1);
+															System.out.println("Congratulations, your Eevee has evolved into a Flareon!");
+															System.out.println();
+															done = true;
+															finished = true;
+															repeat = true;
+															break;
+														case "0":
+															done = true;
+															finished = true;
+															repeat = true;
+															break;
+														default:
+															System.out.println();
+															System.out.println("Input does not match an available choice.");
+															System.out.println();
+														}
+												}
+											} else {
+												System.out.println();
+												switch (typePoints) {
+												case "Tier 1 Points":
+													p.spendTier1(100);
+													break;
+												case "Tier 2 Points":
+													p.spendTier2(100);
+													break;
+												case "Tier 3 Points":
+													p.spendTier3(100);
+													break;
+												case "Tier 4 Points":
+													p.spendTier4(100);
+													break;
+												case "Tier 5 Points":
+													p.spendTier5(100);
+													break;
+												}
+												Pokemon poke = p.getPC().get(num - 1).getPokemon();
+												for (int i = 0; i < pokedex.size(); i++) {
+													if (pokedex.get(i).getName().equals(p.getPC().get(num - 1).getPokemon().getEvolutionTree()[p.getPC().get(num - 1).getPokemon().getEvolutionStage() + 1]))
+														poke = pokedex.get(i);
+												}
+												p.catchPokemon(new OwnedPokemon(p.getPC().get(num - 1), poke));
+												String oldName = p.getPC().get(num - 1).getName();
+												p.getPC().remove(num - 1);
+												System.out.println("Congratulations, your " + oldName + " has evolved into a " + p.getPC().get(p.getPC().size() - 1).getName() + "!");
+												System.out.println();
+												finished = true;
+											}
+										} else {
+											System.out.println();
+											System.out.println("Evolving this Pokemon costs 100 " + typePoints);
+											System.out.println("You do not have enough " + typePoints + " to evolve this Pokemon");
+											System.out.println();
+											finished = true;
+											done = true;
+										}
+										break;
+									case "0":
+										finished = true;
+										done = true;
+										break;
+									default:
+										System.out.println();
+										System.out.println("Input does not match an available choice.");
+										System.out.println();
+									}
+							}
+						} else {
+							System.out.println();
+							System.out.println("This Pokemon does not require a special condition to evolve.");
+							System.out.println();
+						}
+					} else {
+						done = true;
+					}
+				}
 			}
-			System.out.println();
-		}
-		if (typePoints.equals("Tier 2 Points")) {
-			System.out.println();
-			p.spendTier2(p.getPC().get(num - 1).getLevel());
-			p.getPC().get(num - 1).levelUp();
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
-			System.out.println();
-		}
-		if (typePoints.equals("Tier 3 Points")) {
-			System.out.println();
-			p.spendTier3(p.getPC().get(num - 1).getLevel());
-			p.getPC().get(num - 1).levelUp();
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
-			System.out.println();
-		}
-		if (typePoints.equals("Tier 4 Points")) {
-			System.out.println();
-			p.spendTier4(p.getPC().get(num - 1).getLevel());
-			p.getPC().get(num - 1).levelUp();
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
-			System.out.println();
-		}
-		if (typePoints.equals("Tier 5 Points")) {
-			System.out.println();
-			p.spendTier5(p.getPC().get(num - 1).getLevel());
-			p.getPC().get(num - 1).levelUp();
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
-			System.out.println();
 		}
 	}
 

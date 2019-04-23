@@ -41,9 +41,9 @@ public class OwnedPokemon {
 		else {
 			temp = new Random().nextInt(1000) + 1;
 			if ((((double) temp) / 10 ) <= pokemon.getGenderRatio())
-				gender = "male";
+				gender = "Male";
 			else
-				gender = "female";
+				gender = "Female";
 		}
 		level = new Random().nextInt(50) + 1;
 		healthIV = new Random().nextInt(32);
@@ -158,9 +158,9 @@ public class OwnedPokemon {
 		else {
 			temp = new Random().nextInt(1000) + 1;
 			if ((((double) temp) / 10 ) <= pokemon.getGenderRatio())
-				gender = "male";
+				gender = "Male";
 			else
-				gender = "female";
+				gender = "Female";
 		}
 		this.healthIV = healthIV;
 		this.attackIV = attackIV;
@@ -251,6 +251,25 @@ public class OwnedPokemon {
 	public OwnedPokemon(OwnedPokemon ownedPokemon) {
 		pokemon = ownedPokemon.pokemon;
 		nickname = ownedPokemon.nickname;
+		shiny = ownedPokemon.shiny;
+		gender = ownedPokemon.gender;
+		healthIV = ownedPokemon.healthIV;
+		attackIV = ownedPokemon.attackIV;
+		defenseIV = ownedPokemon.defenseIV;
+		specialAttackIV = ownedPokemon.specialAttackIV;
+		specialDefenseIV = ownedPokemon.specialDefenseIV;
+		speedIV = ownedPokemon.speedIV;
+		level = ownedPokemon.level;
+		nature = ownedPokemon.nature;
+		calculateStats();
+	}
+
+	public OwnedPokemon(OwnedPokemon ownedPokemon, Pokemon poke) {
+		pokemon = poke;
+		if (ownedPokemon.nickname.equals(ownedPokemon.pokemon.getName()))
+			nickname = poke.getName();
+		else
+			nickname = ownedPokemon.nickname;
 		shiny = ownedPokemon.shiny;
 		gender = ownedPokemon.gender;
 		healthIV = ownedPokemon.healthIV;
