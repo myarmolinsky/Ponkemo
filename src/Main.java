@@ -355,17 +355,11 @@ public class Main {
 
 	private static void breed(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
 		boolean done = false;
-		boolean first = true;
 		String temp;
 		while (!done) {
 			printOwnedPokemon(p);
 			System.out.println("Enter the number corresponding to the first Pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
 			System.out.println();
-			if (first) {
-				temp = input.nextLine();
-				temp = input.nextLine();
-				first = false;
-			} else 
 				temp = input.nextLine();
 			if (!isNumeric(temp)) {
 				System.out.println();
