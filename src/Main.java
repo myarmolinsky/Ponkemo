@@ -42,8 +42,8 @@ public class Main {
 		while(!finished) {
 			System.out.println("Input the number corresponding to your choice:");
 			System.out.println("1) Search for Pokemon");
-			System.out.println("2) Sort PC");
-			System.out.println("3) View/Edit Owned Pokemon");
+			System.out.println("2) View/Edit Owned Pokemon");
+			System.out.println("3) Sort PC");
 			System.out.println("4) Breed Pokemon");
 			System.out.println("5) Train Pokemon");
 			System.out.println("6) Recycle Pokemon");
@@ -59,11 +59,11 @@ public class Main {
 				break;
 			case "2":
 				System.out.println();
-				sortPC(p, input);
+				viewOwnedPokemon(p, input);
 				break;
 			case "3":
 				System.out.println();
-				viewOwnedPokemon(p, input);
+				sortPC(p, input);
 				break;
 			case "4":
 				System.out.println();
