@@ -4,6 +4,7 @@ import java.util.*;
 public class Player implements Serializable {
 
 	private ArrayList<OwnedPokemon> pc;
+	private PriorityQueue<OwnedPokemon> pqpc;
 	private int tier1Points;
 	private int tier2Points;
 	private int tier3Points;
@@ -12,6 +13,7 @@ public class Player implements Serializable {
 
 	public Player() {
 		pc = new ArrayList<>();
+		pqpc = new PriorityQueue<>(new IVPercentageDescendingOrder());
 		tier1Points = 0;
 		tier2Points = 0;
 		tier3Points = 0;
@@ -81,10 +83,49 @@ public class Player implements Serializable {
 
 	public void catchPokemon(OwnedPokemon ownedPokemon) {
 		pc.add(ownedPokemon);
+		sortPC();
 	}
 
 	public ArrayList<OwnedPokemon> getPC() {
 		return pc;
+	}
+	
+	public void chooseOrder(String order) {
+		switch (order) {
+		case "Real Name":
+			pqpc = new PriorityQueue<>(new NameOrder());
+			break;
+		case "Nickname":
+			pqpc = new PriorityQueue<>(new NicknameOrder());
+			break;
+		case "Level":
+			pqpc = new PriorityQueue<>(new LevelOrder());
+			break;
+		case "IV Percentage Descending":
+			pqpc = new PriorityQueue<>(new IVPercentageDescendingOrder());
+			break;
+		case "IV Percentage Ascending":
+			pqpc = new PriorityQueue<>(new IVPercentageAscendingOrder());
+			break;
+		}
+		sortPC();
+	}
+
+	public void sortPC() {
+		for (OwnedPokemon o: pc)
+			pqpc.add(o);
+		ArrayList<OwnedPokemon> favorites = new ArrayList<>();
+		ArrayList<OwnedPokemon> nonfavorites = new ArrayList<>();
+		while (!pqpc.isEmpty())
+			if (pqpc.peek().isFavorite())
+				favorites.add(pqpc.poll());
+			else
+				nonfavorites.add(pqpc.poll());
+		pc = new ArrayList<>();
+		for (OwnedPokemon o : favorites)
+			pc.add(o);
+		for (OwnedPokemon o : nonfavorites)
+			pc.add(o);
 	}
 	
 	public String toString() {

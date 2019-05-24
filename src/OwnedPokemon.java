@@ -27,6 +27,7 @@ public class OwnedPokemon implements Serializable{
 	private int specialDefenseStat;
 	private int speedStat;
 	private String nature;
+	private boolean favorite;
 
 	public OwnedPokemon(Pokemon pokemon) {
 		this.pokemon = pokemon;
@@ -143,6 +144,7 @@ public class OwnedPokemon implements Serializable{
 			break;
 		}
 		calculateStats();
+		favorite = false;
 	}
 
 	public OwnedPokemon(Pokemon pokemon, int healthIV, int attackIV, int defenseIV, int specialAttackIV, int specialDefenseIV, int speedIV) {
@@ -247,6 +249,7 @@ public class OwnedPokemon implements Serializable{
 			break;
 		}
 		calculateStats();
+		favorite = false;
 	}
 
 	public OwnedPokemon(OwnedPokemon ownedPokemon) {
@@ -263,6 +266,7 @@ public class OwnedPokemon implements Serializable{
 		level = ownedPokemon.level;
 		nature = ownedPokemon.nature;
 		calculateStats();
+		favorite = ownedPokemon.favorite;
 	}
 
 	public OwnedPokemon(OwnedPokemon ownedPokemon, Pokemon poke) {
@@ -282,6 +286,7 @@ public class OwnedPokemon implements Serializable{
 		level = ownedPokemon.level;
 		nature = ownedPokemon.nature;
 		calculateStats();
+		favorite = ownedPokemon.favorite;
 	}
 
 	private void calculateStats() {
@@ -600,33 +605,35 @@ public class OwnedPokemon implements Serializable{
 		level += 1;
 		calculateStats();
 	}
+	
+	public boolean isFavorite() {
+		return favorite;
+	}
+	
+	public void toggleFavorite() {
+		favorite = !favorite;
+	}
 
 	public String toString() {
+		String temp = "";
 		if (shiny)
-			return String.format("SHINY\n"
-					+ "Name: " + pokemon.getName() + "\n"
-					+ "Nickname: " + nickname + "\n"
-					+ "Gender: " + gender + "\n"
-					+ "Nature: " + nature + "\n"
-					+ "Level: " + level + "\n"
-					+ "Health IVs: " + healthIV + "\n"
-					+ "Attack IVs: " + attackIV + "\n"
-					+ "Defense IVs: " + defenseIV + "\n"
-					+ "Special Attack IVs: " + specialAttackIV + "\n"
-					+ "Special Defense IVs: " + specialDefenseIV + "\n"
-					+ "Speed IVs: " + speedIV + "\n"
-					+ "Total IV Percentage: " + getTotalIVPercentage() + "%%\n"
-					+ "Health Stat: " + healthStat + "\n"
-					+ "Attack Stat: " + attackStat + "\n"
-					+ "Defense Stat: " + defenseStat + "\n"
-					+ "Special Attack Stat: " + specialAttackStat + "\n"
-					+ "Special Defense Stat: " + specialDefenseStat + "\n"
-					+ "Speed Stat: " + speedStat);
-		return String.format("Name: " + pokemon.getName() + "\n"
+			temp = String.format("SHINY\n");
+		if (favorite)
+			temp = String.format(temp + "FAVORITE\n");
+		temp = String.format(temp + "Name: " + pokemon.getName() + "\n"
 				+ "Nickname: " + nickname + "\n"
 				+ "Gender: " + gender + "\n"
 				+ "Nature: " + nature + "\n"
-				+ "Level: " + level + "\n"
+				+ "Egg Group(s): ");
+		boolean first = true;
+		for (String s : pokemon.getEggGroup()) {
+			if (first) {
+				temp = String.format(temp + s);
+				first = false;
+			} else
+				temp = String.format(temp + ", " + s);
+		}
+		temp = String.format(temp + "\nLevel: " + level + "\n"
 				+ "Health IVs: " + healthIV + "\n"
 				+ "Attack IVs: " + attackIV + "\n"
 				+ "Defense IVs: " + defenseIV + "\n"
@@ -640,5 +647,6 @@ public class OwnedPokemon implements Serializable{
 				+ "Special Attack Stat: " + specialAttackStat + "\n"
 				+ "Special Defense Stat: " + specialDefenseStat + "\n"
 				+ "Speed Stat: " + speedStat);
+		return temp;
 	}
 }
