@@ -1126,173 +1126,94 @@ public class Main {
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
 		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
 		boolean invested = false;
-		if (typePoints.equals("Tier 1 Points")) {
-			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252 || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier1()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addHealthEV(tempNum);
-							p.spendTier1(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
-							System.out.println();
-						}
-					}
-				}
-			}
+		switch(typePoints) {
+			case "Tier 1 Points":
+				System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
+				break;
+			case "Tier 2 Points":
+				System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
+				break;
+			case "Tier 3 Points":
+				System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
+				break;
+			case "Tier 4 Points":
+				System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
+				break;
+			case "Tier 5 Points":
+				System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
+				break;
 		}
-		if (typePoints.equals("Tier 2 Points")) {
-			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
+		System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
+		System.out.println("How many points would you like to invest?");
+		System.out.println();
+		while (!invested) {
+			String temp = input.nextLine();
+			if (!isNumeric(temp)) {
+				System.out.println();
+				System.out.println("Input does not match an available choice, please input a valid choice.");
+				System.out.println();
+			} else {
+				int tempNum = Integer.parseInt(temp);
+				if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252 || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252 || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier2()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addHealthEV(tempNum);
-							p.spendTier2(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
-							System.out.println();
-						}
-					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 3 Points")) {
-			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
+					System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
 					System.out.println();
 				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier3()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addHealthEV(tempNum);
-							p.spendTier3(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
-							System.out.println();
-						}
+					System.out.println();
+					switch(typePoints) {
+						case "Tier 1 Points":
+							if (tempNum > p.getTier1())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 2 Points":
+							if (tempNum > p.getTier2())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+								else
+								invested = true;
+							break;
+						case "Tier 3 Points":
+							if (tempNum > p.getTier3())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 4 Points":
+							if (tempNum > p.getTier4())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 5 Points":
+							if (tempNum > p.getTier5())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
 					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 4 Points")) {
-			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier4()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addHealthEV(tempNum);
-							p.spendTier4(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
-							System.out.println();
+					if (invested) {
+						p.getPC().get(num - 1).addHealthEV(tempNum);
+						switch(typePoints) {
+							case "Tier 1 Points":
+								p.spendTier1(tempNum);
+								break;
+							case "Tier 2 Points":
+								p.spendTier2(tempNum);
+								break;
+							case "Tier 3 Points":
+								p.spendTier3(tempNum);
+								break;
+							case "Tier 4 Points":
+								p.spendTier4(tempNum);
+								break;
+							case "Tier 5 Points":
+								p.spendTier5(tempNum);
+								break;
 						}
+						System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
 					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 5 Points")) {
-			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier5()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addHealthEV(tempNum);
-							p.spendTier5(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getHealthEV() + " Health EVs.");
-							System.out.println();
-						}
-					}
 				}
 			}
 		}
@@ -1303,173 +1224,94 @@ public class Main {
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
 		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
 		boolean invested = false;
-		if (typePoints.equals("Tier 1 Points")) {
-			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier1()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addAttackEV(tempNum);
-							p.spendTier1(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
-							System.out.println();
-						}
-					}
-				}
-			}
+		switch(typePoints) {
+			case "Tier 1 Points":
+				System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
+				break;
+			case "Tier 2 Points":
+				System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
+				break;
+			case "Tier 3 Points":
+				System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
+				break;
+			case "Tier 4 Points":
+				System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
+				break;
+			case "Tier 5 Points":
+				System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
+				break;
 		}
-		if (typePoints.equals("Tier 2 Points")) {
-			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
+		System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
+		System.out.println("How many points would you like to invest?");
+		System.out.println();
+		while (!invested) {
+			String temp = input.nextLine();
+			if (!isNumeric(temp)) {
+				System.out.println();
+				System.out.println("Input does not match an available choice, please input a valid choice.");
+				System.out.println();
+			} else {
+				int tempNum = Integer.parseInt(temp);
+				if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252 || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier2()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addAttackEV(tempNum);
-							p.spendTier2(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
-							System.out.println();
-						}
-					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 3 Points")) {
-			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
+					System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
 					System.out.println();
 				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier3()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addAttackEV(tempNum);
-							p.spendTier3(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
-							System.out.println();
-						}
+					System.out.println();
+					switch(typePoints) {
+						case "Tier 1 Points":
+							if (tempNum > p.getTier1())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 2 Points":
+							if (tempNum > p.getTier2())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+								else
+								invested = true;
+							break;
+						case "Tier 3 Points":
+							if (tempNum > p.getTier3())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 4 Points":
+							if (tempNum > p.getTier4())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 5 Points":
+							if (tempNum > p.getTier5())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
 					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 4 Points")) {
-			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier4()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addAttackEV(tempNum);
-							p.spendTier4(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
-							System.out.println();
+					if (invested) {
+						p.getPC().get(num - 1).addAttackEV(tempNum);
+						switch(typePoints) {
+							case "Tier 1 Points":
+								p.spendTier1(tempNum);
+								break;
+							case "Tier 2 Points":
+								p.spendTier2(tempNum);
+								break;
+							case "Tier 3 Points":
+								p.spendTier3(tempNum);
+								break;
+							case "Tier 4 Points":
+								p.spendTier4(tempNum);
+								break;
+							case "Tier 5 Points":
+								p.spendTier5(tempNum);
+								break;
 						}
+						System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
 					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 5 Points")) {
-			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier5()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addAttackEV(tempNum);
-							p.spendTier5(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getAttackEV() + " Attack EVs.");
-							System.out.println();
-						}
-					}
 				}
 			}
 		}
@@ -1480,173 +1322,94 @@ public class Main {
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
 		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
 		boolean invested = false;
-		if (typePoints.equals("Tier 1 Points")) {
-			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier1()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addDefenseEV(tempNum);
-							p.spendTier1(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
-							System.out.println();
-						}
-					}
-				}
-			}
+		switch(typePoints) {
+			case "Tier 1 Points":
+				System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
+				break;
+			case "Tier 2 Points":
+				System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
+				break;
+			case "Tier 3 Points":
+				System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
+				break;
+			case "Tier 4 Points":
+				System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
+				break;
+			case "Tier 5 Points":
+				System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
+				break;
 		}
-		if (typePoints.equals("Tier 2 Points")) {
-			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
+		System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
+		System.out.println("How many points would you like to invest?");
+		System.out.println();
+		while (!invested) {
+			String temp = input.nextLine();
+			if (!isNumeric(temp)) {
+				System.out.println();
+				System.out.println("Input does not match an available choice, please input a valid choice.");
+				System.out.println();
+			} else {
+				int tempNum = Integer.parseInt(temp);
+				if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252 || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier2()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addDefenseEV(tempNum);
-							p.spendTier2(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
-							System.out.println();
-						}
-					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 3 Points")) {
-			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
+					System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
 					System.out.println();
 				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier3()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addDefenseEV(tempNum);
-							p.spendTier3(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
-							System.out.println();
-						}
+					System.out.println();
+					switch(typePoints) {
+						case "Tier 1 Points":
+							if (tempNum > p.getTier1())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 2 Points":
+							if (tempNum > p.getTier2())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+								else
+								invested = true;
+							break;
+						case "Tier 3 Points":
+							if (tempNum > p.getTier3())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 4 Points":
+							if (tempNum > p.getTier4())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 5 Points":
+							if (tempNum > p.getTier5())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
 					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 4 Points")) {
-			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier4()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addDefenseEV(tempNum);
-							p.spendTier4(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
-							System.out.println();
+					if (invested) {
+						p.getPC().get(num - 1).addDefenseEV(tempNum);
+						switch(typePoints) {
+							case "Tier 1 Points":
+								p.spendTier1(tempNum);
+								break;
+							case "Tier 2 Points":
+								p.spendTier2(tempNum);
+								break;
+							case "Tier 3 Points":
+								p.spendTier3(tempNum);
+								break;
+							case "Tier 4 Points":
+								p.spendTier4(tempNum);
+								break;
+							case "Tier 5 Points":
+								p.spendTier5(tempNum);
+								break;
 						}
+						System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
 					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 5 Points")) {
-			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier5()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addDefenseEV(tempNum);
-							p.spendTier5(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getDefenseEV() + " Defense EVs.");
-							System.out.println();
-						}
-					}
 				}
 			}
 		}
@@ -1657,173 +1420,94 @@ public class Main {
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
 		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
 		boolean invested = false;
-		if (typePoints.equals("Tier 1 Points")) {
-			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier1()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpecialAttackEV(tempNum);
-							p.spendTier1(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
-							System.out.println();
-						}
-					}
-				}
-			}
+		switch(typePoints) {
+			case "Tier 1 Points":
+				System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
+				break;
+			case "Tier 2 Points":
+				System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
+				break;
+			case "Tier 3 Points":
+				System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
+				break;
+			case "Tier 4 Points":
+				System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
+				break;
+			case "Tier 5 Points":
+				System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
+				break;
 		}
-		if (typePoints.equals("Tier 2 Points")) {
-			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
+		System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialAttackEV() + " SpecialAttack EVs.");
+		System.out.println("How many points would you like to invest?");
+		System.out.println();
+		while (!invested) {
+			String temp = input.nextLine();
+			if (!isNumeric(temp)) {
+				System.out.println();
+				System.out.println("Input does not match an available choice, please input a valid choice.");
+				System.out.println();
+			} else {
+				int tempNum = Integer.parseInt(temp);
+				if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252 || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier2()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpecialAttackEV(tempNum);
-							p.spendTier2(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
-							System.out.println();
-						}
-					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 3 Points")) {
-			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
+					System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
 					System.out.println();
 				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier3()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpecialAttackEV(tempNum);
-							p.spendTier3(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
-							System.out.println();
-						}
+					System.out.println();
+					switch(typePoints) {
+						case "Tier 1 Points":
+							if (tempNum > p.getTier1())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 2 Points":
+							if (tempNum > p.getTier2())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+								else
+								invested = true;
+							break;
+						case "Tier 3 Points":
+							if (tempNum > p.getTier3())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 4 Points":
+							if (tempNum > p.getTier4())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 5 Points":
+							if (tempNum > p.getTier5())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
 					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 4 Points")) {
-			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier4()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpecialAttackEV(tempNum);
-							p.spendTier4(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
-							System.out.println();
+					if (invested) {
+						p.getPC().get(num - 1).addSpecialAttackEV(tempNum);
+						switch(typePoints) {
+							case "Tier 1 Points":
+								p.spendTier1(tempNum);
+								break;
+							case "Tier 2 Points":
+								p.spendTier2(tempNum);
+								break;
+							case "Tier 3 Points":
+								p.spendTier3(tempNum);
+								break;
+							case "Tier 4 Points":
+								p.spendTier4(tempNum);
+								break;
+							case "Tier 5 Points":
+								p.spendTier5(tempNum);
+								break;
 						}
+						System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialAttackEV() + " SpecialAttack EVs.");
 					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 5 Points")) {
-			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialAttackEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier5()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpecialAttackEV(tempNum);
-							p.spendTier5(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialAttackEV() + " Special Attack EVs.");
-							System.out.println();
-						}
-					}
 				}
 			}
 		}
@@ -1834,173 +1518,94 @@ public class Main {
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
 		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
 		boolean invested = false;
-		if (typePoints.equals("Tier 1 Points")) {
-			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier1()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpecialDefenseEV(tempNum);
-							p.spendTier1(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
-							System.out.println();
-						}
-					}
-				}
-			}
+		switch(typePoints) {
+			case "Tier 1 Points":
+				System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
+				break;
+			case "Tier 2 Points":
+				System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
+				break;
+			case "Tier 3 Points":
+				System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
+				break;
+			case "Tier 4 Points":
+				System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
+				break;
+			case "Tier 5 Points":
+				System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
+				break;
 		}
-		if (typePoints.equals("Tier 2 Points")) {
-			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
+		System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " SpecialDefense EVs.");
+		System.out.println("How many points would you like to invest?");
+		System.out.println();
+		while (!invested) {
+			String temp = input.nextLine();
+			if (!isNumeric(temp)) {
+				System.out.println();
+				System.out.println("Input does not match an available choice, please input a valid choice.");
+				System.out.println();
+			} else {
+				int tempNum = Integer.parseInt(temp);
+				if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252 || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier2()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpecialDefenseEV(tempNum);
-							p.spendTier2(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
-							System.out.println();
-						}
-					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 3 Points")) {
-			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
+					System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
 					System.out.println();
 				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier3()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpecialDefenseEV(tempNum);
-							p.spendTier3(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
-							System.out.println();
-						}
+					System.out.println();
+					switch(typePoints) {
+						case "Tier 1 Points":
+							if (tempNum > p.getTier1())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 2 Points":
+							if (tempNum > p.getTier2())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+								else
+								invested = true;
+							break;
+						case "Tier 3 Points":
+							if (tempNum > p.getTier3())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 4 Points":
+							if (tempNum > p.getTier4())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 5 Points":
+							if (tempNum > p.getTier5())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
 					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 4 Points")) {
-			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier4()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpecialDefenseEV(tempNum);
-							p.spendTier4(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
-							System.out.println();
+					if (invested) {
+						p.getPC().get(num - 1).addSpecialDefenseEV(tempNum);
+						switch(typePoints) {
+							case "Tier 1 Points":
+								p.spendTier1(tempNum);
+								break;
+							case "Tier 2 Points":
+								p.spendTier2(tempNum);
+								break;
+							case "Tier 3 Points":
+								p.spendTier3(tempNum);
+								break;
+							case "Tier 4 Points":
+								p.spendTier4(tempNum);
+								break;
+							case "Tier 5 Points":
+								p.spendTier5(tempNum);
+								break;
 						}
+						System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " SpecialDefense EVs.");
 					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 5 Points")) {
-			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpecialDefenseEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier5()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpecialDefenseEV(tempNum);
-							p.spendTier5(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpecialDefenseEV() + " Special Defense EVs.");
-							System.out.println();
-						}
-					}
 				}
 			}
 		}
@@ -2011,173 +1616,94 @@ public class Main {
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
 		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
 		boolean invested = false;
-		if (typePoints.equals("Tier 1 Points")) {
-			System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier1()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpeedEV(tempNum);
-							p.spendTier1(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
-							System.out.println();
-						}
-					}
-				}
-			}
+		switch(typePoints) {
+			case "Tier 1 Points":
+				System.out.println("You have " + p.getTier1() + " Tier 1 Points.");
+				break;
+			case "Tier 2 Points":
+				System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
+				break;
+			case "Tier 3 Points":
+				System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
+				break;
+			case "Tier 4 Points":
+				System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
+				break;
+			case "Tier 5 Points":
+				System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
+				break;
 		}
-		if (typePoints.equals("Tier 2 Points")) {
-			System.out.println("You have " + p.getTier2() + " Tier 2 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
+		System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
+		System.out.println("How many points would you like to invest?");
+		System.out.println();
+		while (!invested) {
+			String temp = input.nextLine();
+			if (!isNumeric(temp)) {
+				System.out.println();
+				System.out.println("Input does not match an available choice, please input a valid choice.");
+				System.out.println();
+			} else {
+				int tempNum = Integer.parseInt(temp);
+				if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252 || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
 					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier2()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpeedEV(tempNum);
-							p.spendTier2(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
-							System.out.println();
-						}
-					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 3 Points")) {
-			System.out.println("You have " + p.getTier3() + " Tier 3 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
+					System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
 					System.out.println();
 				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier3()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpeedEV(tempNum);
-							p.spendTier3(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
-							System.out.println();
-						}
+					System.out.println();
+					switch(typePoints) {
+						case "Tier 1 Points":
+							if (tempNum > p.getTier1())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 2 Points":
+							if (tempNum > p.getTier2())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+								else
+								invested = true;
+							break;
+						case "Tier 3 Points":
+							if (tempNum > p.getTier3())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 4 Points":
+							if (tempNum > p.getTier4())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
+						case "Tier 5 Points":
+							if (tempNum > p.getTier5())
+								System.out.println("You have less points than the number you entered.  Please input a valid choice.");
+							else
+								invested = true;
+							break;
 					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 4 Points")) {
-			System.out.println("You have " + p.getTier4() + " Tier 4 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
-					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier4()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpeedEV(tempNum);
-							p.spendTier4(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
-							System.out.println();
+					if (invested) {
+						p.getPC().get(num - 1).addSpeedEV(tempNum);
+						switch(typePoints) {
+							case "Tier 1 Points":
+								p.spendTier1(tempNum);
+								break;
+							case "Tier 2 Points":
+								p.spendTier2(tempNum);
+								break;
+							case "Tier 3 Points":
+								p.spendTier3(tempNum);
+								break;
+							case "Tier 4 Points":
+								p.spendTier4(tempNum);
+								break;
+							case "Tier 5 Points":
+								p.spendTier5(tempNum);
+								break;
 						}
+						System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
 					}
-				}
-			}
-		}
-		if (typePoints.equals("Tier 5 Points")) {
-			System.out.println("You have " + p.getTier5() + " Tier 5 Points.");
-			System.out.println("Your " + p.getPC().get(num - 1).getName() + " has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
-			System.out.println("How many points would you like to invest?");
-			System.out.println();
-			while (!invested) {
-				String temp = input.nextLine();
-				if (!isNumeric(temp)) {
 					System.out.println();
-					System.out.println("Input does not match an available choice, please input a valid choice.");
-					System.out.println();
-				} else {
-					int tempNum = Integer.parseInt(temp);
-					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getSpeedEV()) > 252  || (tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) > 508) {
-						System.out.println();
-						System.out.println("The number you have entered is either negative or would make the EV greater than 252 or would make this Pokemon have more than 508 total EVs.  Please input a valid choice.");
-						System.out.println();
-					} else {
-						if (tempNum > p.getTier5()) {
-							System.out.println();
-							System.out.println("You have less points than the number you entered.  Please input a valid choice.");
-							System.out.println();
-						} else {
-							System.out.println();
-							p.getPC().get(num - 1).addSpeedEV(tempNum);
-							p.spendTier5(tempNum);
-							invested = true;
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has " + p.getPC().get(num - 1).getSpeedEV() + " Speed EVs.");
-							System.out.println();
-						}
-					}
 				}
 			}
 		}
