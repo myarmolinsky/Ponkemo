@@ -1,4 +1,6 @@
-public class Pokemon {
+import java.io.*;
+
+public class Pokemon implements Serializable{
 
 	private String name;
 	private String type1;

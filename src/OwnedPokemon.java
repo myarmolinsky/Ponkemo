@@ -1,6 +1,7 @@
+import java.io.*;
 import java.util.*;
 
-public class OwnedPokemon {
+public class OwnedPokemon implements Serializable{
 
 	private Pokemon pokemon;
 	private boolean shiny;

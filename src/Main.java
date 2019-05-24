@@ -1,12 +1,39 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 		Scanner input = new Scanner(System.in);
 		ArrayList<Pokemon> pokedex = new ArrayList<>();
 		fillPossibilities(pokedex);
+		boolean choosing = false;
 		Player p = new Player();
+		while(!choosing) {
+			System.out.println("Would you like to access a new save or a old save?");
+			System.out.println("1) New");
+			System.out.println("2) Old");
+			System.out.println();
+			switch(input.nextLine()){
+			case "1":
+				choosing = true;
+				System.out.println();
+				break;
+			case "2":
+				choosing = true;
+				try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("saves.ser"));){
+					p = (Player) ois.readObject();
+				} catch (Exception e) {
+					
+				}
+				System.out.println();
+				break;
+			default:
+				System.out.println();
+				System.out.println("Input does not match an available choice.");
+				System.out.println();
+			}
+		}
 		int[] spawnRateCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		boolean finished = false;
 //		p.catchPokemon(new OwnedPokemon(pokedex.get(28)));
@@ -20,7 +47,9 @@ public class Main {
 			System.out.println("4) Train Pokemon");
 			System.out.println("5) Recycle Pokemon");
 			System.out.println("6) View Player Data");
-			System.out.println("7) Quit");
+			System.out.println("7) Save");
+			System.out.println("8) Save Quit");
+			System.out.println("9) Quit");
 			System.out.println();
 			switch(input.nextLine()){
 			case "1":
@@ -48,6 +77,18 @@ public class Main {
 				printPlayerData(p);
 				break;
 			case "7":
+				System.out.println();
+				System.out.println("Saving ...");
+				System.out.println();
+				save(p);
+				break;
+			case "8":
+				finished = true;
+				System.out.println();
+				System.out.println("Saving and Quitting ...");
+				save(p);
+				break;
+			case "9":
 				finished = true;
 				System.out.println();
 				System.out.println("Quitting ...");
@@ -2663,6 +2704,12 @@ public class Main {
 
 	private static void printPlayerData(Player p) {
 		System.out.println(p);
+	}
+	
+	private static void save(Player p) throws FileNotFoundException, IOException {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("saves.ser"));
+		oos.writeObject(p);
+		oos.flush();
 	}
 
 }
