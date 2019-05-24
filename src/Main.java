@@ -345,7 +345,6 @@ public class Main {
 													p.getPC().get(num - 1).setNickname(temp);
 													System.out.println();
 													System.out.println("Your " + p.getPC().get(num - 1).getPokemon().getName() + " nickname is now " + temp + ".");
-													System.out.println();
 													repeat = true;
 												}
 										}
