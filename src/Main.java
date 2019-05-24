@@ -2509,40 +2509,27 @@ public class Main {
 			System.out.println("This Pokemon already has the nature you selected.");
 			System.out.println();
 		} else {
-			if (typePoints.equals("Tier 1 Points")) {
-				System.out.println();
-				p.getPC().get(num - 1).setNature(nature);
-				p.spendTier1(100);
-				System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has a " + nature + " nature.");
+			System.out.println();
+			p.getPC().get(num - 1).setNature(nature);
+			switch(typePoints) {
+				case "Tier 1 Points":
+					p.spendTier1(100);
+					break;
+				case "Tier 2 Points":
+					p.spendTier2(100);
+					break;
+				case "Tier 3 Points":
+					p.spendTier3(100);
+					break;
+				case "Tier 4 Points":
+					p.spendTier4(100);
+					break;
+				case "Tier 5 Points":
+					p.spendTier5(100);
+					break;
 			}
-			if (typePoints.equals("Tier 2 Points")) {
-				System.out.println();
-				p.getPC().get(num - 1).setNature(nature);
-				p.spendTier2(100);
-				System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has a " + nature + " nature.");
-				System.out.println();
-			}
-			if (typePoints.equals("Tier 3 Points")) {
-				System.out.println();
-				p.getPC().get(num - 1).setNature(nature);
-				p.spendTier3(100);
-				System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has a " + nature + " nature.");
-				System.out.println();
-			}
-			if (typePoints.equals("Tier 4 Points")) {
-				System.out.println();
-				p.getPC().get(num - 1).setNature(nature);
-				p.spendTier4(100);
-				System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has a " + nature + " nature.");
-				System.out.println();
-			}
-			if (typePoints.equals("Tier 5 Points")) {
-				System.out.println();
-				p.getPC().get(num - 1).setNature(nature);
-				p.spendTier5(100);
-				System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has a " + nature + " nature.");
-				System.out.println();
-			}
+			System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has a " + nature + " nature.");
+			System.out.println();
 		}
 	}
 
