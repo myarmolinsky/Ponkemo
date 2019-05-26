@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Main {
 
-	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
+	public static void main(String[] args) throws IOException {
 		Scanner input = new Scanner(System.in);
 		ArrayList<Pokemon> pokedex = new ArrayList<>();
 		fillPossibilities(pokedex);
@@ -1976,7 +1976,7 @@ public class Main {
 		return "Tier 5 Points";
 	}
 
-	private static void save(Player p) throws FileNotFoundException, IOException {
+	private static void save(Player p) throws IOException {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("saves.ser"));
 		oos.writeObject(p);
 		oos.flush();
