@@ -127,6 +127,13 @@ public class Player implements Serializable {
 		for (OwnedPokemon o : nonfavorites)
 			pc.add(o);
 	}
+
+	public int getIndex(OwnedPokemon ownedPokemon) {
+		for (int i = 0; i < pc.size(); i++)
+			if (pc.get(i).equals(ownedPokemon))
+				return i;
+		return -1;
+	}
 	
 	public String toString() {
 		return String.format("Pokemon Owned: " + pc.size() + "\n"

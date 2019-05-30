@@ -97,5 +97,11 @@ public class Pokemon implements Serializable{
 	public int getEvolutionLevel() {
 		return evolutionLevel;
 	}
+	
+	public boolean equals(Pokemon pokemon) {
+		if (name.equals(name))
+			return true;
+		return false;
+	}
 
 }

@@ -47,7 +47,7 @@ public class Main {
 		// reset finished to false
 		//		p.catchPokemon(new OwnedPokemon(pokedex.get(28)));
 		//		p.catchPokemon(new OwnedPokemon(pokedex.get(132)));
-				p.addTier1(600);
+		//		p.addTier1(600);
 		while(!finished) {
 			// while not finished, prompt user what action they would like to take.  User is not finished until they quit
 			System.out.println("Input the number corresponding to your choice:");
@@ -521,6 +521,7 @@ public class Main {
 			System.out.println();
 			if (input.hasNext()) {
 				temp = input.nextLine();
+				System.out.println();
 				if (!isNumeric(temp)) {
 					if (!temp.equals("next") && !temp.equals("previous")) {
 						System.out.println();
@@ -785,6 +786,7 @@ public class Main {
 		String temp;
 		while (!done) {
 			printOwnedPokemon(p, startPCIndex, endPCIndex);
+			System.out.println("Each level-up has a point-cost equal to the Pokemon's current level.");
 			System.out.println("Choose the pokemon you want to level up.");
 			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
@@ -816,14 +818,13 @@ public class Main {
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
 					} else
-						if (num != 0)
+						if (num != 0) {
 							if (p.getPC().get(num - 1).getLevel() < 100) {
 								String typePoints = chooseTypePoints(p, num);
 								System.out.println();
-								System.out.println("Each level-up has a point-cost equal to the Pokemon's current level.");
 								boolean finished = false;
 								while (!finished) {
-									System.out.println("A level-up for this " + p.getPC().get(num - 1).getName() + " will cost you " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
+									System.out.println("A level-up for " + p.getPC().get(num - 1).getName() + " will cost you " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
 									System.out.println("Enter \"1\" to level up or enter \"0\" to go back to the main menu.");
 									System.out.println();
 									if (input.hasNext())
@@ -876,20 +877,26 @@ public class Main {
 													}
 													p.getPC().get(num - 1).levelUp();
 													System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
-													if (p.getPC().get(num - 1).getLevel() > p.getPC().get(num - 1).getPokemon().getEvolutionLevel() && p.getPC().get(num - 1).getPokemon().getEvolutionLevel() != 0 && p.getPC().get(num - 1).getPokemon().getEvolutionLevel() != -1) {
+													OwnedPokemon tempPokemon = p.getPC().get(num - 1);
+													if (p.getPC().get(num - 1).getLevel() >= p.getPC().get(num - 1).getPokemon().getEvolutionLevel() && p.getPC().get(num - 1).getPokemon().getEvolutionLevel() != 0 && p.getPC().get(num - 1).getPokemon().getEvolutionLevel() != -1) {
 														// if the pokemon's evolution level is reached, add its evolution with everything exactly the same as the original to the PC and remove the old one
 														Pokemon poke = p.getPC().get(num - 1).getPokemon();
 														for (int i = 0; i < pokedex.size(); i++) {
 															if (pokedex.get(i).getName().equals(p.getPC().get(num - 1).getPokemon().getEvolutionTree()[p.getPC().get(num - 1).getPokemon().getEvolutionStage() + 1]))
 																poke = pokedex.get(i);
 														}
-														p.catchPokemon(new OwnedPokemon(p.getPC().get(num - 1), poke));
-														String oldName = p.getPC().get(num - 1).getName();
+														// store the old pokemon in a variable
+														OwnedPokemon op = p.getPC().get(num - 1);
+														// remove the old pokemon from the player's pc
 														p.getPC().remove(num - 1);
-														System.out.println("Congratulations, your " + oldName + " has evolved into a " + poke.getName() + "!");
+														// add the evolved pokemon to the player's pc (everything about the pokemon will remain the same except its "pokemon" data member
+														tempPokemon = new OwnedPokemon(op, poke);
+														p.catchPokemon(new OwnedPokemon(op, poke));
+														System.out.println("Congratulations, your " + op.getName() + " has evolved into a " + poke.getName() + "!");
 													}
-													// re-sort pc because levels changed and pokemon position could have changed if it evolved
 													p.sortPC();
+													// change num to the new index of the pokemon
+													num = p.getIndex(tempPokemon) + 1;
 													System.out.println();
 												} else {
 													System.out.println();
@@ -897,15 +904,14 @@ public class Main {
 													System.out.println();
 													finished = true;
 													done = true;
+												} else {
+													System.out.println();
+													System.out.println("Leveling up this " + p.getPC().get(num - 1).getName() + " costs " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
+													System.out.println("You do not have enough " + typePoints + " to level up this Pokemon.");
+													System.out.println();
+													finished = true;
+													done = true;
 												}
-											else {
-												System.out.println();
-												System.out.println("Leveling up this " + p.getPC().get(num - 1).getName() + " costs " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
-												System.out.println("You do not have enough " + typePoints + " to level up this Pokemon");
-												System.out.println();
-												finished = true;
-												done = true;
-											}
 											break;
 										case "0":
 											finished = true;
@@ -922,7 +928,7 @@ public class Main {
 								System.out.println("This Pokemon is already level 100.  Make a different choice.");
 								System.out.println();
 							}
-						else
+						} else
 							done = true;
 				}
 			}

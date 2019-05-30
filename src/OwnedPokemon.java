@@ -649,4 +649,34 @@ public class OwnedPokemon implements Serializable{
 				+ "Speed Stat: " + speedStat);
 		return temp;
 	}
+	
+	public boolean equals(OwnedPokemon op) {
+		if (pokemon.equals(op.pokemon) 
+				&& shiny == op.shiny 
+				&& attackEV == op.attackEV 
+				&& attackIV == op.attackIV
+				&& attackStat == op.attackStat
+				&& defenseEV == op.defenseEV
+				&& defenseIV == op.defenseIV
+				&& defenseStat == op.defenseStat
+				&& favorite == op.favorite
+				&& gender.equals(op.gender)
+				&& healthEV == op.healthEV
+				&& healthIV == op.healthIV
+				&& healthStat == op.healthStat
+				&& level == op.level
+				&& nature.equals(op.nature)
+				&& nickname.equals(op.nickname)
+				&& specialAttackEV == op.specialAttackEV
+				&& specialAttackIV == op.specialAttackIV
+				&& specialAttackStat == op.specialAttackStat
+				&& specialDefenseEV == op.specialDefenseEV
+				&& specialDefenseIV == op.specialDefenseIV
+				&& specialDefenseStat == op.specialDefenseStat
+				&& speedEV == op.speedEV
+				&& speedIV == op.speedIV
+				&& speedStat == op.speedStat)
+			return true;
+		return false;
+	}
 }
