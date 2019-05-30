@@ -39,7 +39,7 @@ public class OwnedPokemon implements Serializable{
 		else
 			shiny = false;
 		if (pokemon.getGenderRatio() < 0)
-			gender = "genderless";
+			gender = "Genderless";
 		else {
 			temp = new Random().nextInt(1000) + 1;
 			if ((((double) temp) / 10 ) <= pokemon.getGenderRatio())
@@ -157,7 +157,7 @@ public class OwnedPokemon implements Serializable{
 		else
 			shiny = false;
 		if (pokemon.getGenderRatio() < 0)
-			gender = "genderless";
+			gender = "Genderless";
 		else {
 			temp = new Random().nextInt(1000) + 1;
 			if ((((double) temp) / 10 ) <= pokemon.getGenderRatio())

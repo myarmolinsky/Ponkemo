@@ -517,7 +517,7 @@ public class Main {
 	}
 
 	private static void breed(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
-		// user selects 2 pokemon to breed.  they can only breed if they share an egg group and are opposite genders (or both genderless)
+		// user selects 2 pokemon to breed.  they can only breed if they share an egg group and are opposite genders (or both Genderless)
 		boolean done = false;
 		int startPCIndex = 0;
 		int pageLimit = 25;
@@ -553,6 +553,7 @@ public class Main {
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
 					} else if (num != 0) {
+						// pokemon number 1 has been selected, now select pokemon number 2
 						boolean finished = false;
 						while (!finished) {
 							printOwnedPokemon(p, startPCIndex, endPCIndex);
@@ -582,148 +583,87 @@ public class Main {
 									System.out.println();
 									System.out.println("Input does not match an available choice.");
 									System.out.println();
-								} else
-									if (numTwo != 0) {
-										boolean breedable = false;
-										boolean validEggGroup = false;
-										for (int i = 0; i < p.getPC().get(num - 1).getEggGroup().length; i++)
-											for (int j = 0; j < p.getPC().get(numTwo - 1).getEggGroup().length; j++)
-												if (p.getPC().get(num - 1).getEggGroup()[i].equals(p.getPC().get(numTwo - 1).getEggGroup()[j]))
-													validEggGroup = true;
-										if (validEggGroup) {
-											if ((p.getPC().get(num - 1).getGender().equals("Male") && p.getPC().get(numTwo - 1).getGender().equals("Female"))
-													|| (p.getPC().get(num - 1).getGender().equals("Female") && p.getPC().get(numTwo - 1).getGender().equals("Male"))
-													|| (p.getPC().get(num - 1).getGender().equals("genderless") && p.getPC().get(numTwo - 1).getGender().equals("genderless")))
-												breedable = true;
-											if (p.getPC().get(num - 1).getEggGroup()[0].equals("Undiscovered") 
-													&& p.getPC().get(numTwo - 1).getEggGroup()[0].equals("Undiscovered") 
-													&& !p.getPC().get(numTwo - 1).getName().equals(p.getPC().get(num - 1).getName()))
-												breedable = false;
-										}
-										if (p.getPC().get(num - 1).getEggGroup()[0].equals("Ditto"))
+								} else if (numTwo != 0) {
+									// pokemon number 2 has been selected, now check if they are breedable
+									OwnedPokemon oldOne = new OwnedPokemon(p.getPC().get(num - 1));
+									OwnedPokemon oldTwo = new OwnedPokemon(p.getPC().get(numTwo - 1));
+									boolean breedable = false;
+									boolean validEggGroup = false;
+									// first check if the egg group is valid.  if at least 1 egg group from pokemon 1 matches an egg group from pokemon 2, then the egg group is valid
+									for (int i = 0; i < oldOne.getEggGroup().length; i++)
+										for (int j = 0; j < oldTwo.getEggGroup().length; j++)
+											if (oldOne.getEggGroup()[i].equals(oldTwo.getEggGroup()[j]))
+												validEggGroup = true;
+									if (validEggGroup) {
+										if ((oldOne.getGender().equals("Male") && oldTwo.getGender().equals("Female"))
+												|| (oldOne.getGender().equals("Female") && oldTwo.getGender().equals("Male"))
+												|| (oldOne.getGender().equals("Genderless") && oldTwo.getGender().equals("Genderless")))
+											// check if the pokemons' genders are correct for breeding (Female and Male, Male and Female, Genderless and Genderless)
 											breedable = true;
-										if (p.getPC().get(numTwo - 1).getEggGroup()[0].equals("Ditto"))
-											breedable = true;
-										if (breedable) {
-											OwnedPokemon oldOne = new OwnedPokemon(p.getPC().get(num - 1));
-											OwnedPokemon oldTwo = new OwnedPokemon(p.getPC().get(numTwo - 1));
-											Pokemon pokemon;
-											boolean ditto = false;
-											for (int i = 0; i < oldOne.getEggGroup().length; i++)
-												if (oldOne.getEggGroup()[i].equals("Ditto")) {
-													pokemon = getBabyPokemon(pokedex, oldTwo);
-													ditto = true;
+										if (oldOne.getEggGroup()[0].equals("Undiscovered")
+												&& !oldTwo.getName().equals(oldOne.getName()))
+											// if the egg group for pokemon 1 is Undiscovered and the two pokemon don't share the same name, they cannot breed
+											breedable = false;
+									}
+									// if either pokemon are a Ditto, they are allowed to breed
+									if (oldOne.getEggGroup()[0].equals("Ditto"))
+										breedable = true;
+									if (p.getPC().get(numTwo - 1).getEggGroup()[0].equals("Ditto"))
+										breedable = true;
+									if (breedable) {
+										/*
+										 *  figure out what the baby pokemon should be
+										 *  if one parent is a ditto, the baby pokemon is the first stage of the other parent
+										 *  if the parents are genderless, one of them are chosen randomly and the baby pokemon is the first stage of that parent
+										 */
+										Pokemon pokemon;
+										if (oldOne.getEggGroup()[0].equals("Ditto")) {
+											pokemon = getBabyPokemon(pokedex, oldTwo);
+											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+										} else if (oldTwo.getEggGroup()[0].equals("Ditto")) {
+											pokemon = getBabyPokemon(pokedex, oldOne);
+											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+										} else if (oldOne.getGender().equals("Genderless")) {
+											int choose = new Random().nextInt(2);
+											if (choose == 0) {
+												pokemon = getBabyPokemon(pokedex, oldOne);
+												p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											} else {
+												pokemon = getBabyPokemon(pokedex, oldTwo);
+												p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											}
+										} else if (oldOne.getGender().equals("Female"))
+											// special case: if one of the parents is a NidoranF, Nidorina, or Nidoqueen, the baby has a 50-50 chance of being a NidoranF or NidoranM
+											if (oldOne.getName().equals("NidoranF") || oldOne.getName().equals("Nidorina") || oldOne.getName().equals("Nidoqueen") || oldTwo.getName().equals("NidoranF") || oldTwo.getName().equals("Nidorina") || oldTwo.getName().equals("Nidoqueen")) {
+												int rand = new Random().nextInt(2);
+												if (rand == 0) {
+													pokemon = pokedex.get(28);
 													p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-													System.out.println();
-													System.out.println("Congratulations on your newly bred Pokemon!");
-													System.out.println();
-													done = true;
-													finished = true;
+												} else {
+													pokemon = pokedex.get(31);
+													p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
 												}
-											if (!ditto)
-												for (int i = 0; i < oldTwo.getEggGroup().length; i++)
-													if (oldTwo.getEggGroup()[i].equals("Ditto")) {
-														pokemon = getBabyPokemon(pokedex, oldOne);
-														ditto = true;
-														p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-														System.out.println();
-														System.out.println("Congratulations on your newly bred Pokemon!");
-														System.out.println();
-														done = true;
-														finished = true;
-													}
-											if (!ditto)
-												if (oldOne.getGender().equals("genderless")) {
-													int choose = new Random().nextInt(2);
-													if (choose == 0) {
-														pokemon = getBabyPokemon(pokedex, oldOne);
-														p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-														System.out.println();
-														System.out.println("Congratulations on your newly bred Pokemon!");
-														System.out.println();
-														done = true;
-														finished = true;
-													} else {
-														pokemon = getBabyPokemon(pokedex, oldTwo);
-														p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-														System.out.println();
-														System.out.println("Congratulations on your newly bred Pokemon!");
-														System.out.println();
-														done = true;
-														finished = true;
-													}
-												} else
-													if (oldOne.getGender().equals("Female")) {
-														if (oldOne.getName().equals("NidoranF") || oldOne.getName().equals("Nidorina") || oldOne.getName().equals("Nidoqueen")) {
-															int rand = new Random().nextInt(2);
-															if (rand == 0) {
-																pokemon = pokedex.get(28);
-																p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-																System.out.println();
-																System.out.println("Congratulations on your newly bred Pokemon!");
-																System.out.println();
-																done = true;
-																finished = true;
-															} else {
-																pokemon = pokedex.get(31);
-																p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-																System.out.println();
-																System.out.println("Congratulations on your newly bred Pokemon!");
-																System.out.println();
-																done = true;
-																finished = true;
-															}
-														} else {
-															pokemon = getBabyPokemon(pokedex, oldOne);
-															p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-															System.out.println();
-															System.out.println("Congratulations on your newly bred Pokemon!");
-															System.out.println();
-															done = true;
-															finished = true;
-														}
-													} else {
-														if (oldTwo.getName().equals("NidoranF") || oldTwo.getName().equals("Nidorina") || oldTwo.getName().equals("Nidoqueen")) {
-															int rand = new Random().nextInt(2);
-															if (rand == 0) {
-																pokemon = pokedex.get(28);
-																p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-																System.out.println();
-																System.out.println("Congratulations on your newly bred Pokemon!");
-																System.out.println();
-																done = true;
-																finished = true;
-															} else {
-																pokemon = pokedex.get(31);
-																p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-																System.out.println();
-																System.out.println("Congratulations on your newly bred Pokemon!");
-																System.out.println();
-																done = true;
-																finished = true;
-															}
-														} else {
-															pokemon = getBabyPokemon(pokedex, oldTwo);
-															p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
-															System.out.println();
-															System.out.println("Congratulations on your newly bred Pokemon!");
-															System.out.println();
-															done = true;
-															finished = true;
-														}
-													}
-										} else {
-											System.out.println();
-											System.out.println("These two Pokemon are not breedable.");
-											System.out.println();
-											done = true;
-											finished = true;
-										}
+											} else {
+												pokemon = getBabyPokemon(pokedex, oldTwo);
+												p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											}
+										System.out.println();
+										System.out.println("Congratulations on your newly bred Pokemon!");
+										System.out.println();
+										done = true;
+										finished = true;
 									} else {
+										System.out.println();
+										System.out.println("These two Pokemon are not breedable.");
 										System.out.println();
 										done = true;
 										finished = true;
 									}
+								} else {
+									System.out.println();
+									done = true;
+									finished = true;
+								}
 							}
 						}
 					} else {
