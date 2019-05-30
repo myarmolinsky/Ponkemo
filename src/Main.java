@@ -11,7 +11,6 @@ public class Main {
 		boolean finished = false;
 		Player p = new Player();
 		while(!finished) {
-			// while not finished, prompt user if they would like to load a new or old save
 			System.out.println("Would you like to access a new save or a old save?");
 			System.out.println("1) New");
 			System.out.println("2) Old");
@@ -23,12 +22,10 @@ public class Main {
 				System.out.println();
 				break;
 			case "2":
-				/*
-				 * if the user chooses to load an old save, attempt to access the saves.ser file where player data is saved
-				 * if the file exists, set the player object to the one read from the file
-				 * if the file does not exist, just keep the preinitialized new player object
-				 * set finished to true when done
-				 */
+				// if the user chooses to load an old save, attempt to access the saves.ser file where player data is saved
+				//if the file exists, set the player object to the one read from the file
+				// if the file does not exist, just keep the preinitialized new player object
+				// set finished to true when done
 				finished = true;
 				try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("saves.ser"));){
 					p = (Player) ois.readObject();
@@ -44,15 +41,13 @@ public class Main {
 			}
 		}
 		int[] spawnRateCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-		/* 
-		 * there are currently 33 different spawn rates, and thus 33 different indexes in the array, one for each spawn rate.
-		 * this will be further explained in the search method
-		 */
+		// there are currently 33 different spawn rates, and thus 33 different indexes in the array, one for each spawn rate.
+		// this will be further explained in the search method
 		finished = false;
 		// reset finished to false
 		//		p.catchPokemon(new OwnedPokemon(pokedex.get(28)));
 		//		p.catchPokemon(new OwnedPokemon(pokedex.get(132)));
-		//		p.addTier4(600);
+				p.addTier1(600);
 		while(!finished) {
 			// while not finished, prompt user what action they would like to take.  User is not finished until they quit
 			System.out.println("Input the number corresponding to your choice:");
@@ -280,7 +275,6 @@ public class Main {
 	private static void sortPC(Player p, Scanner input) {
 		boolean finished = false;
 		while(!finished) {
-			// while not finished, prompt user how they would like to sort their pc.  By default, the pc is sorted in Descending IV Percentage order
 			System.out.println("How would you like your PC to be sorted?");
 			System.out.println("1) Real Name Order");
 			System.out.println("2) Nickname Order");
@@ -325,11 +319,9 @@ public class Main {
 	}
 
 	private static void printOwnedPokemon(Player p, int startPCIndex, int endPCIndex) {
-		/*
-		 * go through the user's pc and print every pokemon starting from the startPCIndex and ending right before endPCIndex
-		 * this allows a page limit so that the user isn't flooded with pokemon
-		 * if a pokemon is marked as favorite, it will be printed with [FAVORITE] next to it
-		 */
+		// go through the user's pc and print every pokemon starting from the startPCIndex and ending right before endPCIndex
+		// this allows a page limit so that the user isn't flooded with pokemon
+		// if a pokemon is marked as favorite, it will be printed with [FAVORITE] next to it
 		System.out.println("Your Pokemon:");
 		for (int i = startPCIndex; i < p.getPC().size() && i < endPCIndex; i++)
 			if (p.getPC().get(i).getNickname().equals(p.getPC().get(i).getName()))
@@ -363,10 +355,9 @@ public class Main {
 		} else {
 			rand = new Random().nextInt(pokedex.size());
 			if(spawnRateCounter[pokedex.get(rand).getSpawnRate()] != pokedex.get(rand).getSpawnRate()) {
-				/* check if spawn rate of the pokemon has been reached
-				 * (the rarer the pokemon, the higher the the number required to be reached)
-				 * if the spawn rate has not been reached, increment by 1 and re-search
-				 */
+				// check if spawn rate of the pokemon has been reached
+				// (the rarer the pokemon, the higher the the number required to be reached)
+				// if the spawn rate has not been reached, increment by 1 and re-search
 				spawnRateCounter[pokedex.get(rand).getSpawnRate()]++;
 				search(pokedex, p, spawnRateCounter);
 			} else {
@@ -512,7 +503,7 @@ public class Main {
 				}
 			}
 		}
-		// sort the pc because newly favorited pokemon need to be prioritized with the other favorited pokemon
+		// sort the pc because newly favorited or unfavorited pokemon need to be re-sorted
 		p.sortPC();
 	}
 
@@ -611,26 +602,24 @@ public class Main {
 									if (p.getPC().get(numTwo - 1).getEggGroup()[0].equals("Ditto"))
 										breedable = true;
 									if (breedable) {
-										/*
-										 *  figure out what the baby pokemon should be
-										 *  if one parent is a ditto, the baby pokemon is the first stage of the other parent
-										 *  if the parents are genderless, one of them are chosen randomly and the baby pokemon is the first stage of that parent
-										 */
+										//  figure out what the baby pokemon should be
+										//  if one parent is a ditto, the baby pokemon is the first stage of the other parent
+										//  if the parents are genderless, one of them are chosen randomly and the baby pokemon is the first stage of that parent
 										Pokemon pokemon;
 										if (oldOne.getEggGroup()[0].equals("Ditto")) {
 											pokemon = getBabyPokemon(pokedex, oldTwo);
-											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											p.catchPokemon(createBabyPokemon(p, num, numTwo, oldOne, oldTwo, pokemon));
 										} else if (oldTwo.getEggGroup()[0].equals("Ditto")) {
 											pokemon = getBabyPokemon(pokedex, oldOne);
-											p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+											p.catchPokemon(createBabyPokemon(p, num, numTwo, oldOne, oldTwo, pokemon));
 										} else if (oldOne.getGender().equals("Genderless")) {
 											int choose = new Random().nextInt(2);
 											if (choose == 0) {
 												pokemon = getBabyPokemon(pokedex, oldOne);
-												p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+												p.catchPokemon(createBabyPokemon(p, num, numTwo, oldOne, oldTwo, pokemon));
 											} else {
 												pokemon = getBabyPokemon(pokedex, oldTwo);
-												p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+												p.catchPokemon(createBabyPokemon(p, num, numTwo, oldOne, oldTwo, pokemon));
 											}
 										} else if (oldOne.getGender().equals("Female"))
 											// special case: if one of the parents is a NidoranF, Nidorina, or Nidoqueen, the baby has a 50-50 chance of being a NidoranF or NidoranM
@@ -638,15 +627,26 @@ public class Main {
 												int rand = new Random().nextInt(2);
 												if (rand == 0) {
 													pokemon = pokedex.get(28);
-													p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+													p.catchPokemon(createBabyPokemon(p, num, numTwo, oldOne, oldTwo, pokemon));
 												} else {
 													pokemon = pokedex.get(31);
-													p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+													p.catchPokemon(createBabyPokemon(p, num, numTwo, oldOne, oldTwo, pokemon));
 												}
 											} else {
 												pokemon = getBabyPokemon(pokedex, oldTwo);
-												p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
+												p.catchPokemon(createBabyPokemon(p, num, numTwo, oldOne, oldTwo, pokemon));
 											}
+										// when two pokemon are successfully bred, they make a baby with the best IVs of both parents but...
+										// the parents are used up so they need to be removed from the players PC
+										// the two pokemon need to be removed in the right order in order to make sure the correct pokemon get removed
+										// this means that the pokemon that comes later in the PC needs to be removed first
+										if (num < numTwo) {
+											p.getPC().remove(numTwo - 1);
+											p.getPC().remove(num - 1);
+										} else {
+											p.getPC().remove(num - 1);
+											p.getPC().remove(numTwo - 1);
+										}
 										System.out.println();
 										System.out.println("Congratulations on your newly bred Pokemon!");
 										System.out.println();
@@ -675,7 +675,9 @@ public class Main {
 		}
 	}
 
-	private static OwnedPokemon createBabyPokemon(Player p, ArrayList<Pokemon> pokedex, int num, int numTwo, OwnedPokemon oldOne, OwnedPokemon oldTwo, Pokemon pokemon) {
+	private static OwnedPokemon createBabyPokemon(Player p, int num, int numTwo, OwnedPokemon oldOne, OwnedPokemon oldTwo, Pokemon pokemon) {
+		//  create and return a new pokemon which is the baby of the parent chosen in breed()
+		//  the baby will have the best IVs of the 2 parents
 		int healthIV;
 		int attackIV;
 		int defenseIV;
@@ -706,17 +708,12 @@ public class Main {
 			speedIV = oldOne.getSpeedIV();
 		else
 			speedIV = oldTwo.getSpeedIV();
-		if (num < numTwo) {
-			p.getPC().remove(numTwo - 1);
-			p.getPC().remove(num - 1);
-		} else {
-			p.getPC().remove(num - 1);
-			p.getPC().remove(numTwo - 1);
-		}
 		return new OwnedPokemon(pokemon, healthIV, attackIV, defenseIV, specialAttackIV, specialDefenseIV, speedIV);
 	}
 
 	private static Pokemon getBabyPokemon(ArrayList<Pokemon> pokedex, OwnedPokemon poke) {
+		// search the pokedex for the first stage of the chosen parent pokemon and return it
+		// the other return isn't necessary but it's just there because "the if statement might fail and thus the first return may never happen"
 		for (int i = 0; i < pokedex.size(); i++)
 			if (poke.getPokemon().getEvolutionTree()[0].equals(pokedex.get(i).getName()))
 				return pokedex.get(i);
@@ -826,12 +823,13 @@ public class Main {
 								System.out.println("Each level-up has a point-cost equal to the Pokemon's current level.");
 								boolean finished = false;
 								while (!finished) {
-									System.out.println("A level-up for this Pokemon will cost you " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
+									System.out.println("A level-up for this " + p.getPC().get(num - 1).getName() + " will cost you " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
 									System.out.println("Enter \"1\" to level up or enter \"0\" to go back to the main menu.");
 									System.out.println();
 									if (input.hasNext())
 										switch (input.nextLine()) {
 										case "1":
+											// if the user does want to level up the pokemon, check if they have enough points to do so
 											boolean enough = true;
 											switch (typePoints) {
 											case "Tier 1 Points":
@@ -856,6 +854,7 @@ public class Main {
 												break;
 											}
 											if (enough)
+												// if the user has enough points to level up their pokemon and the pokemon isn't level 100 yet, spend the points and level up the pokemon
 												if (p.getPC().get(num - 1).getLevel() < 100) {
 													System.out.println();
 													switch (typePoints) {
@@ -878,6 +877,7 @@ public class Main {
 													p.getPC().get(num - 1).levelUp();
 													System.out.println("Your " + p.getPC().get(num - 1).getName() + " is now level " + p.getPC().get(num - 1).getLevel());
 													if (p.getPC().get(num - 1).getLevel() > p.getPC().get(num - 1).getPokemon().getEvolutionLevel() && p.getPC().get(num - 1).getPokemon().getEvolutionLevel() != 0 && p.getPC().get(num - 1).getPokemon().getEvolutionLevel() != -1) {
+														// if the pokemon's evolution level is reached, add its evolution with everything exactly the same as the original to the PC and remove the old one
 														Pokemon poke = p.getPC().get(num - 1).getPokemon();
 														for (int i = 0; i < pokedex.size(); i++) {
 															if (pokedex.get(i).getName().equals(p.getPC().get(num - 1).getPokemon().getEvolutionTree()[p.getPC().get(num - 1).getPokemon().getEvolutionStage() + 1]))
@@ -886,8 +886,10 @@ public class Main {
 														p.catchPokemon(new OwnedPokemon(p.getPC().get(num - 1), poke));
 														String oldName = p.getPC().get(num - 1).getName();
 														p.getPC().remove(num - 1);
-														System.out.println("Congratulations, your " + oldName + " has evolved into a " + p.getPC().get(p.getPC().size() - 1).getName() + "!");
+														System.out.println("Congratulations, your " + oldName + " has evolved into a " + poke.getName() + "!");
 													}
+													// re-sort pc because levels changed and pokemon position could have changed if it evolved
+													p.sortPC();
 													System.out.println();
 												} else {
 													System.out.println();
@@ -898,7 +900,7 @@ public class Main {
 												}
 											else {
 												System.out.println();
-												System.out.println("Leveling up this Pokemon costs " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
+												System.out.println("Leveling up this " + p.getPC().get(num - 1).getName() + " costs " + p.getPC().get(num - 1).getLevel() + " " + typePoints);
 												System.out.println("You do not have enough " + typePoints + " to level up this Pokemon");
 												System.out.println();
 												finished = true;
