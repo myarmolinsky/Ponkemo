@@ -7,20 +7,29 @@ public class Main {
 		Scanner input = new Scanner(System.in);
 		ArrayList<Pokemon> pokedex = new ArrayList<>();
 		fillPossibilities(pokedex);
-		boolean choosing = false;
+		// fill pokedex with all pokemon
+		boolean finished = false;
 		Player p = new Player();
-		while(!choosing) {
+		while(!finished) {
+			// while not finished, prompt user if they would like to load a new or old save
 			System.out.println("Would you like to access a new save or a old save?");
 			System.out.println("1) New");
 			System.out.println("2) Old");
 			System.out.println();
 			switch(input.nextLine()){
 			case "1":
-				choosing = true;
+				// if the user chooses to load a new save, just keep the preinitialized new player object and set finished to true
+				finished = true;
 				System.out.println();
 				break;
 			case "2":
-				choosing = true;
+				/*
+				 * if the user chooses to load an old save, attempt to access the saves.ser file where player data is saved
+				 * if the file exists, set the player object to the one read from the file
+				 * if the file does not exist, just keep the preinitialized new player object
+				 * set finished to true when done
+				 */
+				finished = true;
 				try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("saves.ser"));){
 					p = (Player) ois.readObject();
 				} catch (Exception e) {
@@ -35,11 +44,17 @@ public class Main {
 			}
 		}
 		int[] spawnRateCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-		boolean finished = false;
+		/* 
+		 * there are currently 33 different spawn rates, and thus 33 different indexes in the array, one for each spawn rate.
+		 * this will be further explained in the search method
+		 */
+		finished = false;
+		// reset finished to false
 		//		p.catchPokemon(new OwnedPokemon(pokedex.get(28)));
 		//		p.catchPokemon(new OwnedPokemon(pokedex.get(132)));
 		//		p.addTier4(600);
 		while(!finished) {
+			// while not finished, prompt user what action they would like to take.  User is not finished until they quit
 			System.out.println("Input the number corresponding to your choice:");
 			System.out.println("1) Search for Pokemon");
 			System.out.println("2) View/Edit Owned Pokemon");
@@ -108,6 +123,7 @@ public class Main {
 	}
 
 	private static void fillPossibilities(ArrayList<Pokemon> pokedex) {
+		// add every pokemon to the pokedex
 		pokedex.add(new Pokemon("Bulbasaur", "Grass", "Poison", 45, 49, 49, 65, 65, 45, 27, new String[] {"Monster", "Grass"}, 87.5, new String[] {"Bulbasaur", "Ivysaur", "Venusaur"}, 0, 16));
 		pokedex.add(new Pokemon("Ivysaur", "Grass", "Poison", 60, 62, 63, 80, 80, 60, 27, new String[] {"Monster", "Grass"}, 87.5, new String[] {"Bulbasaur", "Ivysaur", "Venusaur"}, 1, 32));
 		pokedex.add(new Pokemon("Venusaur", "Grass", "Poison", 80, 82, 83, 100, 100, 80, 27, new String[] {"Monster", "Grass"}, 87.5, new String[] {"Bulbasaur", "Ivysaur", "Venusaur"}, 2, 0));
@@ -264,6 +280,7 @@ public class Main {
 	private static void sortPC(Player p, Scanner input) {
 		boolean finished = false;
 		while(!finished) {
+			// while not finished, prompt user how they would like to sort their pc.  By default, the pc is sorted in Descending IV Percentage order
 			System.out.println("How would you like your PC to be sorted?");
 			System.out.println("1) Real Name Order");
 			System.out.println("2) Nickname Order");
@@ -308,6 +325,11 @@ public class Main {
 	}
 
 	private static void printOwnedPokemon(Player p, int startPCIndex, int endPCIndex) {
+		/*
+		 * go through the user's pc and print every pokemon starting from the startPCIndex and ending right before endPCIndex
+		 * this allows a page limit so that the user isn't flooded with pokemon
+		 * if a pokemon is marked as favorite, it will be printed with [FAVORITE] next to it
+		 */
 		System.out.println("Your Pokemon:");
 		for (int i = startPCIndex; i < p.getPC().size() && i < endPCIndex; i++)
 			if (p.getPC().get(i).getNickname().equals(p.getPC().get(i).getName()))
@@ -334,16 +356,17 @@ public class Main {
 
 	private static void search(ArrayList<Pokemon> pokedex, Player p, int[] spawnRateCounter) {
 		int rand = new Random().nextInt(20);
+		// there is a 1 in 20 chance that the user catches nothing
 		if (rand == 0) {
 			System.out.println("You found nothing. :(");
 			System.out.println();
-		}
-		else {
+		} else {
 			rand = new Random().nextInt(pokedex.size());
 			if(spawnRateCounter[pokedex.get(rand).getSpawnRate()] != pokedex.get(rand).getSpawnRate()) {
-				// check if spawn rate of the pokemon has been reached
-				// (the rare the pokemon, the higher the the number required to be reached)
-				// if the spawn rate has not been reached, increment by 1 and re-search
+				/* check if spawn rate of the pokemon has been reached
+				 * (the rarer the pokemon, the higher the the number required to be reached)
+				 * if the spawn rate has not been reached, increment by 1 and re-search
+				 */
 				spawnRateCounter[pokedex.get(rand).getSpawnRate()]++;
 				search(pokedex, p, spawnRateCounter);
 			} else {
@@ -359,12 +382,13 @@ public class Main {
 	private static void viewOwnedPokemon(Player p, Scanner input) {
 		boolean done = false;
 		int startPCIndex = 0;
-		int endPCIndex = 25;
+		int pageLimit = 25;
+		int endPCIndex = pageLimit;
 		String temp;
 		while (!done) {
 			printOwnedPokemon(p, startPCIndex, endPCIndex);
 			System.out.println("Enter the number corresponding to a Pokemon in your PC to view it or enter \"0\" to go back to the main menu.");
-			System.out.println("To see the next 25 pokemon in your pc, enter \"next\" or to see the previous 25 pokemon in your pc, enter \"previous\"");
+			System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
 			System.out.println();
 			if (input.hasNext()) {
 				temp = input.nextLine();		
@@ -373,14 +397,14 @@ public class Main {
 						System.out.println();
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
-					} else if (temp.equals("next") && endPCIndex + 25 - p.getPC().size() < 25) {
+					} else if (temp.equals("next") && endPCIndex + pageLimit - p.getPC().size() < pageLimit) {
 						System.out.println();
-						startPCIndex += 25;
-						endPCIndex += 25;
-					} else if (temp.equals("previous") && startPCIndex - 25 >= 0) {
+						startPCIndex += pageLimit;
+						endPCIndex += pageLimit;
+					} else if (temp.equals("previous") && startPCIndex - pageLimit >= 0) {
 						System.out.println();
-						startPCIndex -= 25;
-						endPCIndex -= 25;
+						startPCIndex -= pageLimit;
+						endPCIndex -= pageLimit;
 					} else {
 						System.out.println();
 						System.out.println("You have reached the limits of your PC.");
@@ -392,114 +416,117 @@ public class Main {
 						System.out.println();
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
-					} else
-						if (num != 0) {
+					} else if (num != 0) {
+						// print the selected pokemon using its toString() method and ask the user if they want to nickname the pokemon, add the pokemon to favorites, and, finally, if they would like to view another pokemon
+						System.out.println();
+						System.out.println(p.getPC().get(num - 1));
+						System.out.println();
+						boolean repeat = false;
+						while (!repeat) {
+							System.out.println("Would you like to change this Pokemon's nickname?");
+							System.out.println("1) Yes");
+							System.out.println("2) No");
 							System.out.println();
-							System.out.println(p.getPC().get(num - 1));
-							System.out.println();
-							boolean repeat = false;
-							while (!repeat) {
-								System.out.println("Would you like to change this Pokemon's nickname?");
-								System.out.println("1) Yes");
-								System.out.println("2) No");
-								System.out.println();
-								if (input.hasNext())
-									switch (input.nextLine()) {
-									case "1":
+							if (input.hasNext())
+								switch (input.nextLine()) {
+								case "1":
+									System.out.println();
+									while (!repeat) {
+										System.out.println("What would you like it's nickname to be? (Nicknames must be at least 1 character and a maximum of 20 characters long)");
 										System.out.println();
-										while (!repeat) {
-											System.out.println("What would you like it's nickname to be? (Nicknames must be at least 1 character and a maximum of 20 characters long)");
+										if (input.hasNext())
+											temp = input.nextLine();
+										if (temp.length() > 20) {
 											System.out.println();
-											if (input.hasNext())
-												temp = input.nextLine();
-											if (temp.length() > 20) {
-												System.out.println();
-												System.out.println("The name you have input is either less than 1 character ir longer than 20 characters");
-												System.out.println();
-											} else {
-												p.getPC().get(num - 1).setNickname(temp);
-												System.out.println();
-												System.out.println("Your " + p.getPC().get(num - 1).getPokemon().getName() + " nickname is now " + temp + ".");
-												repeat = true;
-											}
+											System.out.println("The name you have input is either less than 1 character ir longer than 20 characters");
+											System.out.println();
+										} else {
+											p.getPC().get(num - 1).setNickname(temp);
+											System.out.println();
+											System.out.println("Your " + p.getPC().get(num - 1).getPokemon().getName() + " nickname is now " + temp + ".");
+											repeat = true;
 										}
-										System.out.println();
-										break;
-									case "2":
-										System.out.println();
-										repeat = true;
-										break;
-									default:
-										System.out.println();
-										System.out.println("Input does not match an available choice.");
-										System.out.println();
 									}
-							}
-							repeat = false;
-							while (!repeat) {
-								System.out.println("Would you like to toggle this Pokemon's \"Favorite\" status?");
-								System.out.println("1) Yes");
-								System.out.println("2) No");
-								System.out.println();
-								if (input.hasNext())
-									switch (input.nextLine()) {
-									case "1":
-										System.out.println();
-										p.getPC().get(num - 1).toggleFavorite();
-										repeat = true;
-										break;
-									case "2":
-										System.out.println();
-										repeat = true;
-										break;
-									default:
-										System.out.println();
-										System.out.println("Input does not match an available choice.");
-										System.out.println();
-									}
-							}
-							repeat = false;
-							while (!repeat) {
-								System.out.println("Would you like to view another Pokemon?");
-								System.out.println("1) Yes");
-								System.out.println("2) No");
-								System.out.println();
-								if (input.hasNext())
-									switch (input.nextLine()) {
-									case "1":
-										System.out.println();
-										repeat = true;
-										break;
-									case "2":
-										System.out.println();
-										done = true;
-										repeat = true;
-										break;
-									default:
-										System.out.println();
-										System.out.println("Input does not match an available choice.");
-										System.out.println();
-									}
-							}
-						} else {
-							System.out.println();
-							done = true;
+									System.out.println();
+									break;
+								case "2":
+									System.out.println();
+									repeat = true;
+									break;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								}
 						}
+						repeat = false;
+						while (!repeat) {
+							System.out.println("Would you like to toggle this Pokemon's \"Favorite\" status?");
+							System.out.println("1) Yes");
+							System.out.println("2) No");
+							System.out.println();
+							if (input.hasNext())
+								switch (input.nextLine()) {
+								case "1":
+									System.out.println();
+									p.getPC().get(num - 1).toggleFavorite();
+									repeat = true;
+									break;
+								case "2":
+									System.out.println();
+									repeat = true;
+									break;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								}
+						}
+						repeat = false;
+						while (!repeat) {
+							System.out.println("Would you like to view another Pokemon?");
+							System.out.println("1) Yes");
+							System.out.println("2) No");
+							System.out.println();
+							if (input.hasNext())
+								switch (input.nextLine()) {
+								case "1":
+									System.out.println();
+									repeat = true;
+									break;
+								case "2":
+									System.out.println();
+									done = true;
+									repeat = true;
+									break;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								}
+						}
+					} else {
+						System.out.println();
+						done = true;
+					}
 				}
 			}
 		}
+		// sort the pc because newly favorited pokemon need to be prioritized with the other favorited pokemon
 		p.sortPC();
 	}
 
 	private static void breed(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
+		// user selects 2 pokemon to breed.  they can only breed if they share an egg group and are opposite genders (or both genderless)
 		boolean done = false;
 		int startPCIndex = 0;
-		int endPCIndex = 25;
+		int pageLimit = 25;
+		int endPCIndex = pageLimit;
 		String temp;
 		while (!done) {
 			printOwnedPokemon(p, startPCIndex, endPCIndex);
 			System.out.println("Enter the number corresponding to the first Pokemon you would like to breed, or enter \"0\" to go back to the previos menu.");
-			System.out.println("To see the next 25 pokemon in your pc, enter \"next\" or to see the previous 25 pokemon in your pc, enter \"previous\"");
+			System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
 			System.out.println();
 			if (input.hasNext()) {
 				temp = input.nextLine();
@@ -508,12 +535,12 @@ public class Main {
 						System.out.println();
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
-					} else if (temp.equals("next") && endPCIndex + 25 - p.getPC().size() < 25) {
-						startPCIndex += 25;
-						endPCIndex += 25;
-					} else if (temp.equals("previous") && startPCIndex - 25 >= 0) {
-						startPCIndex -= 25;
-						endPCIndex -= 25;
+					} else if (temp.equals("next") && endPCIndex + pageLimit - p.getPC().size() < pageLimit) {
+						startPCIndex += pageLimit;
+						endPCIndex += pageLimit;
+					} else if (temp.equals("previous") && startPCIndex - pageLimit >= 0) {
+						startPCIndex -= pageLimit;
+						endPCIndex -= pageLimit;
 					} else {
 						System.out.println();
 						System.out.println("You have reached the limits of your PC.");
@@ -525,16 +552,30 @@ public class Main {
 						System.out.println();
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
-					} else {
-						if (num != 0) {
-							System.out.println();
+					} else if (num != 0) {
+						boolean finished = false;
+						while (!finished) {
+							printOwnedPokemon(p, startPCIndex, endPCIndex);
 							System.out.println("Enter the number corresponding to the second Pokemon you would like to breed, or enter \"0\" to go back to the main menu.");
+							System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
 							System.out.println();
 							temp = input.nextLine();
 							if (!isNumeric(temp)) {
-								System.out.println();
-								System.out.println("Input does not match an available choice.");
-								System.out.println();
+								if (!temp.equals("next") && !temp.equals("previous")) {
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								} else if (temp.equals("next") && endPCIndex + pageLimit - p.getPC().size() < pageLimit) {
+									startPCIndex += pageLimit;
+									endPCIndex += pageLimit;
+								} else if (temp.equals("previous") && startPCIndex - pageLimit >= 0) {
+									startPCIndex -= pageLimit;
+									endPCIndex -= pageLimit;
+								} else {
+									System.out.println();
+									System.out.println("You have reached the limits of your PC.");
+									System.out.println();
+								}
 							} else {
 								int numTwo = Integer.parseInt(temp);
 								if (numTwo < 0 || numTwo > p.getPC().size() || num == numTwo) {
@@ -577,6 +618,7 @@ public class Main {
 													System.out.println("Congratulations on your newly bred Pokemon!");
 													System.out.println();
 													done = true;
+													finished = true;
 												}
 											if (!ditto)
 												for (int i = 0; i < oldTwo.getEggGroup().length; i++)
@@ -588,6 +630,7 @@ public class Main {
 														System.out.println("Congratulations on your newly bred Pokemon!");
 														System.out.println();
 														done = true;
+														finished = true;
 													}
 											if (!ditto)
 												if (oldOne.getGender().equals("genderless")) {
@@ -599,6 +642,7 @@ public class Main {
 														System.out.println("Congratulations on your newly bred Pokemon!");
 														System.out.println();
 														done = true;
+														finished = true;
 													} else {
 														pokemon = getBabyPokemon(pokedex, oldTwo);
 														p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
@@ -606,6 +650,7 @@ public class Main {
 														System.out.println("Congratulations on your newly bred Pokemon!");
 														System.out.println();
 														done = true;
+														finished = true;
 													}
 												} else
 													if (oldOne.getGender().equals("Female")) {
@@ -618,6 +663,7 @@ public class Main {
 																System.out.println("Congratulations on your newly bred Pokemon!");
 																System.out.println();
 																done = true;
+																finished = true;
 															} else {
 																pokemon = pokedex.get(31);
 																p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
@@ -625,6 +671,7 @@ public class Main {
 																System.out.println("Congratulations on your newly bred Pokemon!");
 																System.out.println();
 																done = true;
+																finished = true;
 															}
 														} else {
 															pokemon = getBabyPokemon(pokedex, oldOne);
@@ -633,6 +680,7 @@ public class Main {
 															System.out.println("Congratulations on your newly bred Pokemon!");
 															System.out.println();
 															done = true;
+															finished = true;
 														}
 													} else {
 														if (oldTwo.getName().equals("NidoranF") || oldTwo.getName().equals("Nidorina") || oldTwo.getName().equals("Nidoqueen")) {
@@ -644,6 +692,7 @@ public class Main {
 																System.out.println("Congratulations on your newly bred Pokemon!");
 																System.out.println();
 																done = true;
+																finished = true;
 															} else {
 																pokemon = pokedex.get(31);
 																p.catchPokemon(createBabyPokemon(p, pokedex, num, numTwo, oldOne, oldTwo, pokemon));
@@ -651,6 +700,7 @@ public class Main {
 																System.out.println("Congratulations on your newly bred Pokemon!");
 																System.out.println();
 																done = true;
+																finished = true;
 															}
 														} else {
 															pokemon = getBabyPokemon(pokedex, oldTwo);
@@ -659,6 +709,7 @@ public class Main {
 															System.out.println("Congratulations on your newly bred Pokemon!");
 															System.out.println();
 															done = true;
+															finished = true;
 														}
 													}
 										} else {
@@ -666,16 +717,18 @@ public class Main {
 											System.out.println("These two Pokemon are not breedable.");
 											System.out.println();
 											done = true;
+											finished = true;
 										}
 									} else {
 										System.out.println();
 										done = true;
+										finished = true;
 									}
 							}
-						} else {
-							System.out.println();
-							done = true;
 						}
+					} else {
+						System.out.println();
+						done = true;
 					}
 				}
 			}
@@ -790,13 +843,14 @@ public class Main {
 	private static void levelUp(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
 		boolean done = false;
 		int startPCIndex = 0;
-		int endPCIndex = 25;
+		int pageLimit = 25;
+		int endPCIndex = pageLimit;
 		String temp;
 		while (!done) {
 			printOwnedPokemon(p, startPCIndex, endPCIndex);
 			System.out.println("Choose the pokemon you want to level up.");
 			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
-			System.out.println("To see the next 25 pokemon in your pc, enter \"next\" or to see the previous 25 pokemon in your pc, enter \"previous\"");
+			System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
 			System.out.println();
 			if (input.hasNext()) {
 				temp = input.nextLine();		
@@ -805,14 +859,14 @@ public class Main {
 						System.out.println();
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
-					} else if (temp.equals("next") && endPCIndex + 25 - p.getPC().size() < 25) {
+					} else if (temp.equals("next") && endPCIndex + pageLimit - p.getPC().size() < pageLimit) {
 						System.out.println();
-						startPCIndex += 25;
-						endPCIndex += 25;
-					} else if (temp.equals("previous") && startPCIndex - 25 >= 0) {
+						startPCIndex += pageLimit;
+						endPCIndex += pageLimit;
+					} else if (temp.equals("previous") && startPCIndex - pageLimit >= 0) {
 						System.out.println();
-						startPCIndex -= 25;
-						endPCIndex -= 25;
+						startPCIndex -= pageLimit;
+						endPCIndex -= pageLimit;
 					} else {
 						System.out.println();
 						System.out.println("You have reached the limits of your PC.");
@@ -936,13 +990,14 @@ public class Main {
 	private static void evolve(Player p, Scanner input, ArrayList<Pokemon> pokedex) {
 		boolean done = false;
 		int startPCIndex = 0;
-		int endPCIndex = 25;
+		int pageLimit = 25;
+		int endPCIndex = pageLimit;
 		String temp;
 		while (!done) {
 			printOwnedPokemon(p, startPCIndex, endPCIndex);
 			System.out.println("Choose the pokemon you want to evolve.");
 			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
-			System.out.println("To see the next 25 pokemon in your pc, enter \"next\" or to see the previous 25 pokemon in your pc, enter \"previous\"");
+			System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
 			System.out.println();
 			if (input.hasNext()) {
 				temp = input.nextLine();		
@@ -951,14 +1006,14 @@ public class Main {
 						System.out.println();
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
-					} else if (temp.equals("next") && endPCIndex + 25 - p.getPC().size() < 25) {
+					} else if (temp.equals("next") && endPCIndex + pageLimit - p.getPC().size() < pageLimit) {
 						System.out.println();
-						startPCIndex += 25;
-						endPCIndex += 25;
-					} else if (temp.equals("previous") && startPCIndex - 25 >= 0) {
+						startPCIndex += pageLimit;
+						endPCIndex += pageLimit;
+					} else if (temp.equals("previous") && startPCIndex - pageLimit >= 0) {
 						System.out.println();
-						startPCIndex -= 25;
-						endPCIndex -= 25;
+						startPCIndex -= pageLimit;
+						endPCIndex -= pageLimit;
 					} else {
 						System.out.println();
 						System.out.println("You have reached the limits of your PC.");
@@ -1130,13 +1185,14 @@ public class Main {
 	private static void evTrain(Player p, Scanner input) {
 		boolean done = false;
 		int startPCIndex = 0;
-		int endPCIndex = 25;
+		int pageLimit = 25;
+		int endPCIndex = pageLimit;
 		String temp;
 		while (!done) {
 			printOwnedPokemon(p, startPCIndex, endPCIndex);
 			System.out.println("Choose a Pokemon to EV Train.");
 			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
-			System.out.println("To see the next 25 pokemon in your pc, enter \"next\" or to see the previous 25 pokemon in your pc, enter \"previous\"");
+			System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
 			System.out.println();
 			if (input.hasNext()) {
 				temp = input.nextLine();		
@@ -1145,14 +1201,14 @@ public class Main {
 						System.out.println();
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
-					} else if (temp.equals("next") && endPCIndex + 25 - p.getPC().size() < 25) {
+					} else if (temp.equals("next") && endPCIndex + pageLimit - p.getPC().size() < pageLimit) {
 						System.out.println();
-						startPCIndex += 25;
-						endPCIndex += 25;
-					} else if (temp.equals("previous") && startPCIndex - 25 >= 0) {
+						startPCIndex += pageLimit;
+						endPCIndex += pageLimit;
+					} else if (temp.equals("previous") && startPCIndex - pageLimit >= 0) {
 						System.out.println();
-						startPCIndex -= 25;
-						endPCIndex -= 25;
+						startPCIndex -= pageLimit;
+						endPCIndex -= pageLimit;
 					} else {
 						System.out.println();
 						System.out.println("You have reached the limits of your PC.");
@@ -1460,14 +1516,15 @@ public class Main {
 	private static void resetEVs(Player p, Scanner input) {
 		boolean done = false;
 		int startPCIndex = 0;
-		int endPCIndex = 25;
+		int pageLimit = 25;
+		int endPCIndex = pageLimit;
 		String temp;
 		while (!done) {
 			printOwnedPokemon(p, startPCIndex, endPCIndex);
 			System.out.println("Choose a Pokemon whose EVs you would like to reset.");
 			System.out.println("NOTE: YOU WILL NOT BE REFUNDED THE POINTS SPENT IN GETTING THE RESET EVS");
 			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
-			System.out.println("To see the next 25 pokemon in your pc, enter \"next\" or to see the previous 25 pokemon in your pc, enter \"previous\"");
+			System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
 			System.out.println();
 			if (input.hasNext()) {
 				temp = input.nextLine();
@@ -1476,14 +1533,14 @@ public class Main {
 						System.out.println();
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
-					} else if (temp.equals("next") && endPCIndex + 25 - p.getPC().size() < 25) {
+					} else if (temp.equals("next") && endPCIndex + pageLimit - p.getPC().size() < pageLimit) {
 						System.out.println();
-						startPCIndex += 25;
-						endPCIndex += 25;
-					} else if (temp.equals("previous") && startPCIndex - 25 >= 0) {
+						startPCIndex += pageLimit;
+						endPCIndex += pageLimit;
+					} else if (temp.equals("previous") && startPCIndex - pageLimit >= 0) {
 						System.out.println();
-						startPCIndex -= 25;
-						endPCIndex -= 25;
+						startPCIndex -= pageLimit;
+						endPCIndex -= pageLimit;
 					} else {
 						System.out.println();
 						System.out.println("You have reached the limits of your PC.");
@@ -1564,13 +1621,14 @@ public class Main {
 	private static void changeNature(Player p, Scanner input) {
 		boolean done = false;
 		int startPCIndex = 0;
-		int endPCIndex = 25;
+		int pageLimit = 25;
+		int endPCIndex = pageLimit;
 		String temp;
 		while (!done) {
 			printOwnedPokemon(p, startPCIndex, endPCIndex);
 			System.out.println("Choose the pokemon whose nature you want to change.");
 			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
-			System.out.println("To see the next 25 pokemon in your pc, enter \"next\" or to see the previous 25 pokemon in your pc, enter \"previous\"");
+			System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
 			System.out.println();
 			if (input.hasNext()) {
 				temp = input.nextLine();
@@ -1579,14 +1637,14 @@ public class Main {
 						System.out.println();
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
-					} else if (temp.equals("next") && endPCIndex + 25 - p.getPC().size() < 25) {
+					} else if (temp.equals("next") && endPCIndex + pageLimit - p.getPC().size() < pageLimit) {
 						System.out.println();
-						startPCIndex += 25;
-						endPCIndex += 25;
-					} else if (temp.equals("previous") && startPCIndex - 25 >= 0) {
+						startPCIndex += pageLimit;
+						endPCIndex += pageLimit;
+					} else if (temp.equals("previous") && startPCIndex - pageLimit >= 0) {
 						System.out.println();
-						startPCIndex -= 25;
-						endPCIndex -= 25;
+						startPCIndex -= pageLimit;
+						endPCIndex -= pageLimit;
 					} else {
 						System.out.println();
 						System.out.println("You have reached the limits of your PC.");
@@ -1844,13 +1902,14 @@ public class Main {
 	private static void recycle(Player p, Scanner input) {
 		boolean done = false;
 		int startPCIndex = 0;
-		int endPCIndex = 25;
+		int pageLimit = 25;
+		int endPCIndex = pageLimit;
 		String temp;
 		while (!done) {
 			printOwnedPokemon(p, startPCIndex, endPCIndex);
 			System.out.println("Choose a Pokemon to recycle.");
 			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
-			System.out.println("To see the next 25 pokemon in your pc, enter \"next\" or to see the previous 25 pokemon in your pc, enter \"previous\"");
+			System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
 			System.out.println();
 			if (input.hasNext()) {
 				temp = input.nextLine();
@@ -1859,14 +1918,14 @@ public class Main {
 						System.out.println();
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
-					} else if (temp.equals("next") && endPCIndex + 25 - p.getPC().size() < 25) {
+					} else if (temp.equals("next") && endPCIndex + pageLimit - p.getPC().size() < pageLimit) {
 						System.out.println();
-						startPCIndex += 25;
-						endPCIndex += 25;
-					} else if (temp.equals("previous") && startPCIndex - 25 >= 0) {
+						startPCIndex += pageLimit;
+						endPCIndex += pageLimit;
+					} else if (temp.equals("previous") && startPCIndex - pageLimit >= 0) {
 						System.out.println();
-						startPCIndex -= 25;
-						endPCIndex -= 25;
+						startPCIndex -= pageLimit;
+						endPCIndex -= pageLimit;
 					} else {
 						System.out.println();
 						System.out.println("You have reached the limits of your PC.");
