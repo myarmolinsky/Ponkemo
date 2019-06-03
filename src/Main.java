@@ -23,7 +23,7 @@ public class Main {
 				break;
 			case "2":
 				// if the user chooses to load an old save, attempt to access the saves.ser file where player data is saved
-				//if the file exists, set the player object to the one read from the file
+				// if the file exists, set the player object to the one read from the file
 				// if the file does not exist, just keep the preinitialized new player object
 				// set finished to true when done
 				finished = true;
@@ -58,10 +58,11 @@ public class Main {
 			System.out.println("4) Breed Pokemon");
 			System.out.println("5) Train Pokemon");
 			System.out.println("6) Recycle Pokemon");
-			System.out.println("7) View Player Data");
-			System.out.println("8) Save");
-			System.out.println("9) Save Quit");
-			System.out.println("10) Quit");
+			System.out.println("7) Convert Points");
+			System.out.println("8) View Player Data");
+			System.out.println("9) Save");
+			System.out.println("10) Save Quit");
+			System.out.println("11) Quit");
 			System.out.println();
 			switch(input.nextLine()){
 			case "1":
@@ -90,21 +91,25 @@ public class Main {
 				break;
 			case "7":
 				System.out.println();
-				printPlayerData(p);
+				convertPoints(p, input);
 				break;
 			case "8":
+				System.out.println();
+				printPlayerData(p);
+				break;
+			case "9":
 				System.out.println();
 				System.out.println("Saving ...");
 				System.out.println();
 				save(p);
 				break;
-			case "9":
+			case "10":
 				finished = true;
 				System.out.println();
 				System.out.println("Saving and Quitting ...");
 				save(p);
 				break;
-			case "10":
+			case "11":
 				finished = true;
 				System.out.println();
 				System.out.println("Quitting ...");
@@ -316,25 +321,6 @@ public class Main {
 			}
 		}
 		System.out.println("PC Re-Sorted");
-		System.out.println();
-	}
-
-	private static void printOwnedPokemon(Player p, int startPCIndex, int endPCIndex) {
-		// go through the user's pc and print every pokemon starting from the startPCIndex and ending right before endPCIndex
-		// this allows a page limit so that the user isn't flooded with pokemon
-		// if a pokemon is marked as favorite, it will be printed with [FAVORITE] next to it
-		System.out.println("Your Pokemon:");
-		for (int i = startPCIndex; i < p.getPC().size() && i < endPCIndex; i++)
-			if (p.getPC().get(i).getNickname().equals(p.getPC().get(i).getName()))
-				if (p.getPC().get(i).isFavorite())
-					System.out.println(i + 1 + ") " + p.getPC().get(i).getNickname() + " [FAVORITE]");
-				else
-					System.out.println(i + 1 + ") " + p.getPC().get(i).getNickname());
-			else
-				if (p.getPC().get(i).isFavorite())
-					System.out.println(i + 1 + ") " + p.getPC().get(i).getNickname() + " (" + p.getPC().get(i).getName() + ")" + " [FAVORITE]");
-				else
-					System.out.println(i + 1 + ") " + p.getPC().get(i).getNickname() + " (" + p.getPC().get(i).getName() + ")");
 		System.out.println();
 	}
 
@@ -2010,6 +1996,160 @@ public class Main {
 				}
 			}
 		}
+	}
+
+	private static void convertPoints(Player p, Scanner input) {
+		boolean done = false;
+		while (!done) {
+			System.out.println("You have:");
+			System.out.println(p.getTier1() + " Tier 1 Points");
+			System.out.println(p.getTier2() + " Tier 2 Points");
+			System.out.println(p.getTier3() + " Tier 3 Points");
+			System.out.println(p.getTier4() + " Tier 4 Points");
+			System.out.println(p.getTier5() + " Tier 5 Points");
+			System.out.println();
+			System.out.println("How would you like to convert your points?");
+			System.out.println("Input the number corresponding to your choice or enter \"0\" to go back to the main menu.");
+			System.out.println("1) 100 Tier 1 Points to 10 Tier 2 Points");
+			System.out.println("2) 100 Tier 2 Points to 10 Tier 3 Points");
+			System.out.println("3) 100 Tier 3 Points to 10 Tier 4 Points");
+			System.out.println("4) 100 Tier 4 Points to 10 Tier 5 Points");
+			System.out.println("5) 10 Tier 5 Points to 100 Tier 4 Points");
+			System.out.println("6) 10 Tier 4 Points to 100 Tier 3 Points");
+			System.out.println("7) 10 Tier 3 Points to 100 Tier 2 Points");
+			System.out.println("8) 10 Tier 2 Points to 100 Tier 1 Points");
+			System.out.println();
+			if (input.hasNext()) {
+				switch(input.nextLine()) {
+				case "1":
+					if (p.getTier1() >= 100) {
+						p.spendTier1(100);
+						p.addTier2(10);	
+					} else {
+						System.out.println();
+						System.out.println("You do not have enough Tier 1 Points to make this conversiuon.");
+						System.out.println();
+					}
+					break;
+				case "2":
+					if (p.getTier2() >= 100) {
+						p.spendTier2(100);
+						p.addTier3(10);	
+					} else {
+						System.out.println();
+						System.out.println("You do not have enough Tier 1 Points to make this conversiuon.");
+						System.out.println();
+					}
+					break;
+				case "3":
+					if (p.getTier3() >= 100) {
+						p.spendTier3(100);
+						p.addTier4(10);	
+					} else {
+						System.out.println();
+						System.out.println("You do not have enough Tier 1 Points to make this conversiuon.");
+						System.out.println();
+					}
+					break;
+				case "4":
+					if (p.getTier4() >= 100) {
+						p.spendTier4(100);
+						p.addTier5(10);	
+					} else {
+						System.out.println();
+						System.out.println("You do not have enough Tier 1 Points to make this conversiuon.");
+						System.out.println();
+					}
+					break;
+				case "5":
+					if (p.getTier5() >= 10) {
+						p.spendTier5(10);
+						p.addTier4(100);	
+					} else {
+						System.out.println();
+						System.out.println("You do not have enough Tier 1 Points to make this conversiuon.");
+						System.out.println();
+					}
+					break;
+				case "6":
+					if (p.getTier4() >= 10) {
+						p.spendTier4(10);
+						p.addTier3(100);	
+					} else {
+						System.out.println();
+						System.out.println("You do not have enough Tier 1 Points to make this conversiuon.");
+						System.out.println();
+					}
+					break;
+				case "7":
+					if (p.getTier3() >= 10) {
+						p.spendTier3(10);
+						p.addTier2(100);	
+					} else {
+						System.out.println();
+						System.out.println("You do not have enough Tier 1 Points to make this conversiuon.");
+						System.out.println();
+					}
+					break;
+				case "8":
+					if (p.getTier2() >= 10) {
+						p.spendTier2(10);
+						p.addTier1(100);	
+					} else {
+						System.out.println();
+						System.out.println("You do not have enough Tier 1 Points to make this conversiuon.");
+						System.out.println();
+					}
+					break;
+				case "0":
+					done = true;
+					break;
+				default:
+					System.out.println();
+					System.out.println("Input does not match an available choice.");
+					System.out.println();
+				}
+			}
+			if (!done) {
+				System.out.println("Would you like to continue converting points?");
+				System.out.println("1) Yes");
+				System.out.println("2) No");
+				System.out.println();
+				if (input.hasNext())
+					switch (input.nextLine()) {
+					case "1":
+						System.out.println();
+						break;
+					case "2":
+						System.out.println();
+						done = true;
+						break;
+					default:
+						System.out.println();
+						System.out.println("Input does not match an available choice.");
+						System.out.println();
+					}
+			}
+		}
+	}
+
+	private static void printOwnedPokemon(Player p, int startPCIndex, int endPCIndex) {
+		// go through the user's pc and print every pokemon starting from the startPCIndex and ending right before endPCIndex
+		// this allows a page limit so that the user isn't flooded with pokemon
+		// if a pokemon is marked as favorite, it will be printed with [FAVORITE] next to it
+		System.out.println("Your Pokemon:");
+		for (int i = startPCIndex; i < p.getPC().size() && i < endPCIndex; i++)
+			if (p.getPC().get(i).getNickname().equals(p.getPC().get(i).getName()))
+				if (p.getPC().get(i).isFavorite())
+					System.out.println(i + 1 + ") " + p.getPC().get(i).getNickname() + " [FAVORITE]");
+				else
+					System.out.println(i + 1 + ") " + p.getPC().get(i).getNickname());
+			else
+				if (p.getPC().get(i).isFavorite())
+					System.out.println(i + 1 + ") " + p.getPC().get(i).getNickname() + " (" + p.getPC().get(i).getName() + ")" + " [FAVORITE]");
+				else
+					System.out.println(i + 1 + ") " + p.getPC().get(i).getNickname() + " (" + p.getPC().get(i).getName() + ")");
+		System.out.println();
 	}
 
 	private static String chooseTypePoints(Player p, int num) {
