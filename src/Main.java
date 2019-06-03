@@ -350,8 +350,12 @@ public class Main {
 			} else {
 				// if spawn rate HAS been reached, give that pokemon to the player
 				spawnRateCounter[pokedex.get(rand).getSpawnRate()] = 0;
-				p.catchPokemon(new OwnedPokemon(pokedex.get(rand)));
-				System.out.println("You caught a " + pokedex.get(rand).getName() + "!");
+				OwnedPokemon op = new OwnedPokemon(pokedex.get(rand));
+				p.catchPokemon(op);
+				if (op.isShiny())
+					System.out.println("You caught a SHINY " + pokedex.get(rand).getName() + "!");
+				else
+					System.out.println("You caught a " + pokedex.get(rand).getName() + "!");
 				System.out.println();
 			}
 		}
