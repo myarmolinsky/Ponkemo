@@ -976,11 +976,14 @@ public class Main {
 					} else
 						if (num != 0)
 							if (p.getPC().get(num - 1).getPokemon().getEvolutionLevel() == -1) {
+								// Pokemon who evolve via special condition, such as evolution stone, trade, or friendship, have their evolution level set to -1
+								// if the Pokemon's evolution level is -1, it will cost the user 100 points corresponding to the Pokemon's tier to evolve the Pokemon
+								// as opposed to evolution via level-up, pokemon who evolve via special condition can be evolved whenever the user wants to evolve them as long as the user has enough points corresponing to the Pokemon's tier
 								String typePoints = chooseTypePoints(p, num);
 								System.out.println();
 								boolean finished = false;
 								while (!finished) {
-									System.out.println("Evolving this Pokemon will cost you 100 " + typePoints);
+									System.out.println("Evolving " + p.getPC().get(num - 1).getNickname() + " will cost you 100 " + typePoints);
 									System.out.println("Enter \"1\" to level up or enter \"0\" to go back to the main menu.");
 									System.out.println();
 									if (input.hasNext())
@@ -1010,7 +1013,11 @@ public class Main {
 												break;
 											}
 											if (enough) {
+												Pokemon poke;
+												OwnedPokemon op;
 												if (p.getPC().get(num - 1).getPokemon().getName().equals("Eevee")){
+													// Eevee is a special case in special condition evolutions because it itself can evolve into several different Pokemon
+													// so the user is given a choice of which Pokemon they would like to evolve their Eevee into
 													System.out.println();
 													boolean repeat = false;
 													while (!repeat) {
@@ -1020,15 +1027,18 @@ public class Main {
 														System.out.println("3) Flareon");
 														System.out.println("Enter \"0\" to go back to the main menu.");
 														System.out.println();
-														Pokemon poke = p.getPC().get(num - 1).getPokemon();
+														poke = p.getPC().get(num - 1).getPokemon();
 														if (input.hasNext())
 															switch (input.nextLine()) {
 															case "1":
 																System.out.println();
 																p.spendTier4(100);
-																poke = new Pokemon("Vaporeon", "Water", null, 130, 65, 60, 110, 95, 65, 27, new String[] {"Field"}, 87.5, new String[] {"Eevee", "Vaporeon"}, 1, 0);
-																p.catchPokemon(new OwnedPokemon(p.getPC().get(num - 1), poke));
+																poke = pokedex.get(133);
+																op = new OwnedPokemon(p.getPC().get(num - 1), poke);
+																// remove the old Pokemon
 																p.getPC().remove(num - 1);
+																// catch the newly evolved version of it which is exactly the same except for the Pokemon data member
+																p.catchPokemon(op);
 																System.out.println("Congratulations, your Eevee has evolved into a Vaporeon!");
 																done = true;
 																finished = true;
@@ -1037,9 +1047,10 @@ public class Main {
 															case "2":
 																System.out.println();
 																p.spendTier4(100);
-																poke = new Pokemon("Jolteon", "Electric", null, 65, 65, 60, 110, 95, 130, 27, new String[] {"Field"}, 87.5, new String[] {"Eevee", "Jolteon"}, 1, 0);
-																p.catchPokemon(new OwnedPokemon(p.getPC().get(num - 1), poke));
+																poke = pokedex.get(134);
+																op = new OwnedPokemon(p.getPC().get(num - 1), poke);
 																p.getPC().remove(num - 1);
+																p.catchPokemon(op);
 																System.out.println("Congratulations, your Eevee has evolved into a Jolteon!");
 																done = true;
 																finished = true;
@@ -1048,9 +1059,10 @@ public class Main {
 															case "3":
 																System.out.println();
 																p.spendTier4(100);
-																poke = new Pokemon("Flareon", "Fire", null, 65, 130, 60, 95, 110, 65, 27, new String[] {"Field"}, 87.5, new String[] {"Eevee", "Flareon"}, 1, 0);
-																p.catchPokemon(new OwnedPokemon(p.getPC().get(num - 1), poke));
+																poke = pokedex.get(135);
+																op = new OwnedPokemon(p.getPC().get(num - 1), poke);
 																p.getPC().remove(num - 1);
+																p.catchPokemon(op);
 																System.out.println("Congratulations, your Eevee has evolved into a Flareon!");
 																done = true;
 																finished = true;
@@ -1069,40 +1081,66 @@ public class Main {
 														System.out.println();
 													}
 												} else {
-													System.out.println();
-													switch (typePoints) {
-													case "Tier 1 Points":
-														p.spendTier1(100);
-														break;
-													case "Tier 2 Points":
-														p.spendTier2(100);
-														break;
-													case "Tier 3 Points":
-														p.spendTier3(100);
-														break;
-													case "Tier 4 Points":
-														p.spendTier4(100);
-														break;
-													case "Tier 5 Points":
-														p.spendTier5(100);
-														break;
+													boolean repeat = false;
+													while (!repeat) {
+														System.out.println("Enter \"1\" to evolve " + p.getPC().get(num - 1).getName() + " or \"0\" to go back to the main menu.");
+														System.out.println();
+														if (input.hasNext()) {
+															switch (input.nextLine()) {
+															case "1":
+																System.out.println();
+																switch (typePoints) {
+																case "Tier 1 Points":
+																	p.spendTier1(100);
+																	break;
+																case "Tier 2 Points":
+																	p.spendTier2(100);
+																	break;
+																case "Tier 3 Points":
+																	p.spendTier3(100);
+																	break;
+																case "Tier 4 Points":
+																	p.spendTier4(100);
+																	break;
+																case "Tier 5 Points":
+																	p.spendTier5(100);
+																	break;
+																}
+																poke = p.getPC().get(num - 1).getPokemon();
+																for (int i = 0; i < pokedex.size(); i++) {
+																	// find the Pokemon the player's chosen Pokemon evolves into
+																	if (pokedex.get(i).getName().equals(p.getPC().get(num - 1).getPokemon().getEvolutionTree()[p.getPC().get(num - 1).getPokemon().getEvolutionStage() + 1]))
+																		poke = pokedex.get(i);
+																}
+
+																String oldName = p.getPC().get(num - 1).getName();
+																op = new OwnedPokemon(p.getPC().get(num - 1), poke);
+																p.getPC().remove(num - 1);
+																p.catchPokemon(op);
+																// change num to the index of the newly evolved Pokemon
+																num = p.getIndex(op) + 1;
+																System.out.println("Congratulations, your " + oldName + " has evolved into a " + p.getPC().get(num - 1).getName() + "!");
+																System.out.println();
+																done = true;
+																finished = true;
+																repeat = true;
+															case "0":
+																done = true;
+																finished = true;
+																repeat = true;
+																break;
+															default:
+																System.out.println();
+																System.out.println("Input does not match an available choice.");
+																System.out.println();
+															}
+														}
 													}
-													Pokemon poke = p.getPC().get(num - 1).getPokemon();
-													for (int i = 0; i < pokedex.size(); i++) {
-														if (pokedex.get(i).getName().equals(p.getPC().get(num - 1).getPokemon().getEvolutionTree()[p.getPC().get(num - 1).getPokemon().getEvolutionStage() + 1]))
-															poke = pokedex.get(i);
-													}
-													p.catchPokemon(new OwnedPokemon(p.getPC().get(num - 1), poke));
-													String oldName = p.getPC().get(num - 1).getName();
-													p.getPC().remove(num - 1);
-													System.out.println("Congratulations, your " + oldName + " has evolved into a " + p.getPC().get(p.getPC().size() - 1).getName() + "!");
-													System.out.println();
-													finished = true;
 												}
 											} else {
 												System.out.println();
-												System.out.println("Evolving this Pokemon costs 100 " + typePoints);
-												System.out.println("You do not have enough " + typePoints + " to evolve this Pokemon");
+												System.out.println("Evolving " + p.getPC().get(num - 1).getName() + " costs 100 " + typePoints);
+												System.out.println("You do not have enough " + typePoints + " to evolve your " + p.getPC().get(num - 1).getName());
 												System.out.println();
 												finished = true;
 												done = true;
