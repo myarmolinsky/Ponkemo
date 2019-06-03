@@ -11,13 +11,12 @@ public class Pokemon implements Serializable{
 	private int baseSpecialAttack;
 	private int baseSpecialDefense;
 	private int baseSpeed;
-	private int spawnRate; //32 possible
+	private int spawnRate; //32 possible; the higher the spawnRate, the rarer the Pokemon
 	private String[] eggGroup;
 	private double genderRatio;
 	private String[] evolutionTree;
-	private int evolutionStage;
-	private int evolutionLevel;
-
+	private int evolutionStage; // the stage the Pokemon is at in its evolution tree; 0 means it's first in its tree, 1 means second, etc.
+	private int evolutionLevel; // -1 means special condition for evolution, 0 means the Pokemon does not evolve, any other number is the level the Pokemon evolves at
 
 	public Pokemon(String name, String type1, String type2, int hp, int atk, int def, int spa, int spd, int spe, 
 			int spawnRate, String[] eggGroup, double genderRatio, String[] evoTree, int evoStage, int evoLevel) {
@@ -85,11 +84,11 @@ public class Pokemon implements Serializable{
 	public double getGenderRatio() {
 		return genderRatio;
 	}
-	
+
 	public String[] getEvolutionTree() {
 		return evolutionTree;
 	}
-	
+
 	public int getEvolutionStage() {
 		return evolutionStage;
 	}
@@ -97,8 +96,9 @@ public class Pokemon implements Serializable{
 	public int getEvolutionLevel() {
 		return evolutionLevel;
 	}
-	
+
 	public boolean equals(Pokemon pokemon) {
+		// 2 different Pokemon cannot have the same name so all that needs to be compared to see if we're looking at 2 of the same Pokemon is whether their names are the same
 		if (name.equals(name))
 			return true;
 		return false;

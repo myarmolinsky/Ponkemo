@@ -578,8 +578,8 @@ public class Main {
 									System.out.println();
 								} else if (numTwo != 0) {
 									// pokemon number 2 has been selected, now check if they are breedable
-									OwnedPokemon oldOne = new OwnedPokemon(p.getPC().get(num - 1));
-									OwnedPokemon oldTwo = new OwnedPokemon(p.getPC().get(numTwo - 1));
+									OwnedPokemon oldOne = p.getPC().get(num - 1);
+									OwnedPokemon oldTwo = p.getPC().get(numTwo - 1);
 									boolean breedable = false;
 									boolean validEggGroup = false;
 									// first check if the egg group is valid.  if at least 1 egg group from pokemon 1 matches an egg group from pokemon 2, then the egg group is valid

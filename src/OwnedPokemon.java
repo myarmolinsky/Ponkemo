@@ -26,14 +26,15 @@ public class OwnedPokemon implements Serializable{
 	private int specialAttackStat;
 	private int specialDefenseStat;
 	private int speedStat;
-	private String nature;
-	private boolean favorite;
+	private String nature; // there are 25 different natures, each having a different impact on the Pokemon's stats
+	private boolean favorite; // Pokemon with favorite set to true get prioritized in the player's pc when it gets sorted
 
 	public OwnedPokemon(Pokemon pokemon) {
+		// this constructor is for making a new Pokemon for the player to catch
 		this.pokemon = pokemon;
 		nickname = pokemon.getName();
-		level = new Random().nextInt(50) + 1;
-		int temp = new Random().nextInt(4096);
+		level = new Random().nextInt(50) + 1; // the Pokemon starts with a random level between 1 and 50
+		int temp = new Random().nextInt(4096); // there is a 1/4096 chance that a Pokemon is shiny
 		if (temp == 0)
 			shiny = true;
 		else
@@ -42,12 +43,14 @@ public class OwnedPokemon implements Serializable{
 			gender = "Genderless";
 		else {
 			temp = new Random().nextInt(1000) + 1;
+			// choose a random number out of 1000 and divide it by 10, then compare the resulting double to the Pokemon's gender ratio to determine its gender
 			if ((((double) temp) / 10 ) <= pokemon.getGenderRatio())
 				gender = "Male";
 			else
 				gender = "Female";
 		}
 		level = new Random().nextInt(50) + 1;
+		// IVs can be any number 0-31
 		healthIV = new Random().nextInt(32);
 		attackIV = new Random().nextInt(32);
 		defenseIV = new Random().nextInt(32);
@@ -148,9 +151,11 @@ public class OwnedPokemon implements Serializable{
 	}
 
 	public OwnedPokemon(Pokemon pokemon, int healthIV, int attackIV, int defenseIV, int specialAttackIV, int specialDefenseIV, int speedIV) {
+		// this constructor is for breeding
+		// pokemon is the Pokemon determined to be the baby Pokemon in the breeding session and each IV is the best of both parents
 		this.pokemon = pokemon;
 		this.nickname = pokemon.getName();
-		level = 1;
+		level = 1; // bred Pokemon start at level 1
 		int temp = new Random().nextInt(1000);
 		if (temp == 0)
 			shiny = true;
@@ -252,24 +257,9 @@ public class OwnedPokemon implements Serializable{
 		favorite = false;
 	}
 
-	public OwnedPokemon(OwnedPokemon ownedPokemon) {
-		pokemon = ownedPokemon.pokemon;
-		nickname = ownedPokemon.nickname;
-		shiny = ownedPokemon.shiny;
-		gender = ownedPokemon.gender;
-		healthIV = ownedPokemon.healthIV;
-		attackIV = ownedPokemon.attackIV;
-		defenseIV = ownedPokemon.defenseIV;
-		specialAttackIV = ownedPokemon.specialAttackIV;
-		specialDefenseIV = ownedPokemon.specialDefenseIV;
-		speedIV = ownedPokemon.speedIV;
-		level = ownedPokemon.level;
-		nature = ownedPokemon.nature;
-		calculateStats();
-		favorite = ownedPokemon.favorite;
-	}
-
 	public OwnedPokemon(OwnedPokemon ownedPokemon, Pokemon poke) {
+		// this constructor is used when evolving a Pokemon
+		// everything about the original OwnedPokemon remains the same except its Pokemon data member and its stats which are recalculated due to the new base stats
 		pokemon = poke;
 		if (ownedPokemon.nickname.equals(ownedPokemon.pokemon.getName()))
 			nickname = poke.getName();
@@ -290,159 +280,163 @@ public class OwnedPokemon implements Serializable{
 	}
 
 	private void calculateStats() {
+		// health stat is calculated differently than the other stats
 		healthStat = (((2 * pokemon.getBaseHealth() + healthIV + (healthEV/4)) * level)/100) + level + 10;
+		// the rest of the stats are calculated depending on the nature
 		switch(nature) {
-			case "Hardy":
-			case "Docile":
-			case "Serious":
-			case "Bashful":
-			case "Quirky":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
-			case "Lonely":
-				attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * 1.1);
-				defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * .9);
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
-			case "Brave":
-				attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * 1.1);
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * .9);
-				break;
-			case "Adamant":
-				attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * 1.1);
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * .9);
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
-			case "Naughty":
-				attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * 1.1);
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * .9);
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
-			case "Bold":
-				attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * .9);
-				defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * 1.1);
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
-			case "Relaxed":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * 1.1);
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * .9);
-				break;
-			case "Impish":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * 1.1);
-				specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * .9);
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
-			case "Lax":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * 1.1);
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * .9);
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
-			case "Timid":
-				attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * .9);
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * 1.1);
-				break;
-			case "Hasty":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * .9);
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * 1.1);
-				break;
-			case "Jolly":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * .9);
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * 1.1);
-				break;
-			case "Naive":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * .9);
-				speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * 1.1);
-				break;
-			case "Modest":
-				attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * .9);
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * 1.1);
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
-			case "Mild":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * .9);
-				specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * 1.1);
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
-			case "Quiet":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * 1.1);
-				specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
-				speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * .9);
-				break;
-			case "Rash":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * 1.1);
-				specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * .9);
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
-			case "Calm":
-				attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * .9);
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * 1.1);
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
-			case "Gentle":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * .9);
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * 1.1);
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
-			case "Sassy":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
-				specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * 1.1);
-				speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * .9);
-				break;
-			case "Careful":
-				attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
-				defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
-				specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * .9);
-				specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * 1.1);
-				speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
-				break;
+		case "Hardy":
+		case "Docile":
+		case "Serious":
+		case "Bashful":
+		case "Quirky":
+			// Hardy, Docile, Serious, Bashful, and Quirky don't have an impact on how the stats are calculated
+			// but every other nature gives one stat a 1.1x multiplier and another stat a .9x multiplier
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
+		case "Lonely":
+			attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * 1.1);
+			defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * .9);
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
+		case "Brave":
+			attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * 1.1);
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * .9);
+			break;
+		case "Adamant":
+			attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * 1.1);
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * .9);
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
+		case "Naughty":
+			attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * 1.1);
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * .9);
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
+		case "Bold":
+			attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * .9);
+			defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * 1.1);
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
+		case "Relaxed":
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * 1.1);
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * .9);
+			break;
+		case "Impish":
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * 1.1);
+			specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * .9);
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
+		case "Lax":
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * 1.1);
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * .9);
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
+		case "Timid":
+			attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * .9);
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * 1.1);
+			break;
+		case "Hasty":
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * .9);
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * 1.1);
+			break;
+		case "Jolly":
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * .9);
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * 1.1);
+			break;
+		case "Naive":
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * .9);
+			speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * 1.1);
+			break;
+		case "Modest":
+			attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * .9);
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * 1.1);
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
+		case "Mild":
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * .9);
+			specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * 1.1);
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
+		case "Quiet":
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * 1.1);
+			specialDefenseStat = (((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5;
+			speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * .9);
+			break;
+		case "Rash":
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * 1.1);
+			specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * .9);
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
+		case "Calm":
+			attackStat = (int) (((((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5) * .9);
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * 1.1);
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
+		case "Gentle":
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (int) (((((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5) * .9);
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * 1.1);
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
+		case "Sassy":
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5;
+			specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * 1.1);
+			speedStat = (int) (((((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5) * .9);
+			break;
+		case "Careful":
+			attackStat = (((2 * pokemon.getBaseAttack() + attackIV + (attackEV/4)) * level)/100) + 5;
+			defenseStat = (((2 * pokemon.getBaseDefense() + defenseIV + (defenseEV/4)) * level)/100) + 5;
+			specialAttackStat = (int) (((((2 * pokemon.getBaseSpecialAttack() + specialAttackIV + (specialAttackEV/4)) * level)/100) + 5) * .9);
+			specialDefenseStat = (int) (((((2 * pokemon.getBaseSpecialDefense() + specialDefenseIV + (specialDefenseEV/4)) * level)/100) + 5) * 1.1);
+			speedStat = (((2 * pokemon.getBaseSpeed() + speedIV + (speedEV/4)) * level)/100) + 5;
+			break;
 		}
 	}
 
@@ -517,6 +511,7 @@ public class OwnedPokemon implements Serializable{
 		return speedEV;
 	}
 
+	// stats must be recalculated every time the Pokemon's EVs change
 	public void addHealthEV(int num) {
 		healthEV += num;
 		calculateStats();
@@ -582,7 +577,8 @@ public class OwnedPokemon implements Serializable{
 	}
 
 	public double getTotalIVPercentage() {
-		return ((((double)(healthIV + attackIV + defenseIV + specialAttackIV + specialDefenseIV + speedIV))/186) * 100);
+		// a Pokemon's IVs can add up to a max total of 186 points
+		return (((double)(healthIV + attackIV + defenseIV + specialAttackIV + specialDefenseIV + speedIV)/186) * 100);
 	}
 
 	public String[] getEggGroup() {
@@ -602,14 +598,15 @@ public class OwnedPokemon implements Serializable{
 	}
 
 	public void levelUp() {
+		// level affects a Pokemon's stats so its stats need to be recalculated when it levels up
 		level += 1;
 		calculateStats();
 	}
-	
+
 	public boolean isFavorite() {
 		return favorite;
 	}
-	
+
 	public void toggleFavorite() {
 		favorite = !favorite;
 	}
@@ -649,8 +646,9 @@ public class OwnedPokemon implements Serializable{
 				+ "Speed Stat: " + speedStat);
 		return temp;
 	}
-	
+
 	public boolean equals(OwnedPokemon op) {
+		// everything must be exactly the same for the OwnedPokemon to be determined to be equal
 		if (pokemon.equals(op.pokemon) 
 				&& shiny == op.shiny 
 				&& attackEV == op.attackEV 

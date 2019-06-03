@@ -12,8 +12,8 @@ public class Player implements Serializable {
 	private int tier5Points;
 
 	public Player() {
-		pc = new ArrayList<>();
-		pqpc = new PriorityQueue<>(new IVPercentageDescendingOrder());
+		pc = new ArrayList<>(); // the pc holds all of the player's Pokemon
+		pqpc = new PriorityQueue<>(new IVPercentageDescendingOrder()); // this priority queue sorts the pc in the given order (IVPercentageDescendingOrder by default)
 		tier1Points = 0;
 		tier2Points = 0;
 		tier3Points = 0;
@@ -44,21 +44,28 @@ public class Player implements Serializable {
 	public int getTier1() {
 		return tier1Points;
 	}
-
-	public void spendTier1(int num) {
-		tier1Points -= num;
-	}
 	
 	public int getTier2() {
 		return tier2Points;
 	}
-
-	public void spendTier2(int num) {
-		tier2Points -= num;
-	}
 	
 	public int getTier3() {
 		return tier3Points;
+	}
+	public void spendTier4(int num) {
+		tier4Points -= num;
+	}
+	
+	public int getTier5() {
+		return tier5Points;
+	}
+
+	public void spendTier1(int num) {
+		tier1Points -= num;
+	}
+
+	public void spendTier2(int num) {
+		tier2Points -= num;
 	}
 
 	public void spendTier3(int num) {
@@ -69,19 +76,13 @@ public class Player implements Serializable {
 		return tier4Points;
 	}
 
-	public void spendTier4(int num) {
-		tier4Points -= num;
-	}
-	
-	public int getTier5() {
-		return tier5Points;
-	}
 	
 	public void spendTier5(int num) {
 		tier5Points -= num;
 	}
 
 	public void catchPokemon(OwnedPokemon ownedPokemon) {
+		// whenever a Pokemon is added to the pc, the pc needs to be re-sorted
 		pc.add(ownedPokemon);
 		sortPC();
 	}
@@ -91,6 +92,7 @@ public class Player implements Serializable {
 	}
 	
 	public void chooseOrder(String order) {
+		// this changes the way the player's pc is sorted to the order they player chose and then re-sorts it
 		switch (order) {
 		case "Real Name":
 			pqpc = new PriorityQueue<>(new NameOrder());
@@ -112,15 +114,19 @@ public class Player implements Serializable {
 	}
 
 	public void sortPC() {
+		// add every Pokemon from the pc to the priority queue
 		for (OwnedPokemon o: pc)
 			pqpc.add(o);
+		// 2 separate lists, one for Pokemon marked as favorite and one for Pokemon not marked as favorite
 		ArrayList<OwnedPokemon> favorites = new ArrayList<>();
 		ArrayList<OwnedPokemon> nonfavorites = new ArrayList<>();
 		while (!pqpc.isEmpty())
+			// separate the sorted Pokemon into the two lists of favorite and nonfavorite Pokemon while also emptying the priority queue
 			if (pqpc.peek().isFavorite())
 				favorites.add(pqpc.poll());
 			else
 				nonfavorites.add(pqpc.poll());
+		// empty the pc and re-fill it with the Pokemon in the properly sorted order, with Pokemon marked as favorites being prioritized
 		pc = new ArrayList<>();
 		for (OwnedPokemon o : favorites)
 			pc.add(o);
@@ -129,6 +135,7 @@ public class Player implements Serializable {
 	}
 
 	public int getIndex(OwnedPokemon ownedPokemon) {
+		// find the Pokemon in the player's pc and return its index
 		for (int i = 0; i < pc.size(); i++)
 			if (pc.get(i).equals(ownedPokemon))
 				return i;
