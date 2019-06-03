@@ -28,6 +28,11 @@ public class OwnedPokemon implements Serializable{
 	private int speedStat;
 	private String nature; // there are 25 different natures, each having a different impact on the Pokemon's stats
 	private boolean favorite; // Pokemon with favorite set to true get prioritized in the player's pc when it gets sorted
+	private int t1PointsInvested;
+	private int t2PointsInvested;
+	private int t3PointsInvested;
+	private int t4PointsInvested;
+	private int t5PointsInvested;
 
 	public OwnedPokemon(Pokemon pokemon) {
 		// this constructor is for making a new Pokemon for the player to catch
@@ -148,9 +153,14 @@ public class OwnedPokemon implements Serializable{
 		}
 		calculateStats();
 		favorite = false;
+		t1PointsInvested = 0;
+		t2PointsInvested = 0;
+		t3PointsInvested = 0;
+		t4PointsInvested = 0;
+		t5PointsInvested = 0;
 	}
 
-	public OwnedPokemon(Pokemon pokemon, int healthIV, int attackIV, int defenseIV, int specialAttackIV, int specialDefenseIV, int speedIV) {
+	public OwnedPokemon(Pokemon pokemon, int healthIV, int attackIV, int defenseIV, int specialAttackIV, int specialDefenseIV, int speedIV, OwnedPokemon oldOne, OwnedPokemon oldTwo) {
 		// this constructor is for breeding
 		// pokemon is the Pokemon determined to be the baby Pokemon in the breeding session and each IV is the best of both parents
 		this.pokemon = pokemon;
@@ -255,6 +265,12 @@ public class OwnedPokemon implements Serializable{
 		}
 		calculateStats();
 		favorite = false;
+		// the baby Pokemon has a invested point values equal to the total of the parents' invested point values
+		t1PointsInvested = oldOne.t1PointsInvested + oldTwo.t1PointsInvested;
+		t2PointsInvested = oldOne.t2PointsInvested + oldTwo.t2PointsInvested;
+		t3PointsInvested = oldOne.t3PointsInvested + oldTwo.t3PointsInvested;
+		t4PointsInvested = oldOne.t4PointsInvested + oldTwo.t4PointsInvested;
+		t5PointsInvested = oldOne.t5PointsInvested + oldTwo.t5PointsInvested;
 	}
 
 	public OwnedPokemon(OwnedPokemon ownedPokemon, Pokemon poke) {
@@ -277,6 +293,11 @@ public class OwnedPokemon implements Serializable{
 		nature = ownedPokemon.nature;
 		calculateStats();
 		favorite = ownedPokemon.favorite;
+		t1PointsInvested = ownedPokemon.t1PointsInvested;
+		t2PointsInvested = ownedPokemon.t2PointsInvested;
+		t3PointsInvested = ownedPokemon.t3PointsInvested;
+		t4PointsInvested = ownedPokemon.t4PointsInvested;
+		t5PointsInvested = ownedPokemon.t5PointsInvested;
 	}
 
 	private void calculateStats() {
@@ -610,6 +631,75 @@ public class OwnedPokemon implements Serializable{
 	public void toggleFavorite() {
 		favorite = !favorite;
 	}
+	
+	public int getT1PointsInvested() {
+		return t1PointsInvested;
+	}
+	
+	public int getT2PointsInvested() {
+		return t2PointsInvested;
+	}
+	
+	public int getT3PointsInvested() {
+		return t3PointsInvested;
+	}
+	
+	public int getT4PointsInvested() {
+		return t4PointsInvested;
+	}
+	
+	public int getT5PointsInvested() {
+		return t5PointsInvested;
+	}
+	
+	public void addT1PointsInvested(int points) {
+		t1PointsInvested += points;
+	}
+	
+	public void addT2PointsInvested(int points) {
+		t2PointsInvested += points;
+	}
+	
+	public void addT3PointsInvested(int points) {
+		t3PointsInvested += points;
+	}
+	
+	public void addT4PointsInvested(int points) {
+		t4PointsInvested += points;
+	}
+	
+	public void addT5PointsInvested(int points) {
+		t5PointsInvested += points;
+	}
+	
+	public void setT1PointsInvested(int points) {
+		t1PointsInvested = points;
+	}
+	
+	public void setT2PointsInvested(int points) {
+		t2PointsInvested = points;
+	}
+	
+	public void setT3PointsInvested(int points) {
+		t3PointsInvested = points;
+	}
+	
+	public void setT4PointsInvested(int points) {
+		t4PointsInvested = points;
+	}
+	
+	public void setT5PointsInvested(int points) {
+		t5PointsInvested = points;
+	}
+
+	public void refundPoints(Player p) {
+		// for when a Pokemon is being recycled
+		p.addTier1(t1PointsInvested/2);
+		p.addTier2(t2PointsInvested/2);
+		p.addTier3(t3PointsInvested/2);
+		p.addTier4(t4PointsInvested/2);
+		p.addTier5(t5PointsInvested/2);
+	}
 
 	public String toString() {
 		String temp = "";
@@ -643,7 +733,12 @@ public class OwnedPokemon implements Serializable{
 				+ "Defense Stat: " + defenseStat + "\n"
 				+ "Special Attack Stat: " + specialAttackStat + "\n"
 				+ "Special Defense Stat: " + specialDefenseStat + "\n"
-				+ "Speed Stat: " + speedStat);
+				+ "Speed Stat: " + speedStat + "\n"
+				+ "Tier 1 Points Invested: " + t1PointsInvested + "\n"
+				+ "Tier 2 Points Invested: " + t2PointsInvested + "\n"
+				+ "Tier 3 Points Invested: " + t3PointsInvested + "\n"
+				+ "Tier 4 Points Invested: " + t4PointsInvested + "\n"
+				+ "Tier 5 Points Invested: " + t5PointsInvested);
 		return temp;
 	}
 

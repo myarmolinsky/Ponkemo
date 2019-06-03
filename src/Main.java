@@ -6,8 +6,8 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		Scanner input = new Scanner(System.in);
 		ArrayList<Pokemon> pokedex = new ArrayList<>();
-		fillPossibilities(pokedex);
 		// fill pokedex with all pokemon
+		fillPossibilities(pokedex);
 		boolean finished = false;
 		Player p = new Player();
 		while(!finished) {
@@ -62,7 +62,7 @@ public class Main {
 			System.out.println("8) View Player Data");
 			System.out.println("9) Save");
 			System.out.println("10) Save Quit");
-			System.out.println("11) Quit");
+			System.out.println("0) Quit");
 			System.out.println();
 			switch(input.nextLine()){
 			case "1":
@@ -109,7 +109,7 @@ public class Main {
 				System.out.println("Saving and Quitting ...");
 				save(p);
 				break;
-			case "11":
+			case "0":
 				finished = true;
 				System.out.println();
 				System.out.println("Quitting ...");
@@ -696,7 +696,7 @@ public class Main {
 			speedIV = oldOne.getSpeedIV();
 		else
 			speedIV = oldTwo.getSpeedIV();
-		return new OwnedPokemon(pokemon, healthIV, attackIV, defenseIV, specialAttackIV, specialDefenseIV, speedIV);
+		return new OwnedPokemon(pokemon, healthIV, attackIV, defenseIV, specialAttackIV, specialDefenseIV, speedIV, oldOne, oldTwo);
 	}
 
 	private static Pokemon getBabyPokemon(ArrayList<Pokemon> pokedex, OwnedPokemon poke) {
@@ -848,18 +848,23 @@ public class Main {
 													switch (typePoints) {
 													case "Tier 1 Points":
 														p.spendTier1(p.getPC().get(num - 1).getLevel());
+														p.getPC().get(num - 1).addT1PointsInvested(p.getPC().get(num - 1).getLevel());
 														break;
 													case "Tier 2 Points":
 														p.spendTier2(p.getPC().get(num - 1).getLevel());
+														p.getPC().get(num - 1).addT2PointsInvested(p.getPC().get(num - 1).getLevel());
 														break;
 													case "Tier 3 Points":
 														p.spendTier3(p.getPC().get(num - 1).getLevel());
+														p.getPC().get(num - 1).addT3PointsInvested(p.getPC().get(num - 1).getLevel());
 														break;
 													case "Tier 4 Points":
 														p.spendTier4(p.getPC().get(num - 1).getLevel());
+														p.getPC().get(num - 1).addT4PointsInvested(p.getPC().get(num - 1).getLevel());
 														break;
 													case "Tier 5 Points":
 														p.spendTier5(p.getPC().get(num - 1).getLevel());
+														p.getPC().get(num - 1).addT5PointsInvested(p.getPC().get(num - 1).getLevel());
 														break;
 													}
 													p.getPC().get(num - 1).levelUp();
@@ -1027,6 +1032,7 @@ public class Main {
 																// catch the newly evolved version of it which is exactly the same except for the Pokemon data member
 																p.catchPokemon(op);
 																System.out.println("Congratulations, your Eevee has evolved into a Vaporeon!");
+																p.getPC().get(p.getIndex(op)).addT4PointsInvested(100);
 																done = true;
 																finished = true;
 																repeat = true;
@@ -1039,6 +1045,7 @@ public class Main {
 																p.getPC().remove(num - 1);
 																p.catchPokemon(op);
 																System.out.println("Congratulations, your Eevee has evolved into a Jolteon!");
+																p.getPC().get(p.getIndex(op)).addT4PointsInvested(100);
 																done = true;
 																finished = true;
 																repeat = true;
@@ -1051,6 +1058,7 @@ public class Main {
 																p.getPC().remove(num - 1);
 																p.catchPokemon(op);
 																System.out.println("Congratulations, your Eevee has evolved into a Flareon!");
+																p.getPC().get(p.getIndex(op)).addT4PointsInvested(100);
 																done = true;
 																finished = true;
 																repeat = true;
@@ -1079,18 +1087,23 @@ public class Main {
 																switch (typePoints) {
 																case "Tier 1 Points":
 																	p.spendTier1(100);
+																	p.getPC().get(num - 1).addT1PointsInvested(100);
 																	break;
 																case "Tier 2 Points":
 																	p.spendTier2(100);
+																	p.getPC().get(num - 1).addT2PointsInvested(100);
 																	break;
 																case "Tier 3 Points":
 																	p.spendTier3(100);
+																	p.getPC().get(num - 1).addT3PointsInvested(100);
 																	break;
 																case "Tier 4 Points":
 																	p.spendTier4(100);
+																	p.getPC().get(num - 1).addT4PointsInvested(100);
 																	break;
 																case "Tier 5 Points":
 																	p.spendTier5(100);
+																	p.getPC().get(num - 1).addT5PointsInvested(100);
 																	break;
 																}
 																poke = p.getPC().get(num - 1).getPokemon();
@@ -1436,18 +1449,23 @@ public class Main {
 						switch(typePoints) {
 						case "Tier 1 Points":
 							p.spendTier1(tempNum);
+							p.getPC().get(num - 1).addT1PointsInvested(100);
 							break;
 						case "Tier 2 Points":
 							p.spendTier2(tempNum);
+							p.getPC().get(num - 1).addT2PointsInvested(100);
 							break;
 						case "Tier 3 Points":
 							p.spendTier3(tempNum);
+							p.getPC().get(num - 1).addT3PointsInvested(100);
 							break;
 						case "Tier 4 Points":
 							p.spendTier4(tempNum);
+							p.getPC().get(num - 1).addT4PointsInvested(100);
 							break;
 						case "Tier 5 Points":
 							p.spendTier5(tempNum);
+							p.getPC().get(num - 1).addT5PointsInvested(100);
 							break;
 						}
 						switch (ev) {
@@ -1853,18 +1871,23 @@ public class Main {
 			switch(typePoints) {
 			case "Tier 1 Points":
 				p.spendTier1(100);
+				p.getPC().get(num - 1).addT1PointsInvested(100);
 				break;
 			case "Tier 2 Points":
 				p.spendTier2(100);
+				p.getPC().get(num - 1).addT2PointsInvested(100);
 				break;
 			case "Tier 3 Points":
 				p.spendTier3(100);
+				p.getPC().get(num - 1).addT3PointsInvested(100);
 				break;
 			case "Tier 4 Points":
 				p.spendTier4(100);
+				p.getPC().get(num - 1).addT4PointsInvested(100);
 				break;
 			case "Tier 5 Points":
 				p.spendTier5(100);
+				p.getPC().get(num - 1).addT5PointsInvested(100);
 				break;
 			}
 			System.out.println("Your " + p.getPC().get(num - 1).getName() + " now has a " + nature + " nature.");
@@ -1881,6 +1904,7 @@ public class Main {
 		while (!done) {
 			printOwnedPokemon(p, startPCIndex, endPCIndex);
 			System.out.println("Choose a Pokemon to recycle.");
+			System.out.println("You will receive points equal to one tenth of the Pokemon's IV percentage combined with half of the points invested into the Pokemon");
 			System.out.println("Enter the number corresponding to a Pokemon in your PC or enter \"0\" to go back to the main menu.");
 			System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
 			System.out.println();
@@ -1912,12 +1936,14 @@ public class Main {
 						System.out.println();
 					} else {
 						if (num != 0) {
-							// the number of points a Pokemon gives you for being recycled is determined by its total IV percentage divided by 10
+							// the number of points a Pokemon gives you for being recycled is determined by its total IV percentage divided by 10 combined with half the points the player invested into the Pokemon
 							// example: if a pokemon has 83.45657% total IV percentage, the player will get 8 points because 83.45657/10 = 8.345657 which is 8 when rounded
 							System.out.println();
 							System.out.println(p.getPC().get(num - 1));
 							System.out.println();
 							int numPoints = roundProperlyRecyclePoints(p.getPC().get(num - 1).getTotalIVPercentage()/10);
+							if (p.getPC().get(num - 1).isShiny())
+								numPoints *= 50;
 							String typePoints = chooseTypePoints(p, num);
 							boolean finished = false;
 							while (!finished) {
@@ -1951,6 +1977,7 @@ public class Main {
 											p.addTier5(numPoints);
 											System.out.println("You now have " + p.getTier5() + " Tier 5 Points.");
 										}
+										p.getPC().get(num - 1).refundPoints(p);
 										p.getPC().remove(num - 1);
 										System.out.println();
 										finished = true;
