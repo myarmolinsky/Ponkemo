@@ -29,6 +29,7 @@ public class Main {
 				finished = true;
 				try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("saves.ser"));){
 					p = (Player) ois.readObject();
+					ois.close();
 				} catch (Exception e) {
 
 				}
@@ -1206,124 +1207,124 @@ public class Main {
 						System.out.println();
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
-					} else
-						if (num != 0) {
-							System.out.println();
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + "'s EVs:");
-							System.out.println("Health EV: " + p.getPC().get(num - 1).getHealthEV());
-							System.out.println("Attack EV: " + p.getPC().get(num - 1).getAttackEV());
-							System.out.println("Defense EV: " + p.getPC().get(num - 1).getDefenseEV());
-							System.out.println("Special Attack EV: " + p.getPC().get(num - 1).getSpecialAttackEV());
-							System.out.println("Special Defense EV: " + p.getPC().get(num - 1).getSpecialDefenseEV());
-							System.out.println("Speed EV: " + p.getPC().get(num - 1).getSpeedEV());
-							System.out.println();
-							if ((p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) != 508) {
-								boolean finished = false;
-								while (!finished) {
-									System.out.println("Which stat would you like to EV Train?");
-									System.out.println("1) Health");
-									System.out.println("2) Attack");
-									System.out.println("3) Defense");
-									System.out.println("4) Special Attack");
-									System.out.println("5) Special Defense");
-									System.out.println("6) Speed");
-									System.out.println("Enter \"0\" to cancel.");
-									System.out.println();
-									if (input.hasNext()) {
-										switch (input.nextLine()) {
-										case "1":
-											System.out.println();
-											trainEV(p, input, num, "Health");
-											finished = true;
-											break;
-										case "2":
-											System.out.println();
-											trainEV(p, input, num, "Attack");
-											finished = true;
-											break;
-										case "3":
-											System.out.println();
-											trainEV(p, input, num, "Defense");
-											finished = true;
-											break;
-										case "4":
-											System.out.println();
-											trainEV(p, input, num, "Special Attack");
-											finished = true;
-											break;
-										case "5":
-											System.out.println();
-											trainEV(p, input, num, "Special Defense");
-											finished = true;
-											break;
-										case "6":
-											System.out.println();
-											trainEV(p, input, num, "Speed");
-											finished = true;
-											break;
-										case "0":
-											System.out.println();
-											finished = true;
-											break;
-										default:
-											System.out.println();
-											System.out.println("Input does not match an available choice.");
-											System.out.println();
-										}
+					} else if (num != 0) {
+						System.out.println();
+						System.out.println("Your " + p.getPC().get(num - 1).getName() + "'s EVs:");
+						System.out.println("Health EV: " + p.getPC().get(num - 1).getHealthEV());
+						System.out.println("Attack EV: " + p.getPC().get(num - 1).getAttackEV());
+						System.out.println("Defense EV: " + p.getPC().get(num - 1).getDefenseEV());
+						System.out.println("Special Attack EV: " + p.getPC().get(num - 1).getSpecialAttackEV());
+						System.out.println("Special Defense EV: " + p.getPC().get(num - 1).getSpecialDefenseEV());
+						System.out.println("Speed EV: " + p.getPC().get(num - 1).getSpeedEV());
+						System.out.println();
+						if ((p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV()) < 508) {
+							// a Pokemon can have a total of 508 EVs maximum distributed amongst its stats
+							boolean finished = false;
+							while (!finished) {
+								System.out.println("Which stat would you like to EV Train?");
+								System.out.println("1) Health");
+								System.out.println("2) Attack");
+								System.out.println("3) Defense");
+								System.out.println("4) Special Attack");
+								System.out.println("5) Special Defense");
+								System.out.println("6) Speed");
+								System.out.println("Enter \"0\" to cancel.");
+								System.out.println();
+								if (input.hasNext()) {
+									switch (input.nextLine()) {
+									case "1":
+										System.out.println();
+										trainEV(p, input, num, "Health");
+										finished = true;
+										break;
+									case "2":
+										System.out.println();
+										trainEV(p, input, num, "Attack");
+										finished = true;
+										break;
+									case "3":
+										System.out.println();
+										trainEV(p, input, num, "Defense");
+										finished = true;
+										break;
+									case "4":
+										System.out.println();
+										trainEV(p, input, num, "Special Attack");
+										finished = true;
+										break;
+									case "5":
+										System.out.println();
+										trainEV(p, input, num, "Special Defense");
+										finished = true;
+										break;
+									case "6":
+										System.out.println();
+										trainEV(p, input, num, "Speed");
+										finished = true;
+										break;
+									case "0":
+										System.out.println();
+										finished = true;
+										break;
+									default:
+										System.out.println();
+										System.out.println("Input does not match an available choice.");
+										System.out.println();
 									}
 								}
-								boolean repeat = false;
-								while (!repeat) {
-									System.out.println("Would you like to EV Train another Pokemon?");
-									System.out.println("1) Yes");
-									System.out.println("2) No");
-									System.out.println();
-									if (input.hasNext())
-										switch (input.nextLine()) {
-										case "1":
-											System.out.println();
-											repeat = true;
-											break;
-										case "2":
-											System.out.println();
-											done = true;
-											repeat = true;
-											break;
-										default:
-											System.out.println();
-											System.out.println("Input does not match an available choice.");
-											System.out.println();
-										}
-								}
-							} else {
-								System.out.println("This Pokemon already has 508 EV points.");
-								System.out.println();
-								boolean repeat = false;
-								while (!repeat) {
-									System.out.println("Would you like to EV Train another Pokemon?");
-									System.out.println("1) Yes");
-									System.out.println("2) No");
-									System.out.println();
-									if (input.hasNext())
-										switch (input.nextLine()) {
-										case "1":
-											System.out.println();
-											repeat = true;
-											break;
-										case "2":
-											System.out.println();
-											done = true;
-											repeat = true;
-											break;
-										default:
-											System.out.println();
-											System.out.println("Input does not match an available choice.");
-											System.out.println();
-										}
-								}
 							}
-						} else
-							done = true;
+							boolean repeat = false;
+							while (!repeat) {
+								System.out.println("Would you like to EV Train another Pokemon?");
+								System.out.println("1) Yes");
+								System.out.println("2) No");
+								System.out.println();
+								if (input.hasNext())
+									switch (input.nextLine()) {
+									case "1":
+										System.out.println();
+										repeat = true;
+										break;
+									case "2":
+										System.out.println();
+										done = true;
+										repeat = true;
+										break;
+									default:
+										System.out.println();
+										System.out.println("Input does not match an available choice.");
+										System.out.println();
+									}
+							}
+						} else {
+							System.out.println("This Pokemon already has 508 EV points.");
+							System.out.println();
+							boolean repeat = false;
+							while (!repeat) {
+								System.out.println("Would you like to EV Train another Pokemon?");
+								System.out.println("1) Yes");
+								System.out.println("2) No");
+								System.out.println();
+								if (input.hasNext())
+									switch (input.nextLine()) {
+									case "1":
+										System.out.println();
+										repeat = true;
+										break;
+									case "2":
+										System.out.println();
+										done = true;
+										repeat = true;
+										break;
+									default:
+										System.out.println();
+										System.out.println("Input does not match an available choice.");
+										System.out.println();
+									}
+							}
+						}
+					} else
+						done = true;
 				}
 			}
 		}
@@ -1332,7 +1333,7 @@ public class Main {
 	private static void trainEV(Player p, Scanner input, int num, String ev) {
 		String typePoints = chooseTypePoints(p, num);
 		System.out.println("Each EV Point costs 1 " + typePoints.substring(0, typePoints.length() - 1));
-		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points into one Pokemon.");
+		System.out.println("You can invest a maximum of 252 points into one stat, and a maximum of 508 points total into one Pokemon.");
 		boolean invested = false;
 		switch(typePoints) {
 		case "Tier 1 Points":
@@ -1384,6 +1385,7 @@ public class Main {
 				int tempNum = Integer.parseInt(temp);
 				boolean limit = true;
 				int totalEVs = tempNum + p.getPC().get(num - 1).getHealthEV() + p.getPC().get(num - 1).getAttackEV() + p.getPC().get(num - 1).getDefenseEV() + p.getPC().get(num - 1).getSpecialAttackEV() + p.getPC().get(num - 1).getSpecialDefenseEV() + p.getPC().get(num - 1).getSpeedEV();
+				// on top of the max for total EVs being 508 points, one stat can only have 252 EV points
 				switch(ev) {
 				case "Health":
 					if (tempNum < 0 || (tempNum + p.getPC().get(num - 1).getHealthEV()) > 252 || totalEVs > 508)
@@ -1538,67 +1540,66 @@ public class Main {
 						System.out.println();
 						System.out.println("Input does not match an available choice.");
 						System.out.println();
+					} else if (num != 0) {
+						System.out.println();
+						System.out.println("Your " + p.getPC().get(num - 1).getName() + "'s EVs:");
+						System.out.println("Health EV: " + p.getPC().get(num - 1).getHealthEV());
+						System.out.println("Attack EV: " + p.getPC().get(num - 1).getAttackEV());
+						System.out.println("Defense EV: " + p.getPC().get(num - 1).getDefenseEV());
+						System.out.println("Special Attack EV: " + p.getPC().get(num - 1).getSpecialAttackEV());
+						System.out.println("Special Defense EV: " + p.getPC().get(num - 1).getSpecialDefenseEV());
+						System.out.println("Speed EV: " + p.getPC().get(num - 1).getSpeedEV());
+						System.out.println();
+						boolean finished = false;
+						while (!finished) {
+							System.out.println("Would you like to reset " + p.getPC().get(num - 1).getName() + "'s EVs?");
+							System.out.println();
+							System.out.println("1) Yes");
+							System.out.println("2) No");
+							System.out.println();
+							if (input.hasNext())
+								switch (input.nextLine()) {
+								case "1":
+									System.out.println();
+									p.getPC().get(num - 1).resetEVs();
+									System.out.println("Your " + p.getPC().get(num - 1).getName() + "'s EVs have been reset.");
+									finished = true;
+									break;
+								case "2":
+									System.out.println();
+									finished = true;
+									break;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								}
+						}
+						System.out.println();
+						boolean repeat = false;
+						while (!repeat) {
+							System.out.println("Would you like to reset another Pokemon's EVs?");
+							System.out.println("1) Yes");
+							System.out.println("2) No");
+							System.out.println();
+							if (input.hasNext())
+								switch (input.nextLine()) {
+								case "1":
+									System.out.println();
+									repeat = true;
+									break;
+								case "2":
+									done = true;
+									repeat = true;
+									break;
+								default:
+									System.out.println();
+									System.out.println("Input does not match an available choice.");
+									System.out.println();
+								}
+						}
 					} else
-						if (num != 0) {
-							System.out.println();
-							System.out.println("Your " + p.getPC().get(num - 1).getName() + "'s EVs:");
-							System.out.println("Health EV: " + p.getPC().get(num - 1).getHealthEV());
-							System.out.println("Attack EV: " + p.getPC().get(num - 1).getAttackEV());
-							System.out.println("Defense EV: " + p.getPC().get(num - 1).getDefenseEV());
-							System.out.println("Special Attack EV: " + p.getPC().get(num - 1).getSpecialAttackEV());
-							System.out.println("Special Defense EV: " + p.getPC().get(num - 1).getSpecialDefenseEV());
-							System.out.println("Speed EV: " + p.getPC().get(num - 1).getSpeedEV());
-							System.out.println();
-							boolean finished = false;
-							while (!finished) {
-								System.out.println("Would you like to reset " + p.getPC().get(num - 1).getName() + "'s EVs?");
-								System.out.println();
-								System.out.println("1) Yes");
-								System.out.println("2) No");
-								System.out.println();
-								if (input.hasNext())
-									switch (input.nextLine()) {
-									case "1":
-										System.out.println();
-										p.getPC().get(num - 1).resetEVs();
-										System.out.println("Your " + p.getPC().get(num - 1).getName() + "'s EVs have been reset.");
-										finished = true;
-										break;
-									case "2":
-										System.out.println();
-										finished = true;
-										break;
-									default:
-										System.out.println();
-										System.out.println("Input does not match an available choice.");
-										System.out.println();
-									}
-							}
-							System.out.println();
-							boolean repeat = false;
-							while (!repeat) {
-								System.out.println("Would you like to reset another Pokemon's EVs?");
-								System.out.println("1) Yes");
-								System.out.println("2) No");
-								System.out.println();
-								if (input.hasNext())
-									switch (input.nextLine()) {
-									case "1":
-										System.out.println();
-										repeat = true;
-										break;
-									case "2":
-										done = true;
-										repeat = true;
-										break;
-									default:
-										System.out.println();
-										System.out.println("Input does not match an available choice.");
-										System.out.println();
-									}
-							}
-						} else
-							System.out.println();
+						System.out.println();
 				}
 			}
 		}
@@ -1925,6 +1926,8 @@ public class Main {
 						System.out.println();
 					} else {
 						if (num != 0) {
+							// the number of points a Pokemon gives you for being recycled is determined by its total IV percentage divided by 10
+							// example: if a pokemon has 83.45657% total IV percentage, the player will get 8 points because 83.45657/10 = 8.345657 which is 8 when rounded
 							System.out.println();
 							System.out.println(p.getPC().get(num - 1));
 							System.out.println();
@@ -2010,6 +2013,9 @@ public class Main {
 	}
 
 	private static String chooseTypePoints(Player p, int num) {
+		// the tier of points a Pokemon gives when being recycled or requires when being trained is determined by its spawn rate
+		// the rarer the Pokemon, the higher tier points it gives
+		// there are 5 possible tiers
 		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 11)
 			return "Tier 1 Points";
 		if (p.getPC().get(num - 1).getPokemon().getSpawnRate() <= 17 && p.getPC().get(num - 1).getPokemon().getSpawnRate() > 11)
@@ -2025,9 +2031,11 @@ public class Main {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("saves.ser"));
 		oos.writeObject(p);
 		oos.flush();
+		oos.close();
 	}
 
 	private static int roundProperlyRecyclePoints(double d) {
+		// proper rounding
 		if (d >= 0.5 && d < 1.5)
 			return 1;
 		if (d >= 1.5 && d < 2.5)
