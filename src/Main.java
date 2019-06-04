@@ -149,8 +149,8 @@ public class Main {
 		pokedex.add(new Pokemon("Fearow", "Normal", "Flying", 65, 90, 65, 61, 61, 100, 19, new String[] {"Flying"}, 50, new String[] {"Spearow", "Fearow"}, 1, 0));
 		pokedex.add(new Pokemon("Ekans", "Poison", null, 35, 60, 44, 40, 54, 55, 0, new String[] {"Field", "Dragon"}, 50, new String[] {"Ekans", "Arbok"}, 0, 22));
 		pokedex.add(new Pokemon("Arbok", "Poison", null, 60, 95, 69, 65, 79, 80, 19, new String[] {"Field", "Dragon"}, 50, new String[] {"Ekans", "Arbok"}, 1, 0));
-		pokedex.add(new Pokemon("Pikachu", "Electric", null, 35, 55, 40, 50, 50, 90, 6, new String[] {"Field", "Fairy"}, 50, new String[] {"Pikachu", "Raichu"}, 0, -1));
-		pokedex.add(new Pokemon("Raichu", "Electric", null, 60, 90, 55, 90, 80, 110, 21, new String[] {"Field", "Fairy"}, 50, new String[] {"Pikachu", "Raichu"}, 1, 0));
+		pokedex.add(new Pokemon("Pikachu", "Electric", null, 35, 55, 40, 50, 50, 90, 6, new String[] {"Field", "Fairy"}, 50, new String[] {"Pichu", "Pikachu", "Raichu"}, 1, -1));
+		pokedex.add(new Pokemon("Raichu", "Electric", null, 60, 90, 55, 90, 80, 110, 21, new String[] {"Field", "Fairy"}, 50, new String[] {"Pichu", "Pikachu", "Raichu"}, 2, 0));
 		pokedex.add(new Pokemon("Sandshrew", "Ground", null, 50, 75, 85, 20, 30, 40, 0, new String[] {"Field"}, 50, new String[] {"Sandshrew", "Sandslash"}, 0, 22));
 		pokedex.add(new Pokemon("Sandslash", "Ground", null, 75, 100, 110, 45, 55, 65, 19, new String[] {"Field"}, 50, new String[] {"Sandshrew", "Sandslash"}, 1, 0));
 		pokedex.add(new Pokemon("NidoranF", "Poison", null, 55, 47, 52, 40, 40, 41, 1, new String[] {"Monster", "Field"}, 0, new String[] {"NidoranF", "Nidorina", "Nidoqueen"}, 0, 16));
@@ -159,17 +159,17 @@ public class Main {
 		pokedex.add(new Pokemon("NidoranM", "Poison", null, 46, 57, 40, 40, 40, 50, 1, new String[] {"Monster", "Water 1"}, 100, new String[] {"NidoranM", "Nidorino", "Nidoking"}, 0, 16));
 		pokedex.add(new Pokemon("Nidorino", "Poison", null, 61, 72, 57, 55, 55, 65, 17, new String[] {"Monster", "Water 1"}, 100, new String[] {"NidoranM", "Nidorino", "Nidoking"}, 1, -1));
 		pokedex.add(new Pokemon("Nidoking", "Poison", "Ground", 81, 102, 77, 85, 75, 85, 27, new String[] {"Monster", "Water 1"}, 100, new String[] {"NidoranM", "Nidorino", "Nidoking"}, 2, 0));
-		pokedex.add(new Pokemon("Clefairy", "Fairy", null, 70, 45, 48, 60, 65, 35, 11, new String[] {"Fairy"}, 25, new String[] {"Clefairy", "Clefable"}, 0, -1));
-		pokedex.add(new Pokemon("Clefable", "Fairy", null, 95, 70, 73, 95, 90, 60, 30, new String[] {"Fairy"}, 25, new String[] {"Clefairy", "Clefable"}, 1, 0));
+		pokedex.add(new Pokemon("Clefairy", "Fairy", null, 70, 45, 48, 60, 65, 35, 11, new String[] {"Fairy"}, 25, new String[] {"Cleffa", "Clefairy", "Clefable"}, 1, -1));
+		pokedex.add(new Pokemon("Clefable", "Fairy", null, 95, 70, 73, 95, 90, 60, 30, new String[] {"Fairy"}, 25, new String[] {"Cleffa", "Clefairy", "Clefable"}, 2, 0));
 		pokedex.add(new Pokemon("Vulpix", "Fire", null, 39, 41, 40, 50, 65, 65, 6, new String[] {"Field"}, 25, new String[] {"Vulpix", "Ninetales"}, 0, -1));
 		pokedex.add(new Pokemon("Ninetales", "Fire", null, 73, 76, 75, 81, 100, 100, 21, new String[] {"Field"}, 25, new String[] {"Vulpix", "Ninetales"}, 1, 0));
-		pokedex.add(new Pokemon("Jigglypuff", "Normal", "Fairy", 115, 45, 20, 45, 25, 20, 8, new String[] {"Fairy"}, 25, new String[] {"Jigglypuff", "Wigglytuff"}, 0, -1));
-		pokedex.add(new Pokemon("Wigglytuff", "Normal", "Fairy", 140, 70, 45, 85, 50, 45, 26, new String[] {"Fairy"}, 25, new String[] {"Jigglypuff", "Wigglytuff"}, 1, 0));
-		pokedex.add(new Pokemon("Zubat", "Poison", "Flying", 40, 45, 35, 30, 40, 55, 0, new String[] {"Flying"}, 50, new String[] {"Zubat", "Golbat"}, 0, 22));
-		pokedex.add(new Pokemon("Golbat", "Poison", "Flying", 75, 80, 70, 65, 75, 90, 19, new String[] {"Flying"}, 50, new String[] {"Zubat", "Golbat"}, 1, 0));
-		pokedex.add(new Pokemon("Oddish", "Grass", "Poison", 45, 50, 55, 75, 65, 30, 0, new String[] {"Grass"}, 50, new String[] {"Oddish", "Gloom", "Vileplume"}, 0, 21));
-		pokedex.add(new Pokemon("Gloom", "Grass", "Poison", 60, 65, 70, 85, 75, 40, 17, new String[] {"Grass"}, 50, new String[] {"Oddish", "Gloom", "Vileplume"}, 1, -1));
-		pokedex.add(new Pokemon("Vileplume", "Grass", "Poison", 75, 80, 85, 110, 90, 50, 27, new String[] {"Grass"}, 50, new String[] {"Oddish", "Gloom", "Vileplume"}, 2, 0));
+		pokedex.add(new Pokemon("Jigglypuff", "Normal", "Fairy", 115, 45, 20, 45, 25, 20, 8, new String[] {"Fairy"}, 25, new String[] {"Igglybuff", "Jigglypuff", "Wigglytuff"}, 1, -1));
+		pokedex.add(new Pokemon("Wigglytuff", "Normal", "Fairy", 140, 70, 45, 85, 50, 45, 26, new String[] {"Fairy"}, 25, new String[] {"Igglybuff", "Jigglypuff", "Wigglytuff"}, 2, 0));
+		pokedex.add(new Pokemon("Zubat", "Poison", "Flying", 40, 45, 35, 30, 40, 55, 0, new String[] {"Flying"}, 50, new String[] {"Zubat", "Golbat", "Crobat"}, 0, 22));
+		pokedex.add(new Pokemon("Golbat", "Poison", "Flying", 75, 80, 70, 65, 75, 90, 19, new String[] {"Flying"}, 50, new String[] {"Zubat", "Golbat", "Crobat"}, 1, -1));
+		pokedex.add(new Pokemon("Oddish", "Grass", "Poison", 45, 50, 55, 75, 65, 30, 0, new String[] {"Grass"}, 50, new String[] {"Oddish", "Gloom", "Vileplume", "Bellossom"}, 0, 21));
+		pokedex.add(new Pokemon("Gloom", "Grass", "Poison", 60, 65, 70, 85, 75, 40, 17, new String[] {"Grass"}, 50, new String[] {"Oddish", "Gloom", "Vileplume", "Bellossom"}, 1, -1));
+		pokedex.add(new Pokemon("Vileplume", "Grass", "Poison", 75, 80, 85, 110, 90, 50, 27, new String[] {"Grass"}, 50, new String[] {"Oddish", "Gloom", "Vileplume", "Bellossom"}, 2, 0));
 		pokedex.add(new Pokemon("Paras", "Bug", "Grass", 35, 70, 55, 45, 55, 25, 6, new String[] {"Bug", "Grass"}, 50, new String[] {"Paras", "Parasect"}, 0, 24));
 		pokedex.add(new Pokemon("Parasect", "Bug", "Grass", 60, 95, 80, 60, 80, 30, 21, new String[] {"Bug", "Grass"}, 50, new String[] {"Paras", "Parasect"}, 1, 0));
 		pokedex.add(new Pokemon("Venonat", "Bug", "Poison", 60, 55, 50, 40, 55, 45, 6, new String[] {"Bug"}, 50, new String[] {"Venonat", "Venomoth"}, 0, 31));
@@ -184,9 +184,9 @@ public class Main {
 		pokedex.add(new Pokemon("Primeape", "Fighting", null, 65, 100, 60, 60, 70, 95, 21, new String[] {"Field"}, 50, new String[] {"Mankey", "Primeape"}, 1, 0));
 		pokedex.add(new Pokemon("Growlithe", "Fire", null, 55, 70, 45, 70, 50, 60, 6, new String[] {"Field"}, 75, new String[] {"Growlithe", "Arcanine"}, 0, -1));
 		pokedex.add(new Pokemon("Arcanine", "Fire", null, 90, 110, 80, 100, 80, 95, 21, new String[] {"Field"}, 75, new String[] {"Growlithe", "Arcanine"}, 1, 0));
-		pokedex.add(new Pokemon("Poliwag", "Water", null, 40, 50, 40, 40, 40, 90, 0, new String[] {"Water 1"}, 50, new String[] {"Poliwag", "Poliwhirl", "Poliwrath"}, 0, 25));
-		pokedex.add(new Pokemon("Poliwhirl", "Water", null, 65, 65, 65, 50, 50, 90, 17, new String[] {"Water 1"}, 50, new String[] {"Poliwag", "Poliwhirl", "Poliwrath"}, 1, -1));
-		pokedex.add(new Pokemon("Poliwrath", "Water", "Fighting", 90, 95, 95, 70, 90, 70, 27, new String[] {"Water 1"}, 50, new String[] {"Poliwag", "Poliwhirl", "Poliwrath"}, 3, 0));
+		pokedex.add(new Pokemon("Poliwag", "Water", null, 40, 50, 40, 40, 40, 90, 0, new String[] {"Water 1"}, 50, new String[] {"Poliwag", "Poliwhirl", "Poliwrath", "Politoed"}, 0, 25));
+		pokedex.add(new Pokemon("Poliwhirl", "Water", null, 65, 65, 65, 50, 50, 90, 17, new String[] {"Water 1"}, 50, new String[] {"Poliwag", "Poliwhirl", "Poliwrath", "Politoed"}, 1, -1));
+		pokedex.add(new Pokemon("Poliwrath", "Water", "Fighting", 90, 95, 95, 70, 90, 70, 27, new String[] {"Water 1"}, 50, new String[] {"Poliwag", "Poliwhirl", "Poliwrath", "Politoed"}, 2, 0));
 		pokedex.add(new Pokemon("Abra", "Psychic", null, 25, 20, 15, 105, 55, 90, 5, new String[] {"Human-Like"}, 75, new String[] {"Abra", "Kadabra", "Alakazam"}, 0, 16));
 		pokedex.add(new Pokemon("Kadabra", "Psychic", null, 40, 35, 30, 120, 70, 105, 18, new String[] {"Human-Like"}, 75, new String[] {"Abra", "Kadabra", "Alakazam"}, 1, -1));
 		pokedex.add(new Pokemon("Alakazam", "Psychic", null, 55, 50, 45, 135, 95, 120, 26, new String[] {"Human-Like"}, 75, new String[] {"Abra", "Kadabra", "Alakazam"}, 2, 0));
@@ -291,26 +291,26 @@ public class Main {
 		pokedex.add(new Pokemon("Noctowl", "Normal", "Flying", 100, 50, 50, 86, 96, 70, 19, new String[] {"Flying"}, 50, new String[] {"Hoothoot", "Noctowl"}, 1, 0));
 		pokedex.add(new Pokemon("Ledyba", "Bug", "Flying", 40, 20, 30, 40, 80, 55, 0, new String[] {"Bug"}, 50, new String[] {"Ledyba", "Ledian"}, 0, 18));
 		pokedex.add(new Pokemon("Ledian", "Bug", "Flying", 55, 35, 50, 55, 110, 85, 19, new String[] {"Bug"}, 50, new String[] {"Ledyba", "Ledian"}, 1, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon("Spinarak", "Bug", "Poison", 40, 60, 40, 40, 40, 30, 0, new String[] {"Bug"}, 50, new String[] {"Spinarak", "Ariados"}, 0, 22));
+		pokedex.add(new Pokemon("Ariados", "Bug", "Poison", 70, 90, 70, 60, 70, 40, 19, new String[] {"Bug"}, 50, new String[] {"Spinarak", "Ariados"}, 1, 0));
+		pokedex.add(new Pokemon("Crobat", "Poison", "Flying", 85, 90, 80, 70, 80, 130, 19, new String[] {"Flying"}, 50, new String[] {"Zubat", "Golbat", "Crobat"}, 2, 0));
+		pokedex.add(new Pokemon("Chinchou", "Water", "Electric", 75, 38, 38, 56, 56, 67, 6, new String[] {"Water 2"}, 50, new String[] {"Chinchou", "Lanturn"}, 0, 27));
+		pokedex.add(new Pokemon("Lanturn", "Water", "Electric", 125, 58, 58, 76, 76, 67, 21, new String[] {"Water 2"}, 50, new String[] {"Chinchou", "Lanturn"}, 1, 0));
+		pokedex.add(new Pokemon("Pichu", "Electric", null, 20, 40, 15, 35, 35, 60, 6, new String[] {"Field", "Fairy"}, 50, new String[] {"Pichu", "Pikachu", "Raichu"}, 0, -1));
+		pokedex.add(new Pokemon("Cleffa", "Fairy", null, 50, 25, 28, 45, 55, 15, 11, new String[] {"Fairy"}, 25, new String[] {"Cleffa", "Clefairy", "Clefable"}, 0, -1));
+		pokedex.add(new Pokemon("Igglybuff", "Normal", "Fairy", 90, 30, 15, 40, 20, 15, 8, new String[] {"Fairy"}, 25, new String[] {"Igglybuff", "Jigglypuff", "Wigglytuff"}, 0, -1));
+		pokedex.add(new Pokemon("Togepi", "Fairy", null, 35, 20, 65, 40, 65, 20, 6, new String[] {"Flying", "Fairy"}, 87.5, new String[] {"Togepi", "Togetic"}, 0, -1));
+		pokedex.add(new Pokemon("Togetic", "Fairy", "Flying", 55, 40, 85, 80, 105, 40, 21, new String[] {"Flying", "Fairy"}, 87.5, new String[] {"Togepi", "Togetic"}, 1, 0));
+		pokedex.add(new Pokemon("Natu", "Psychic", "Flying", 40, 50, 45, 70, 45, 70, 6, new String[] {"Flying"}, 50, new String[] {"Natu", "Xatu"}, 0, 25));
+		pokedex.add(new Pokemon("Xatu", "Psychic", "Flying", 65, 75, 70, 95, 70, 95, 21, new String[] {"Flying"}, 50, new String[] {"Natu", "Xatu"}, 1, 0));
+		pokedex.add(new Pokemon("Mareep", "Electric", null, 55, 40, 40, 65, 45, 35, 1, new String[] {"Monster", "Field"}, 50, new String[] {"Mareep", "Flaaffy", "Ampharos"}, 0, 15));
+		pokedex.add(new Pokemon("Flaaffy", "Electric", null, 70, 55, 55, 80, 60, 45, 17, new String[] {"Monster", "Field"}, 50, new String[] {"Mareep", "Flaaffy", "Ampharos"}, 1, 30));
+		pokedex.add(new Pokemon("Ampharos", "Electric", null, 90, 75, 85, 115, 90, 55, 27, new String[] {"Monster", "Field"}, 50, new String[] {"Mareep", "Flaaffy", "Ampharos"}, 2, 0));
+		pokedex.add(new Pokemon("Bellossom", "Grass", null, 75, 80, 95, 90, 100, 50, 27, new String[] {"Grass"}, 50, new String[] {"Oddish", "Gloom", "Vileplume", "Bellossom"}, 2, 0));
+		pokedex.add(new Pokemon("Marill", "Water", "Fairy", 70, 20, 50, 20, 50, 40, 6, new String[] {"Water 1", "Fairy"}, 50, new String[] {"Marill", "Azumarill"}, 0, 18));
+		pokedex.add(new Pokemon("Azumarill", "Water", "Fairy", 100, 50, 80, 60, 80, 50, 21, new String[] {"Water 1", "Fairy"}, 50, new String[] {"Marill", "Azumarill"}, 1, 0));
+		pokedex.add(new Pokemon("Sudowoodo", "Rock", null, 70, 100, 115, 30, 65, 30, 23, new String[] {"Mineral"}, 50, new String[] {"Sudowoodo"}, 0, 0));
+		pokedex.add(new Pokemon("Politoed", "Water", null, 90, 75, 75, 90, 100, 70, 27, new String[] {"Water 1"}, 50, new String[] {"Poliwag", "Poliwhirl", "Poliwrath", "Politoed"}, 2, 0));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
@@ -1162,6 +1162,108 @@ public class Main {
 																p.catchPokemon(op);
 																System.out.println("Congratulations, your Eevee has evolved into a Flareon!");
 																p.getPC().get(p.getIndex(op)).addT4PointsInvested(100);
+																done = true;
+																finished = true;
+																repeat = true;
+																break;
+															case "0":
+																done = true;
+																finished = true;
+																repeat = true;
+																break;
+															default:
+																System.out.println();
+																System.out.println("Input does not match an available choice.");
+																System.out.println();
+															}
+														System.out.println();
+													}
+												} else if(p.getPC().get(num - 1).getPokemon().getName().equals("Gloom")){
+													// Gloom is another special case in special condition evolutions because it can evolve into 2 different Pokemon
+													System.out.println();
+													boolean repeat = false;
+													while (!repeat) {
+														System.out.println("What would you like to evolve you Gloom into?");
+														System.out.println("1) Vileplume");
+														System.out.println("2) Bellossom");
+														System.out.println("Enter \"0\" to go back to the main menu.");
+														System.out.println();
+														poke = p.getPC().get(num - 1).getPokemon();
+														if (input.hasNext())
+															switch (input.nextLine()) {
+															case "1":
+																System.out.println();
+																p.spendTier2(100);
+																poke = pokedex.get(44);
+																op = new OwnedPokemon(p.getPC().get(num - 1), poke);
+																p.getPC().remove(num - 1);
+																p.catchPokemon(op);
+																System.out.println("Congratulations, your Gloom has evolved into a Vileplume!");
+																p.getPC().get(p.getIndex(op)).addT2PointsInvested(100);
+																done = true;
+																finished = true;
+																repeat = true;
+																break;
+															case "2":
+																System.out.println();
+																p.spendTier2(100);
+																poke = pokedex.get(181);
+																op = new OwnedPokemon(p.getPC().get(num - 1), poke);
+																p.getPC().remove(num - 1);
+																p.catchPokemon(op);
+																System.out.println("Congratulations, your Gloom has evolved into a Bellossom!");
+																p.getPC().get(p.getIndex(op)).addT2PointsInvested(100);
+																done = true;
+																finished = true;
+																repeat = true;
+																break;
+															case "0":
+																done = true;
+																finished = true;
+																repeat = true;
+																break;
+															default:
+																System.out.println();
+																System.out.println("Input does not match an available choice.");
+																System.out.println();
+															}
+														System.out.println();
+													}
+												} else if(p.getPC().get(num - 1).getPokemon().getName().equals("Poliwhirl")){
+													// Poliwhirl is another special case in special condition evolutions because it can evolve into 2 different Pokemon
+													System.out.println();
+													boolean repeat = false;
+													while (!repeat) {
+														System.out.println("What would you like to evolve you Poliwhirl into?");
+														System.out.println("1) Poliwrath");
+														System.out.println("2) Politoed");
+														System.out.println("Enter \"0\" to go back to the main menu.");
+														System.out.println();
+														poke = p.getPC().get(num - 1).getPokemon();
+														if (input.hasNext())
+															switch (input.nextLine()) {
+															case "1":
+																System.out.println();
+																p.spendTier2(100);
+																poke = pokedex.get(61);
+																op = new OwnedPokemon(p.getPC().get(num - 1), poke);
+																p.getPC().remove(num - 1);
+																p.catchPokemon(op);
+																System.out.println("Congratulations, your Poliwhirl has evolved into a Poliwrath!");
+																p.getPC().get(p.getIndex(op)).addT2PointsInvested(100);
+																done = true;
+																finished = true;
+																repeat = true;
+																break;
+															case "2":
+																System.out.println();
+																p.spendTier2(100);
+																poke = pokedex.get(185);
+																op = new OwnedPokemon(p.getPC().get(num - 1), poke);
+																p.getPC().remove(num - 1);
+																p.catchPokemon(op);
+																System.out.println("Congratulations, your Poliwhirl has evolved into a Politoed!");
+																p.getPC().get(p.getIndex(op)).addT2PointsInvested(100);
 																done = true;
 																finished = true;
 																repeat = true;
