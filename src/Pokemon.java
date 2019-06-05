@@ -11,7 +11,7 @@ public class Pokemon implements Serializable{
 	private int baseSpecialAttack;
 	private int baseSpecialDefense;
 	private int baseSpeed;
-	private int spawnRate; //32 possible; the higher the spawnRate, the rarer the Pokemon
+	private int spawnRate; //33 possible; the higher the spawnRate, the rarer the Pokemon
 	private String[] eggGroup;
 	private double genderRatio;
 	private String[] evolutionTree;
