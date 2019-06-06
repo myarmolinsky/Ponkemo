@@ -33,6 +33,7 @@ public class OwnedPokemon implements Serializable{
 	private int t3PointsInvested;
 	private int t4PointsInvested;
 	private int t5PointsInvested;
+	private boolean evoLock;
 
 	public OwnedPokemon(Pokemon pokemon) {
 		// this constructor is for making a new Pokemon for the player to catch
@@ -158,6 +159,7 @@ public class OwnedPokemon implements Serializable{
 		t3PointsInvested = 0;
 		t4PointsInvested = 0;
 		t5PointsInvested = 0;
+		evoLock = false;
 	}
 
 	public OwnedPokemon(Pokemon pokemon, int healthIV, int attackIV, int defenseIV, int specialAttackIV, int specialDefenseIV, int speedIV, OwnedPokemon oldOne, OwnedPokemon oldTwo) {
@@ -271,6 +273,7 @@ public class OwnedPokemon implements Serializable{
 		t3PointsInvested = oldOne.t3PointsInvested + oldTwo.t3PointsInvested;
 		t4PointsInvested = oldOne.t4PointsInvested + oldTwo.t4PointsInvested;
 		t5PointsInvested = oldOne.t5PointsInvested + oldTwo.t5PointsInvested;
+		evoLock = false;
 	}
 
 	public OwnedPokemon(OwnedPokemon ownedPokemon, Pokemon poke) {
@@ -298,6 +301,7 @@ public class OwnedPokemon implements Serializable{
 		t3PointsInvested = ownedPokemon.t3PointsInvested;
 		t4PointsInvested = ownedPokemon.t4PointsInvested;
 		t5PointsInvested = ownedPokemon.t5PointsInvested;
+		evoLock = false;
 	}
 
 	private void calculateStats() {
@@ -699,6 +703,14 @@ public class OwnedPokemon implements Serializable{
 		p.addTier3(t3PointsInvested/2);
 		p.addTier4(t4PointsInvested/2);
 		p.addTier5(t5PointsInvested/2);
+	}
+	
+	public boolean isEvoLocked() {
+		return evoLock;
+	}
+	
+	public void toggleEvoLock() {
+		evoLock = !evoLock;
 	}
 
 	public String toString() {

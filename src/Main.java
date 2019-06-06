@@ -376,6 +376,145 @@ public class Main {
 		pokedex.add(new Pokemon("Lugia", "Psychic", "Flying", 106, 90, 130, 90, 154, 110, 32, new String[] {"Undiscovered"}, -1, new String[] {"Lugia"}, 0, 0));
 		pokedex.add(new Pokemon("Ho-Oh", "Fire", "Flying", 106, 130, 90, 110, 154, 90, 32, new String[] {"Undiscovered"}, -1, new String[] {"Ho-Oh"}, 0, 0));
 		pokedex.add(new Pokemon("Celebi", "Psychic", "Grass", 100, 100, 100, 100, 100, 100, 32, new String[] {"Undiscovered"}, -1, new String[] {"Celebi"}, 0, 0));
+		pokedex.add(new Pokemon("Treecko", "Grass", null, 40, 45, 35, 65, 55, 70, 27, new String[] {"Monster", "Dragon"}, 87.5, new String[] {"Treecko", "Grovyle", "Sceptile"}, 0, 16));
+		pokedex.add(new Pokemon("Grovyle", "Grass", null, 50, 65, 45, 85, 65, 95, 27, new String[] {"Monster", "Dragon"}, 87.5, new String[] {"Treecko", "Grovyle", "Sceptile"}, 1, 36));
+		pokedex.add(new Pokemon("Sceptile", "Grass", null, 70, 85, 65, 105, 85, 120, 27, new String[] {"Monster", "Dragon"}, 87.5, new String[] {"Treecko", "Grovyle", "Sceptile"}, 2, 0));
+		pokedex.add(new Pokemon("Torchic", "Fire", null, 45, 60, 40, 70, 50, 45, 27, new String[] {"Field"}, 87.5, new String[] {"Torchic", "Combusken", "Blaziken"}, 0, 16));
+		pokedex.add(new Pokemon("Combusken", "Fire", "Fighting", 60, 85, 60, 85, 60, 55, 27, new String[] {"Field"}, 87.5, new String[] {"Torchic", "Combusken", "Blaziken"}, 1, 36));
+		pokedex.add(new Pokemon("Blaziken", "Fire", "Fighting", 80, 120, 70, 110, 70, 80, 27, new String[] {"Field"}, 87.5, new String[] {"Torchic", "Combusken", "Blaziken"}, 2, 0));
+		pokedex.add(new Pokemon("Mudkip", "Water", null, 50, 70, 50, 50, 50, 40, 27, new String[] {"Monster", "Water 1"}, 87.5, new String[] {"Mudkip", "Marshtomp", "Swampert"}, 0, 16));
+		pokedex.add(new Pokemon("Marshtomp", "Water", "Ground", 70, 85, 70, 60, 70, 50, 27, new String[] {"Monster", "Water 1"}, 87.5, new String[] {"Mudkip", "Marshtomp", "Swampert"}, 1, 36));
+		pokedex.add(new Pokemon("Swampert", "Water", "Ground", 100, 110, 90, 85, 90, 60, 27, new String[] {"Monster", "Water 1"}, 87.5, new String[] {"Mudkip", "Marshtomp", "Swampert"}, 2, 0));
+		pokedex.add(new Pokemon("Poochyena", "Dark", null, 35, 55, 35, 30, 30, 35, 0, new String[] {"Field"}, 50, new String[] {"Poochyena", "Mightyena"}, 0, 18));
+		pokedex.add(new Pokemon("Mightyena", "Dark", null, 70, 90, 70, 60, 60, 70, 15, new String[] {"Field"}, 50, new String[] {"Poochyena", "Mightyena"}, 1, 0));
+		pokedex.add(new Pokemon("Zigzagoon", "Normal", null, 38, 30, 41, 30, 41, 60, 0, new String[] {"Field"}, 50, new String[] {"Zigzagoon", "Linoone"}, 0, 20));
+		pokedex.add(new Pokemon("Linoone", "Normal", null, 78, 70, 61, 50, 61, 100, 19, new String[] {"Field"}, 50, new String[] {"Zigzagoon", "Linoone"}, 1, 0));
+		pokedex.add(new Pokemon("Wurmple", "Bug", null, 45, 45, 35, 20, 30, 20, 0, new String[] {"Bug"}, 50, new String[] {"Wurmple", "Silcoon", "Beautifly", "Cascoon", "Dustox"}, 0, 7));
+		pokedex.add(new Pokemon("Silcoon", "Bug", null, 50, 35, 55, 25, 25, 15, 17, new String[] {"Bug"}, 50, new String[] {"Wurmple", "Silcoon", "Beautifly"}, 1, 10));
+		pokedex.add(new Pokemon("Beautifly", "Bug", "Flying", 60, 70, 50, 100, 50, 65, 27, new String[] {"Bug"}, 50, new String[] {"Wurmple", "Silcoon", "Beautifly"}, 2, 0));
+		pokedex.add(new Pokemon("Cascoon", "Bug", null, 50, 35, 55, 25, 25, 15, 17, new String[] {"Bug"}, 50, new String[] {"Wurmple", "Cascoon", "Dustox"}, 1, 10));
+		pokedex.add(new Pokemon("Dustox", "Bug", "Poison", 60, 50, 70, 50, 90, 65, 27, new String[] {"Bug"}, 50, new String[] {"Wurmple", "Cascoon", "Dustox"}, 2, 0));
+		pokedex.add(new Pokemon("Lotad", "Water", "Grass", 40, 30, 30, 40, 50, 30, 0, new String[] {"Water 1", "Grass"}, 50, new String[] {"Lotad", "Lombre", "Ludicolo"}, 0, 14));
+		pokedex.add(new Pokemon("Lombre", "Water", "Grass", 60, 50, 50, 60, 70, 50, 17, new String[] {"Water 1", "Grass"}, 50, new String[] {"Lotad", "Lombre", "Ludicolo"}, 1, -1));
+		pokedex.add(new Pokemon("Ludicolo", "Water", "Grass", 80, 70, 70, 90, 100, 70, 27, new String[] {"Water 1", "Grass"}, 50, new String[] {"Lotad", "Lombre", "Ludicolo"}, 2, 0));
+		pokedex.add(new Pokemon("Seedot", "Grass", null, 40, 40, 50, 30, 30, 30, 0, new String[] {"Field", "Grass"}, 50, new String[] {"Seedot", "Nuzleaf", "Shiftry"}, 0, 14));
+		pokedex.add(new Pokemon("Nuzleaf", "Grass", "Dark", 70, 70, 40, 60, 40, 60, 17, new String[] {"Field", "Grass"}, 50, new String[] {"Seedot", "Nuzleaf", "Shiftry"}, 1, -1));
+		pokedex.add(new Pokemon("Shiftry", "Grass", "Dark", 90, 100, 60, 90, 60, 80, 27, new String[] {"Field", "Grass"}, 50, new String[] {"Seedot", "Nuzleaf", "Shiftry"}, 2, 0));
+		pokedex.add(new Pokemon("Taillow", "Normal", "Flying", 40, 55, 30, 30, 30, 85, 5, new String[] {"Flying"}, 50, new String[] {"Taillow", "Swellow"}, 0, 22));
+		pokedex.add(new Pokemon("Swellow", "Normal", "Flying", 60, 85, 60, 75, 50, 125, 27, new String[] {"Flying"}, 50, new String[] {"Taillow", "Swellow"}, 1, 0));
+		pokedex.add(new Pokemon("Wingull", "Water", "Flying", 40, 30, 30, 55, 30, 85, 6, new String[] {"Water 1", "Flying"}, 50, new String[] {"Wingull", "Pelipper"}, 0, 25));
+		pokedex.add(new Pokemon("Pelipper", "Water", "Flying", 60, 50, 100, 95, 70, 65, 27, new String[] {"Water 1", "Flying"}, 50, new String[] {"Wingull", "Pelipper"}, 1, 0));
+		pokedex.add(new Pokemon("Ralts", "Psychic", "Fairy", 28, 25, 25, 45, 35, 40, 1, new String[] {"Amorphous"}, 50, new String[] {"Ralts", "Kirlia", "Gardevoir"}, 0, 20));
+		pokedex.add(new Pokemon("Kirlia", "Psychic", "Fairy", 38, 35, 35, 65, 55, 50, 17, new String[] {"Amorphous"}, 50, new String[] {"Ralts", "Kirlia", "Gardevoir"}, 1, 30));
+		pokedex.add(new Pokemon("Gardevoir", "Psychic", "Fairy", 68, 65, 65, 125, 115, 80, 27, new String[] {"Amorphous"}, 50, new String[] {"Ralts", "Kirlia", "Gardevoir"}, 2, 0));
+		pokedex.add(new Pokemon("Surskit", "Bug", "Water", 40, 30, 32, 50, 52, 65, 5, new String[] {"Water 1", "Bug"}, 50, new String[] {"Surskit", "Masquerain"}, 0, 22));
+		pokedex.add(new Pokemon("Masquerain", "Bug", "Flying", 70, 60, 62, 100, 82, 80, 21, new String[] {"Water 1", "Bug"}, 50, new String[] {"Surskit", "Masquerain"}, 1, 0));
+		pokedex.add(new Pokemon("Shroomish", "Grass", null, 60, 40, 60, 40, 60, 35, 0, new String[] {"Fairy", "Grass"}, 50, new String[] {"Shroomish", "Breloom"}, 0, 23));
+		pokedex.add(new Pokemon("Breloom", "Grass", "Fighting", 60, 130, 80, 60, 60, 70, 19, new String[] {"Fairy", "Grass"}, 50, new String[] {"Shroomish", "Breloom"}, 1, 0));
+		pokedex.add(new Pokemon("Slakoth", "Normal", null, 60, 60, 60, 35, 35, 30, 0, new String[] {"Field"}, 50, new String[] {"Slakoth", "Vigoroth", "Slaking"}, 0, 18));
+		pokedex.add(new Pokemon("Vigoroth", "Normal", null, 80, 80, 80, 55, 55, 90, 17, new String[] {"Field"}, 50, new String[] {"Slakoth", "Vigoroth", "Slaking"}, 1, 36));
+		pokedex.add(new Pokemon("Slaking", "Normal", null, 150, 160, 100, 95, 65, 100, 27, new String[] {"Field"}, 50, new String[] {"Slakoth", "Vigoroth", "Slaking"}, 2, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
 	}
 
 	private static void sortPC(Player p, Scanner input) {
@@ -504,79 +643,143 @@ public class Main {
 						System.out.println(p.getPC().get(num - 1));
 						System.out.println();
 						boolean repeat = false;
+						boolean finished = false;
 						while (!repeat) {
-							System.out.println("Would you like to change this Pokemon's nickname?");
-							System.out.println("1) Yes");
-							System.out.println("2) No");
+							System.out.println("Would you like to change anything about this Pokemon?");
+							System.out.println("Enter the number corresponding to your choice.");
+							System.out.println("1) Nickname");
+							System.out.println("2) Favorite Status");
+							System.out.println("3) Evolution Lock Status");
+							System.out.println("4) View Another Pokemon");
+							System.out.println("0) Go Back to Main Menu");
 							System.out.println();
 							if (input.hasNext())
 								switch (input.nextLine()) {
 								case "1":
 									System.out.println();
-									while (!repeat) {
-										System.out.println("What would you like it's nickname to be? (Nicknames must be at least 1 character and a maximum of 20 characters long)");
+									finished = false;
+									while (!finished) {
+										System.out.println("Would you like to change this Pokemon's nickname?");
+										System.out.println("1) Yes");
+										System.out.println("2) No");
 										System.out.println();
 										if (input.hasNext())
-											temp = input.nextLine();
-										if (temp.length() > 20) {
-											System.out.println();
-											System.out.println("The name you have input is either less than 1 character ir longer than 20 characters");
-											System.out.println();
-										} else {
-											p.getPC().get(num - 1).setNickname(temp);
-											System.out.println();
-											System.out.println("Your " + p.getPC().get(num - 1).getPokemon().getName() + " nickname is now " + temp + ".");
-											repeat = true;
-										}
+											switch (input.nextLine()) {
+											case "1":
+												System.out.println();
+												while (!repeat) {
+													System.out.println("What would you like it's nickname to be? (Nicknames must be at least 1 character and a maximum of 20 characters long)");
+													System.out.println();
+													if (input.hasNext())
+														temp = input.nextLine();
+													if (temp.length() > 20) {
+														System.out.println();
+														System.out.println("The name you have input is either less than 1 character ir longer than 20 characters");
+														System.out.println();
+													} else {
+														p.getPC().get(num - 1).setNickname(temp);
+														System.out.println();
+														System.out.println("Your " + p.getPC().get(num - 1).getPokemon().getName() + " nickname is now " + temp + ".");
+													}
+												}
+												System.out.println();
+												finished = true;
+												break;
+											case "2":
+												System.out.println();
+												finished = true;
+												break;
+											default:
+												System.out.println();
+												System.out.println("Input does not match an available choice.");
+												System.out.println();
+											}
 									}
-									System.out.println();
 									break;
 								case "2":
 									System.out.println();
-									repeat = true;
+									finished = false;
+									while (!finished) {
+										System.out.println("Would you like to toggle this Pokemon's \"Favorite\" status?");
+										System.out.println("1) Yes");
+										System.out.println("2) No");
+										System.out.println();
+										if (input.hasNext())
+											switch (input.nextLine()) {
+											case "1":
+												System.out.println();
+												p.getPC().get(num - 1).toggleFavorite();
+												finished = true;
+												break;
+											case "2":
+												System.out.println();
+												finished = true;
+												break;
+											default:
+												System.out.println();
+												System.out.println("Input does not match an available choice.");
+												System.out.println();
+											}
+									}
 									break;
-								default:
+								case "3":
 									System.out.println();
-									System.out.println("Input does not match an available choice.");
-									System.out.println();
-								}
-						}
-						repeat = false;
-						while (!repeat) {
-							System.out.println("Would you like to toggle this Pokemon's \"Favorite\" status?");
-							System.out.println("1) Yes");
-							System.out.println("2) No");
-							System.out.println();
-							if (input.hasNext())
-								switch (input.nextLine()) {
-								case "1":
-									System.out.println();
-									p.getPC().get(num - 1).toggleFavorite();
-									repeat = true;
+									finished = false;
+									while (!finished) {
+										System.out.println("Would you like to toggle this Pokemon's \"Evolution Lock\" status?");
+										System.out.println("1) Yes");
+										System.out.println("2) No");
+										System.out.println();
+										if (input.hasNext())
+											switch (input.nextLine()) {
+											case "1":
+												System.out.println();
+												p.getPC().get(num - 1).toggleEvoLock();
+												finished = true;
+												break;
+											case "2":
+												System.out.println();
+												finished = true;
+												break;
+											default:
+												System.out.println();
+												System.out.println("Input does not match an available choice.");
+												System.out.println();
+											}
+									}
 									break;
-								case "2":
+								case "4":
 									System.out.println();
-									repeat = true;
+									finished = false;
+									while (!finished) {
+										System.out.println("Would you like to view another Pokemon?");
+										System.out.println("1) Yes");
+										System.out.println("2) No");
+										System.out.println();
+										if (input.hasNext())
+											switch (input.nextLine()) {
+											case "1":
+												p.sortPC();
+												System.out.println();
+												finished = true;
+												repeat = true;
+												break;
+											case "2":
+												p.sortPC();
+												System.out.println();
+												finished = true;
+												done = true;
+												repeat = true;
+												break;
+											default:
+												System.out.println();
+												System.out.println("Input does not match an available choice.");
+												System.out.println();
+											}
+									}
 									break;
-								default:
-									System.out.println();
-									System.out.println("Input does not match an available choice.");
-									System.out.println();
-								}
-						}
-						repeat = false;
-						while (!repeat) {
-							System.out.println("Would you like to view another Pokemon?");
-							System.out.println("1) Yes");
-							System.out.println("2) No");
-							System.out.println();
-							if (input.hasNext())
-								switch (input.nextLine()) {
-								case "1":
-									System.out.println();
-									repeat = true;
-									break;
-								case "2":
+								case "0":
+									p.sortPC();
 									System.out.println();
 									done = true;
 									repeat = true;
@@ -1048,43 +1251,87 @@ public class Main {
 													OwnedPokemon tempPokemon = p.getPC().get(num - 1);
 													if (p.getPC().get(num - 1).getLevel() >= p.getPC().get(num - 1).getPokemon().getEvolutionLevel() && p.getPC().get(num - 1).getPokemon().getEvolutionLevel() != 0 && p.getPC().get(num - 1).getPokemon().getEvolutionLevel() != -1) {
 														// if the pokemon's evolution level is reached, add its evolution with everything exactly the same as the original to the PC and remove the old one
-														Pokemon poke = p.getPC().get(num - 1).getPokemon();
-														if (p.getPC().get(num - 1).getName().equals("Tyrogue")) {
-															if (p.getPC().get(num - 1).getAttackStat() > p.getPC().get(num - 1).getDefenseStat()) {
-																poke = pokedex.get(105);
-																OwnedPokemon op = p.getPC().get(num - 1);
-																p.getPC().remove(num - 1);
-																tempPokemon = new OwnedPokemon(op, poke);
-																p.catchPokemon(new OwnedPokemon(op, poke));
-																System.out.println("Congratulations, your Tyrgoue has evolved into a Hitmonlee!");
-															} else if (p.getPC().get(num - 1).getAttackStat() < p.getPC().get(num - 1).getDefenseStat()) {
-																poke = pokedex.get(106);
-																OwnedPokemon op = p.getPC().get(num - 1);
-																p.getPC().remove(num - 1);
-																tempPokemon = new OwnedPokemon(op, poke);
-																p.catchPokemon(new OwnedPokemon(op, poke));
-																System.out.println("Congratulations, your Tyrgoue has evolved into a Hitmonchan!");
+														if (!p.getPC().get(num - 1).isEvoLocked()) {
+															Pokemon poke = p.getPC().get(num - 1).getPokemon();
+															if (p.getPC().get(num - 1).getName().equals("Tyrogue")) {
+																// Tyrogue can evolve into 3 different pokemon depending on its attack and defense stats
+																if (p.getPC().get(num - 1).getAttackStat() > p.getPC().get(num - 1).getDefenseStat()) {
+																	poke = pokedex.get(105);
+																	OwnedPokemon op = p.getPC().get(num - 1);
+																	p.getPC().remove(num - 1);
+																	tempPokemon = new OwnedPokemon(op, poke);
+																	p.catchPokemon(new OwnedPokemon(op, poke));
+																	System.out.println("Congratulations, your Tyrgoue has evolved into a Hitmonlee!");
+																} else if (p.getPC().get(num - 1).getAttackStat() < p.getPC().get(num - 1).getDefenseStat()) {
+																	poke = pokedex.get(106);
+																	OwnedPokemon op = p.getPC().get(num - 1);
+																	p.getPC().remove(num - 1);
+																	tempPokemon = new OwnedPokemon(op, poke);
+																	p.catchPokemon(new OwnedPokemon(op, poke));
+																	System.out.println("Congratulations, your Tyrgoue has evolved into a Hitmonchan!");
+																} else {
+																	poke = pokedex.get(236);
+																	OwnedPokemon op = p.getPC().get(num - 1);
+																	p.getPC().remove(num - 1);
+																	tempPokemon = new OwnedPokemon(op, poke);
+																	p.catchPokemon(new OwnedPokemon(op, poke));
+																	System.out.println("Congratulations, your Tyrgoue has evolved into a Hitmontop!");
+																}
+															} else if (p.getPC().get(num - 1).getName().equals("Wurmple")) {
+																// Wurmple can evolve into 2 different pokemon
+																// the way its determined in the games is practically random so instead I allow the user to choose which pokemon they want their Wurmple to evolve into
+																boolean repeat = false;
+																OwnedPokemon op;
+																while (repeat) {
+																	System.out.println();
+																	System.out.println("Would you like your Wurmple to evolve into a Silcoon or a Cascoon?");
+																	System.out.println("Enter the number corresponding your choice.");
+																	System.out.println("1) Silcoon");
+																	System.out.println("2) Cascoon");
+																	System.out.println();
+																	if (input.hasNext()) {
+																		switch (input.nextLine()) {
+																		case "1":
+																			System.out.println();
+																			poke = pokedex.get(265);
+																			op = p.getPC().get(num - 1);
+																			p.getPC().remove(num - 1);
+																			tempPokemon = new OwnedPokemon(op, poke);
+																			p.catchPokemon(new OwnedPokemon(op, poke));
+																			System.out.println("Congratulations, your Wurmple has evolved into a Silcoon!");
+																			repeat = false;
+																			break;
+																		case "2":
+																			System.out.println();
+																			poke = pokedex.get(267);
+																			op = p.getPC().get(num - 1);
+																			p.getPC().remove(num - 1);
+																			tempPokemon = new OwnedPokemon(op, poke);
+																			p.catchPokemon(new OwnedPokemon(op, poke));
+																			System.out.println("Congratulations, your Wurmple has evolved into a Cascoon!");
+																			repeat = false;
+																			break;
+																		default:
+																			System.out.println();
+																			System.out.println("Input does not match an available choice.");
+																			System.out.println();
+																		}
+																	}
+																}
 															} else {
-																poke = pokedex.get(236);
+																for (int i = 0; i < pokedex.size(); i++) {
+																	if (pokedex.get(i).getName().equals(p.getPC().get(num - 1).getPokemon().getEvolutionTree()[p.getPC().get(num - 1).getPokemon().getEvolutionStage() + 1]))
+																		poke = pokedex.get(i);
+																}
+																// store the old pokemon in a variable
 																OwnedPokemon op = p.getPC().get(num - 1);
+																// remove the old pokemon from the player's pc
 																p.getPC().remove(num - 1);
+																// add the evolved pokemon to the player's pc (everything about the pokemon will remain the same except its "pokemon" data member
 																tempPokemon = new OwnedPokemon(op, poke);
 																p.catchPokemon(new OwnedPokemon(op, poke));
-																System.out.println("Congratulations, your Tyrgoue has evolved into a Hitmontop!");
+																System.out.println("Congratulations, your " + op.getName() + " has evolved into a " + poke.getName() + "!");
 															}
-														} else {
-															for (int i = 0; i < pokedex.size(); i++) {
-																if (pokedex.get(i).getName().equals(p.getPC().get(num - 1).getPokemon().getEvolutionTree()[p.getPC().get(num - 1).getPokemon().getEvolutionStage() + 1]))
-																	poke = pokedex.get(i);
-															}
-															// store the old pokemon in a variable
-															OwnedPokemon op = p.getPC().get(num - 1);
-															// remove the old pokemon from the player's pc
-															p.getPC().remove(num - 1);
-															// add the evolved pokemon to the player's pc (everything about the pokemon will remain the same except its "pokemon" data member
-															tempPokemon = new OwnedPokemon(op, poke);
-															p.catchPokemon(new OwnedPokemon(op, poke));
-															System.out.println("Congratulations, your " + op.getName() + " has evolved into a " + poke.getName() + "!");
 														}
 													}
 													p.sortPC();
