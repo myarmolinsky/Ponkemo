@@ -307,8 +307,8 @@ public class Main {
 		pokedex.add(new Pokemon("Flaaffy", "Electric", null, 70, 55, 55, 80, 60, 45, 17, new String[] {"Monster", "Field"}, 50, new String[] {"Mareep", "Flaaffy", "Ampharos"}, 1, 30));
 		pokedex.add(new Pokemon("Ampharos", "Electric", null, 90, 75, 85, 115, 90, 55, 27, new String[] {"Monster", "Field"}, 50, new String[] {"Mareep", "Flaaffy", "Ampharos"}, 2, 0));
 		pokedex.add(new Pokemon("Bellossom", "Grass", null, 75, 80, 95, 90, 100, 50, 27, new String[] {"Grass"}, 50, new String[] {"Oddish", "Gloom", "Vileplume", "Bellossom"}, 2, 0));
-		pokedex.add(new Pokemon("Marill", "Water", "Fairy", 70, 20, 50, 20, 50, 40, 6, new String[] {"Water 1", "Fairy"}, 50, new String[] {"Marill", "Azumarill"}, 0, 18));
-		pokedex.add(new Pokemon("Azumarill", "Water", "Fairy", 100, 50, 80, 60, 80, 50, 21, new String[] {"Water 1", "Fairy"}, 50, new String[] {"Marill", "Azumarill"}, 1, 0));
+		pokedex.add(new Pokemon("Marill", "Water", "Fairy", 70, 20, 50, 20, 50, 40, 6, new String[] {"Water 1", "Fairy"}, 50, new String[] {"Azurill", "Marill", "Azumarill"}, 1, 18));
+		pokedex.add(new Pokemon("Azumarill", "Water", "Fairy", 100, 50, 80, 60, 80, 50, 21, new String[] {"Water 1", "Fairy"}, 50, new String[] {"Azurill", "Marill", "Azumarill"}, 2, 0));
 		pokedex.add(new Pokemon("Sudowoodo", "Rock", null, 70, 100, 115, 30, 65, 30, 23, new String[] {"Mineral"}, 50, new String[] {"Sudowoodo"}, 0, 0));
 		pokedex.add(new Pokemon("Politoed", "Water", null, 90, 75, 75, 90, 100, 70, 27, new String[] {"Water 1"}, 50, new String[] {"Poliwag", "Poliwhirl", "Poliwrath", "Politoed"}, 2, 0));
 		pokedex.add(new Pokemon("Hoppip", "Grass", "Flying", 35, 35, 40, 35, 55, 50, 0, new String[] {"Fairy", "Grass"}, 50, new String[] {"Hoppip", "Skiploom", "Jumpluff"}, 0, 18));
@@ -414,20 +414,20 @@ public class Main {
 		pokedex.add(new Pokemon("Slakoth", "Normal", null, 60, 60, 60, 35, 35, 30, 0, new String[] {"Field"}, 50, new String[] {"Slakoth", "Vigoroth", "Slaking"}, 0, 18));
 		pokedex.add(new Pokemon("Vigoroth", "Normal", null, 80, 80, 80, 55, 55, 90, 17, new String[] {"Field"}, 50, new String[] {"Slakoth", "Vigoroth", "Slaking"}, 1, 36));
 		pokedex.add(new Pokemon("Slaking", "Normal", null, 150, 160, 100, 95, 65, 100, 27, new String[] {"Field"}, 50, new String[] {"Slakoth", "Vigoroth", "Slaking"}, 2, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon("Nincada", "Bug", "Ground", 31, 45, 90, 30, 30, 40, 0, new String[] {"Bug"}, 50, new String[] {"Nincada", "Ninjask", "Shedinja"}, 0, 20));
+		pokedex.add(new Pokemon("Ninjask", "Bug", "Flying", 61, 90, 45, 50, 50, 160, 17, new String[] {"Bug"}, 50, new String[] {"Nincada", "Ninjask"}, 1, 0));
+		pokedex.add(new Pokemon("Shedinja", "Bug", "Ghost", 1, 90, 45, 30, 30, 40, 27, new String[] {"Mineral"}, -1, new String[] {"Nincada", "Shedinja"}, 1, 0));
+		pokedex.add(new Pokemon("Whismur", "Normal", null, 64, 51, 23, 51, 23, 28, 6, new String[] {"Monster", "Field"}, 50, new String[] {"Whismur", "Loudred", "Exploud"}, 0, 20));
+		pokedex.add(new Pokemon("Loudred", "Normal", null, 84, 71, 43, 71, 43, 48, 17, new String[] {"Monster", "Field"}, 50, new String[] {"Whismur", "Loudred", "Exploud"}, 1, 40));
+		pokedex.add(new Pokemon("Exploud", "Normal", null, 104, 91, 63, 91, 73, 68, 27, new String[] {"Monster", "Field"}, 50, new String[] {"Whismur", "Loudred", "Exploud"}, 2, 0));
+		pokedex.add(new Pokemon("Makuhita", "Fighting", null, 72, 60, 30, 20, 30, 25, 5, new String[] {"Human-Like"}, 75, new String[] {"Makuhita", "Hariyama"}, 0, 24));
+		pokedex.add(new Pokemon("Hariyama", "Fighting", null, 144, 120, 60, 40, 60, 50, 7, new String[] {"Human-Like"}, 75, new String[] {"Makuhita", "Hariyama"}, 1, 0));
+		pokedex.add(new Pokemon("Azurill", "Normal", "Fairy", 50, 20, 40, 20, 40, 20, 11, new String[] {"Water 1", "Fairy"}, 25, new String[] {"Azurill", "Marill", "Azumarill"}, 0, -1));
+		pokedex.add(new Pokemon("Nosepass", "Rock", null, 30, 45, 135, 45, 90, 30, 0, new String[] {"Mineral"}, 50, new String[] {"Nosepass"}, 0, 0));
+		pokedex.add(new Pokemon("Skitty", "Normal", null, 50, 45, 45, 35, 35, 50, 0, new String[] {"Field", "Fairy"}, 25, new String[] {"Skitty", "Delcatty"}, 0, -1));
+		pokedex.add(new Pokemon("Delcatty", "Normal", null, 70, 65, 65, 55, 55, 90, 24, new String[] {"Field", "Fairy"}, 25, new String[] {"Skitty", "Delcatty"}, 1, 0));
+		pokedex.add(new Pokemon("Sableye", "Dark", "Ghost", 50, 75, 75, 65, 65, 50, 27, new String[] {"Human-Like"}, 50, new String[] {"Sableye"}, 0, 0));
+		pokedex.add(new Pokemon("Mawile", "Steel", "Fairy", 50, 85, 85, 55, 55, 50, 27, new String[] {"Field", "Fairy"}, 50, new String[] {"Mawile"}, 0, 0));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
 		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
@@ -1309,6 +1309,48 @@ public class Main {
 																			tempPokemon = new OwnedPokemon(op, poke);
 																			p.catchPokemon(new OwnedPokemon(op, poke));
 																			System.out.println("Congratulations, your Wurmple has evolved into a Cascoon!");
+																			repeat = false;
+																			break;
+																		default:
+																			System.out.println();
+																			System.out.println("Input does not match an available choice.");
+																			System.out.println();
+																		}
+																	}
+																}
+															} else if (p.getPC().get(num - 1).getName().equals("Nincada")) {
+																// Nincada evolves into 2 pokemon, as in 1 pokemon becomes 2, unlike pokemon like wurmple who only evolve into 1 of its 2 possible evolutions
+																// however, I have decided to give the player the choice of which of the two pokemon they will get
+																// meaning they wont get both Ninjask and Shedinja, only one
+																boolean repeat = false;
+																OwnedPokemon op;
+																while (repeat) {
+																	System.out.println();
+																	System.out.println("Would you like your Nincada to evolve into a Ninjask or a Shedinja?");
+																	System.out.println("Enter the number corresponding your choice.");
+																	System.out.println("1) Ninjask");
+																	System.out.println("2) Shedinja");
+																	System.out.println();
+																	if (input.hasNext()) {
+																		switch (input.nextLine()) {
+																		case "1":
+																			System.out.println();
+																			poke = pokedex.get(290);
+																			op = p.getPC().get(num - 1);
+																			p.getPC().remove(num - 1);
+																			tempPokemon = new OwnedPokemon(op, poke);
+																			p.catchPokemon(new OwnedPokemon(op, poke));
+																			System.out.println("Congratulations, your Nincada has evolved into a Ninjask!");
+																			repeat = false;
+																			break;
+																		case "2":
+																			System.out.println();
+																			poke = pokedex.get(291);
+																			op = p.getPC().get(num - 1);
+																			p.getPC().remove(num - 1);
+																			tempPokemon = new OwnedPokemon(op, poke);
+																			p.catchPokemon(new OwnedPokemon(op, poke));
+																			System.out.println("Congratulations, your Nincada has evolved into a Shedinja!");
 																			repeat = false;
 																			break;
 																		default:

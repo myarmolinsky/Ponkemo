@@ -306,7 +306,12 @@ public class OwnedPokemon implements Serializable{
 
 	private void calculateStats() {
 		// health stat is calculated differently than the other stats
-		healthStat = (((2 * pokemon.getBaseHealth() + healthIV + (healthEV/4)) * level)/100) + level + 10;
+		if (getName().equals("Shedinja")) {
+			// Shedinja always has only 1 point for its health stat
+			healthStat = 1;
+		} else {
+			healthStat = (((2 * pokemon.getBaseHealth() + healthIV + (healthEV/4)) * level)/100) + level + 10;
+		}
 		// the rest of the stats are calculated depending on the nature
 		switch(nature) {
 		case "Hardy":
