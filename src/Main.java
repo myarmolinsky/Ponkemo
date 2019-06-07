@@ -771,6 +771,7 @@ public class Main {
 											p.getPC().get(num - 1).setNickname(temp);
 											System.out.println();
 											System.out.println("Your " + p.getPC().get(num - 1).getPokemon().getName() + " nickname is now " + temp + ".");
+											repeat = true;
 										}	
 									}
 								}
@@ -912,6 +913,7 @@ public class Main {
 				breedHelper(p, pokedex, num, input);
 				done = true;
 			} else {
+				System.out.println();
 				printOwnedPokemon(p, startPCIndex, endPCIndex);
 				System.out.println("Enter the number corresponding to the first Pokemon you would like to breed or enter \"0\" to go back to the main menu.");
 				System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
@@ -999,6 +1001,7 @@ public class Main {
 														System.out.println("Are you sure you would like to use this Pokemon for breeding?");
 														System.out.println("1) Yes");
 														System.out.println("2) No");
+														System.out.println();
 														if (input.hasNext()) {
 															switch (input.nextLine()) {
 															case "1":
@@ -1036,6 +1039,7 @@ public class Main {
 							System.out.println("Are you sure you would like to use this Pokemon for breeding?");
 							System.out.println("1) Yes");
 							System.out.println("2) No");
+							System.out.println();
 							if (input.hasNext()) {
 								switch (input.nextLine()) {
 								case "1":
@@ -1075,6 +1079,7 @@ public class Main {
 				breedHelper2(p, pokedex, num, numTwo, input);
 				finished = true;
 			} else {
+				System.out.println();
 				printOwnedPokemon(p, startPCIndex, endPCIndex);
 				System.out.println("Enter the number corresponding to the second Pokemon you would like to breed or enter \"0\" to go back to the main menu.");
 				System.out.println("To see the next " + pageLimit + " pokemon in your pc, enter \"next\" or to see the previous " + pageLimit + " pokemon in your pc, enter \"previous\"");
@@ -1162,6 +1167,7 @@ public class Main {
 														System.out.println("Are you sure you would like to use this Pokemon for breeding?");
 														System.out.println("1) Yes");
 														System.out.println("2) No");
+														System.out.println();
 														if (input.hasNext()) {
 															switch (input.nextLine()) {
 															case "1":
@@ -1405,7 +1411,6 @@ public class Main {
 				// this means that the pokemon that comes later in the PC needs to be removed first
 			}
 		} else {
-			System.out.println();
 			System.out.println("These two Pokemon are not breedable.");
 			System.out.println();
 		}
