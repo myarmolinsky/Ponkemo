@@ -277,7 +277,7 @@ public class OwnedPokemon implements Serializable{
 	}
 
 	public OwnedPokemon(OwnedPokemon ownedPokemon, Pokemon poke) {
-		// this constructor is used when evolving a Pokemon
+		// this constructor is used when evolving a Pokemon or changing its forme
 		// everything about the original OwnedPokemon remains the same except its Pokemon data member and its stats which are recalculated due to the new base stats
 		pokemon = poke;
 		if (ownedPokemon.nickname.equals(ownedPokemon.pokemon.getName()))
