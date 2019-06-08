@@ -39,7 +39,7 @@ public class OwnedPokemon implements Serializable{
 		// this constructor is for making a new Pokemon for the player to catch
 		this.pokemon = pokemon;
 		nickname = pokemon.getName();
-		level = new Random().nextInt(50) + 1; // the Pokemon starts with a random level between 1 and 50
+		level = new Random().nextInt(20) + 1; // the Pokemon starts with a random level between 1 and 50
 		int temp = new Random().nextInt(4096); // there is a 1/4096 chance that a Pokemon is shiny
 		if (temp == 0)
 			shiny = true;
