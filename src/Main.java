@@ -257,7 +257,7 @@ public class Main {
 		pokedex.add(new Pokemon("Gyarados", "Water", "Flying", 95, 125, 79, 60, 100, 81, 27, new String[] {"Water 2", "Dragon"}, 50, new String[] {"Magikarp", "Gyarados"}, 1, 0));
 		pokedex.add(new Pokemon("Lapras", "Water", "Ice", 130, 85, 80, 85, 95, 60, 27, new String[] {"Water 1", "Monster"}, 50, new String[] {"Lapras"}, 0, 0));
 		pokedex.add(new Pokemon("Ditto", "Normal", null, 48, 48, 48, 48, 48, 48, 28, new String[] {"Ditto"}, -1, new String[] {"Ditto"}, 0, 0));
-		pokedex.add(new Pokemon("Eevee", "Normal", null, 55, 55, 50, 45, 65, 55, 27, new String[] {"Field"}, 87.5, new String[] {"Eevee", "Vaporeon", "Jolteon", "Flareon", "Espeon", "Umbreon", "Leafeon", "Glaceon"}, 0, -1));
+		pokedex.add(new Pokemon("Eevee", "Normal", null, 55, 55, 50, 45, 65, 55, 27, new String[] {"Field"}, 87.5, new String[] {"Eevee", "Vaporeon", "Jolteon", "Flareon", "Espeon", "Umbreon", "Leafeon", "Glaceon", "Sylveon"}, 0, -1));
 		pokedex.add(new Pokemon("Vaporeon", "Water", null, 130, 65, 60, 110, 95, 65, 27, new String[] {"Field"}, 87.5, new String[] {"Eevee", "Vaporeon"}, 1, 0));
 		pokedex.add(new Pokemon("Jolteon", "Electric", null, 65, 65, 60, 110, 95, 130, 27, new String[] {"Field"}, 87.5, new String[] {"Eevee", "Jolteon"}, 1, 0));
 		pokedex.add(new Pokemon("Flareon", "Fire", null, 65, 130, 60, 95, 110, 65, 27, new String[] {"Field"}, 87.5, new String[] {"Eevee", "Flareon"}, 1, 0));
@@ -776,8 +776,8 @@ public class Main {
 		pokedex.add(new Pokemon("Larvesta", "Bug", "Fire", 55, 85, 55, 50, 55, 60, 27, new String[] {"Bug"}, 50, new String[] {"Larvesta", "Volcarona"}, 0, 59));
 		pokedex.add(new Pokemon("Volcarona", "Bug", "Fire", 85, 60, 65, 135, 105, 100, 31, new String[] {"Bug"}, 50, new String[] {"Larvesta", "Volcarona"}, 1, 0));
 		pokedex.add(new Pokemon("Cobalion", "Steel", "Fighting", 91, 90, 129, 90, 72, 108, 32, new String[] {"Undiscovered"}, -1, new String[] {"Cobalion"}, 0, 0));
-		pokedex.add(new Pokemon("Terrakion", "Rock", "Fighting", 91, 129, 90, 72, 90, 108, 32, new String[] {"Undiscovered"}, -1, new String[] {"Cobalion"}, 0, 0));
-		pokedex.add(new Pokemon("Virizion", "Grass", "Fighting", 91, 90, 72, 90, 129, 108, 32, new String[] {"Undiscovered"}, -1, new String[] {"Cobalion"}, 0, 0));
+		pokedex.add(new Pokemon("Terrakion", "Rock", "Fighting", 91, 129, 90, 72, 90, 108, 32, new String[] {"Undiscovered"}, -1, new String[] {"Terrakion"}, 0, 0));
+		pokedex.add(new Pokemon("Virizion", "Grass", "Fighting", 91, 90, 72, 90, 129, 108, 32, new String[] {"Undiscovered"}, -1, new String[] {"Virizion"}, 0, 0));
 		pokedex.add(new Pokemon("TornadusI", "Flying", null, 79, 115, 70, 125, 80, 111, 32, new String[] {"Undiscovered"}, 100, new String[] {"TornadusI"}, 0, 0)); // 653:641
 		pokedex.add(new Pokemon("TornadusT", "Flying", null, 79, 100, 80, 110, 90, 121, 32, new String[] {"Undiscovered"}, 100, new String[] {"TornadusT"}, 0, 0)); // 654:641
 		pokedex.add(new Pokemon("ThundurusI", "Electric", "Flying", 79, 115, 70, 125, 80, 111, 32, new String[] {"Undiscovered"}, 100, new String[] {"ThundurusI"}, 0, 0)); // 655:642
@@ -793,6 +793,80 @@ public class Main {
 		pokedex.add(new Pokemon("MeloettaA", "Normal", "Psychic", 100, 77, 77, 128, 128, 90, 32, new String[] {"Undiscovered"}, -1, new String[] {"MeloettaA"}, 0, 0)); // 665:648
 		pokedex.add(new Pokemon("MeloettaP", "Normal", "Fighting", 100, 128, 90, 77, 77, 128, 32, new String[] {"Undiscovered"}, -1, new String[] {"MeloettaP"}, 0, 0)); // 666:648
 		pokedex.add(new Pokemon("Genesect", "Bug", "Steel", 71, 120, 95, 120, 95, 99, 32, new String[] {"Undiscovered"}, -1, new String[] {"Genesect"}, 0, 0));
+		pokedex.add(new Pokemon("Chespin", "Grass", null, 56, 61, 65, 48, 45, 38, 27, new String[] {"Field"}, 87.5, new String[] {"Chespin", "Quilladin", "Chestnaught"}, 0, 16));
+		pokedex.add(new Pokemon("Quilladin", "Grass", null, 61, 78, 95, 56, 58, 57, 27, new String[] {"Field"}, 87.5, new String[] {"Chespin", "Quilladin", "Chestnaught"}, 1, 36));
+		pokedex.add(new Pokemon("Chestnaught", "Grass", "Fighting", 88, 107, 122, 74, 75, 64, 27, new String[] {"Field"}, 87.5, new String[] {"Chespin", "Quilladin", "Chestnaught"}, 2, 0));
+		pokedex.add(new Pokemon("Fennekin", "Fire", null, 40, 45, 40, 62, 60, 60, 27, new String[] {"Field"}, 87.5, new String[] {"Fennekin", "Braixen", "Delphox"}, 0, 16));
+		pokedex.add(new Pokemon("Braixen", "Fire", null, 59, 59, 58, 90, 70, 73, 27, new String[] {"Field"}, 87.5, new String[] {"Fennekin", "Braixen", "Delphox"}, 1, 36));
+		pokedex.add(new Pokemon("Delphox", "Fire", "Psychic", 75, 69, 72, 114, 100, 104, 27, new String[] {"Field"}, 87.5, new String[] {"Fennekin", "Braixen", "Delphox"}, 2, 0));
+		pokedex.add(new Pokemon("Froakie", "Water", null, 41, 56, 40, 62, 44, 71, 27, new String[] {"Water 1"}, 87.5, new String[] {"Froakie", "Frogadier", "Greninja", "GreninjaA"}, 0, 16));
+		pokedex.add(new Pokemon("Frogadier", "Water", null, 54, 63, 52, 83, 56, 97, 27, new String[] {"Water 1"}, 87.5, new String[] {"Froakie", "Frogadier", "Greninja"}, 1, 36));
+		pokedex.add(new Pokemon("Greninja", "Water", "Dark", 72, 95, 67, 103, 71, 122, 27, new String[] {"Water 1"}, 87.5, new String[] {"Froakie", "Frogadier", "Greninja"}, 2, 0)); // 676:658
+		pokedex.add(new Pokemon("GreninjaA", "Water", "Dark", 72, 145, 67, 153, 71, 132, 27, new String[] {"Water 1"}, 87.5, new String[] {"Froakie", "Frogadier", "GreninjaA"}, 2, 0)); // 677:658
+		pokedex.add(new Pokemon("Bunnelby", "Normal", null, 38, 36, 38, 32, 36, 57, 0, new String[] {"Field"}, 50, new String[] {"Bunnelby", "Diggerby"}, 0, 20));
+		pokedex.add(new Pokemon("Diggersby", "Normal", "Ground", 85, 56, 77, 50, 77, 78, 15, new String[] {"Field"}, 50, new String[] {"Bunnelby", "Diggerby"}, 1, 0));
+		pokedex.add(new Pokemon("Fletchling", "Normal", "Flying", 45, 50, 43, 40, 38, 62, 0, new String[] {"Flying"}, 50, new String[] {"Fletchling", "Fletchinder", "Talonflame"}, 0, 17));
+		pokedex.add(new Pokemon("Fletchinder", "Fire", "Flying", 62, 73, 55, 56, 52, 84, 17, new String[] {"Flying"}, 50, new String[] {"Fletchling", "Fletchinder", "Talonflame"}, 1, 35));
+		pokedex.add(new Pokemon("Talonflame", "Fire", "Flying", 78, 81, 71, 74, 69, 126, 27, new String[] {"Flying"}, 50, new String[] {"Fletchling", "Fletchinder", "Talonflame"}, 2, 0));
+		pokedex.add(new Pokemon("Scatterbug", "Bug", null, 38, 35, 40, 27, 25, 35, 0, new String[] {"Bug"}, 50, new String[] {"Scatterbug", "Spewpa", "Vivillon"}, 0, 9));
+		pokedex.add(new Pokemon("Spewpa", "Bug", null, 45, 22, 60, 27, 30, 29, 17, new String[] {"Bug"}, 50, new String[] {"Scatterbug", "Spewpa", "Vivillon"}, 1, 12));
+		pokedex.add(new Pokemon("Vivillon", "Bug", "Flying", 80, 52, 50, 90, 50, 89, 27, new String[] {"Bug"}, 50, new String[] {"Scatterbug", "Spewpa", "Vivillon"}, 2, 0));
+		pokedex.add(new Pokemon("Litleo", "Fire", "Normal", 62, 50, 58, 73, 54, 72, 3, new String[] {"Field"}, 12.5, new String[] {"Litleo", "Pyroar"}, 0, 35));
+		pokedex.add(new Pokemon("Pyroar", "Fire", "Normal", 86, 68, 72, 109, 66, 106, 23, new String[] {"Field"}, 12.5, new String[] {"Litleo", "Pyroar"}, 1, 0));
+		pokedex.add(new Pokemon("Flabebe", "Fairy", null, 44, 38, 39, 61, 79, 42, 2, new String[] {"Fairy"}, 0, new String[] {"Flabebe", "Floette", "Florges"}, 0, 19));
+		pokedex.add(new Pokemon("Floette", "Fairy", null, 54, 45, 47, 75, 98, 52, 17, new String[] {"Fairy"}, 0, new String[] {"Flabebe", "Floette", "Florges"}, 1, -1));
+		pokedex.add(new Pokemon("Florges", "Fairy", null, 78, 65, 68, 112, 154, 75, 27, new String[] {"Fairy"}, 0, new String[] {"Flabebe", "Floette", "Florges"}, 2, 0));
+		pokedex.add(new Pokemon("Skiddo", "Grass", null, 66, 65, 48, 62, 57, 52, 5, new String[] {"Field"}, 50, new String[] {"Skiddo", "Gogoat"}, 0, 32));
+		pokedex.add(new Pokemon("Gogoat", "Grass", null, 123, 100, 62, 97, 81, 68, 27, new String[] {"Field"}, 50, new String[] {"Skiddo", "Gogoat"}, 1, 0));
+		pokedex.add(new Pokemon("Pancham", "Fighting", null, 67, 82, 62, 46, 48, 43, 3, new String[] {"Field", "Human-Like"}, 50, new String[] {"Pancham", "Pangoro"}, 0, 32));
+		pokedex.add(new Pokemon("Pangoro", "Fighting", "Dark", 95, 124, 78, 69, 71, 58, 23, new String[] {"Field", "Human-Like"}, 50, new String[] {"Pancham", "Pangoro"}, 1, 0));
+		pokedex.add(new Pokemon("Furfrou", "Normal", null, 75, 80, 60, 65, 90, 102, 9, new String[] {"Field"}, 50, new String[] {"Furfrou"}, 0, 0));
+		pokedex.add(new Pokemon("Espurr", "Psychic", null, 62, 48, 54, 63, 60, 68, 6, new String[] {"Field"}, 50, new String[] {"Espurr", "Meowstic"}, 0, 25));
+		pokedex.add(new Pokemon("Meowstic", "Psychic", null, 74, 48, 76, 83, 81, 104, 21, new String[] {"Field"}, 50, new String[] {"Espurr", "Meowstic"}, 1, 0));
+		pokedex.add(new Pokemon("Honedge", "Steel", "Ghost", 45, 80, 100, 35, 37, 28, 7, new String[] {"Mineral"}, 50, new String[] {"Honedge", "Doublade", "AegislashSh", "AegislashSw"}, 0, 35));
+		pokedex.add(new Pokemon("Doublade", "Steel", "Ghost", 59, 110, 150, 45, 49, 35, 19, new String[] {"Mineral"}, 50, new String[] {"Honedge", "Doublade", "AegislashSw"}, 1, -1));
+		pokedex.add(new Pokemon("AegislashSh", "Steel", "Ghost", 60, 50, 150, 50, 150, 60, 27, new String[] {"Mineral"}, 50, new String[] {"Honedge", "Doublade", "AegislashSh"}, 2, 0)); // 700:681
+		pokedex.add(new Pokemon("AegislashSw", "Steel", "Ghost", 60, 150, 50, 150, 50, 60, 27, new String[] {"Mineral"}, 50, new String[] {"Honedge", "Doublade", "AegislashSw"}, 2, 0)); // 701:681
+		pokedex.add(new Pokemon("Spritzee", "Fairy", null, 78, 52, 60, 63, 65, 23, 5, new String[] {"Fairy"}, 50, new String[] {"Spritzee", "Aromatisse"}, 0, -1));
+		pokedex.add(new Pokemon("Aromatisse", "Fairy", null, 101, 72, 72, 99, 89, 29, 13, new String[] {"Fairy"}, 50, new String[] {"Spritzee", "Aromatisse"}, 1, 0));
+		pokedex.add(new Pokemon("Swirlix", "Fairy", null, 62, 48, 66, 59, 57, 49, 5, new String[] {"Fairy"}, 50, new String[] {"Swirlix", "Slurpuff"}, 0, -1));
+		pokedex.add(new Pokemon("Slurpuff", "Fairy", null, 82, 80, 86, 85, 75, 72, 13, new String[] {"Fairy"}, 50, new String[] {"Swirlix", "Slurpuff"}, 1, 0));
+		pokedex.add(new Pokemon("Inkay", "Dark", "Psychic", 53, 54, 53, 37, 46, 45, 6, new String[] {"Water 1", "Water 2"}, 50, new String[] {"Inkay", "Malamar"}, 0, 30));
+		pokedex.add(new Pokemon("Malamar", "Dark", "Psychic", 86, 92, 88, 68, 75, 73, 20, new String[] {"Water 1", "Water 2"}, 50, new String[] {"Inkay", "Malamar"}, 1, 0));
+		pokedex.add(new Pokemon("Binacle", "Rock", "Water", 42, 52, 67, 39, 56, 50, 17, new String[] {"Water 3"}, 50, new String[] {"Binacle", "Barbaracle"}, 0, 39));
+		pokedex.add(new Pokemon("Barbaracle", "Rock", "Water", 72, 105, 115, 54, 86, 68, 27, new String[] {"Water 3"}, 50, new String[] {"Binacle", "Barbaracle"}, 1, 0));
+		pokedex.add(new Pokemon("Skrelp", "Poison", "Water", 50, 60, 60, 60, 60, 30, 2, new String[] {"Water 1", "Dragon"}, 50, new String[] {"Skrelp", "Dragalage"}, 0, 48));
+		pokedex.add(new Pokemon("Dragalage", "Poison", "Dragon", 65, 75, 90, 97, 123, 44, 25, new String[] {"Water 1", "Dragon"}, 50, new String[] {"Skrelp", "Dragalage"}, 1, 0));
+		pokedex.add(new Pokemon("Clauncher", "Water", null, 50, 53, 62, 58, 63, 44, 2, new String[] {"Water 1", "Water 3"}, 50, new String[] {"Clauncher", "Clawitzer"}, 0, 37));
+		pokedex.add(new Pokemon("Clawitzer", "Water", null, 71, 73, 88, 120, 89, 59, 25, new String[] {"Water 1", "Water 3"}, 50, new String[] {"Clauncher", "Clawitzer"}, 1, 0));
+		pokedex.add(new Pokemon("Helioptile", "Electric", "Normal", 44, 38, 33, 61, 43, 70, 6, new String[] {"Monster", "Dragon"}, 50, new String[] {"Helioptile", "Heliolisk"}, 0, -1));
+		pokedex.add(new Pokemon("Heliolisk", "Electric", "Normal", 62, 55, 52, 109, 94, 109, 21, new String[] {"Monster", "Dragon"}, 50, new String[] {"Helioptile", "Heliolisk"}, 1, 0));
+		pokedex.add(new Pokemon("Tyrunt", "Rock", "Dragon", 58, 89, 77, 45, 45, 48, 27, new String[] {"Monster", "Dragon"}, 87.5, new String[] {"Tyrunt", "Tyrantrum"}, 0, 39));
+		pokedex.add(new Pokemon("Tyrantrum", "Rock", "Dragon", 82, 121, 119, 69, 59, 71, 27, new String[] {"Monster", "Dragon"}, 87.5, new String[] {"Tyrunt", "Tyrantrum"}, 1, 0));
+		pokedex.add(new Pokemon("Amaura", "Rock", "Ice", 77, 59, 50, 67, 63, 46, 27, new String[] {"Monster"}, 87.5, new String[] {"Amaura", "Aurorus"}, 0, 39));
+		pokedex.add(new Pokemon("Aurorus", "Rock", "Ice", 123, 77, 72, 99, 92, 58, 27, new String[] {"Monster"}, 87.5, new String[] {"Amaura", "Aurorus"}, 1, 0));
+		pokedex.add(new Pokemon("Sylveon", "Fairy", null, 95, 65, 65, 110, 130, 60, 27, new String[] {"Field"}, 87.5, new String[] {"Eevee", "Sylveon"}, 1, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
 	}
 
 	private static void sortPC(Player p, Scanner input) {
@@ -2433,6 +2507,7 @@ public class Main {
 									System.out.println("5) Umbreon");
 									System.out.println("6) Leafeon");
 									System.out.println("7) Glaceon");
+									System.out.println("8) Sylveon");
 									System.out.println("Enter \"0\" to go back to the main menu.");
 									System.out.println();
 									poke = p.getPC().get(num - 1).getPokemon();
@@ -2520,6 +2595,18 @@ public class Main {
 											p.getPC().remove(num - 1);
 											p.catchPokemon(op);
 											System.out.println("Congratulations, your Eevee has evolved into a Glaceon!");
+											p.getPC().get(p.getIndex(op)).addT4PointsInvested(100);
+											finished = true;
+											repeat = true;
+											break;
+										case "8":
+											System.out.println();
+											p.spendTier4(100);
+											poke = pokedex.get(720);
+											op = new OwnedPokemon(p.getPC().get(num - 1), poke);
+											p.getPC().remove(num - 1);
+											p.catchPokemon(op);
+											System.out.println("Congratulations, your Eevee has evolved into a Sylveon!");
 											p.getPC().get(p.getIndex(op)).addT4PointsInvested(100);
 											finished = true;
 											repeat = true;
@@ -4021,7 +4108,9 @@ public class Main {
 					|| op.getName().equals("ThundurusI") || op.getName().equals("ThundurusT")
 					|| op.getName().equals("LandorusI") || op.getName().equals("LandorusT")
 					|| op.getName().equals("Kyurem") || op.getName().equals("KyuremW") || op.getName().equals("KyuremB")
-					|| op.getName().equals("MeloettaA") || op.getName().equals("MeloettaP"))
+					|| op.getName().equals("MeloettaA") || op.getName().equals("MeloettaP")
+					|| op.getName().equals("Greninja") || op.getName().equals("GreninjaA")
+					|| op.getName().equals("AegislashSh") || op.getName().equals("AegislashSw"))
 				opArr.add(op);
 		if (opArr.size() == 0) {
 			System.out.println();
@@ -4851,6 +4940,144 @@ public class Main {
 										System.out.println();
 										System.out.println("Changing this Pokemon's Forme costs 100 Tier 5 Points");
 										System.out.println("You do not have enough Tier 5 Points to change this Pokemon's forme");
+										System.out.println();
+										done = true;
+									}
+								} else if (p.getPC().get(num - 1).getName().equals("Greninja") || p.getPC().get(num - 1).getName().equals("GreninjaA")) {
+									num = p.getIndex(opArr.get(num - 1)) + 1;
+									boolean enough = true;
+									if (p.getTier4() < 100)
+										enough = false;
+									if (enough) {
+										System.out.println();
+										System.out.println("Changing Greninja's forme costs 100 Tier 5 Points");
+										System.out.println("Which forme would you like this Pokemon to have?");
+										System.out.println("1) Greninja");
+										System.out.println("2) GreninjaA");
+										System.out.println("Enter \"0\" to go back to the main menu.");
+										System.out.println();
+										boolean finished = false;
+										OwnedPokemon op = p.getPC().get(num - 1);
+										Pokemon poke;
+										while (!finished)
+											if (input.hasNext()) {
+												switch(temp) {
+												case "1":
+													if (!op.getName().equals("Greninja")) {
+														poke = pokedex.get(676);
+														p.spendTier4(100);
+														p.getPC().get(num - 1).addT4PointsInvested(100);
+														op = p.getPC().get(num - 1);
+														p.getPC().remove(num - 1);
+														p.catchPokemon(new OwnedPokemon(op, poke));
+														done = true;
+														finished = true;
+													} else {
+														System.out.println();
+														System.out.println("Greninja is already this forme.");
+														System.out.println();
+													}
+													break;
+												case "2":
+													if (!op.getName().equals("GreninjaA")) {
+														poke = pokedex.get(677);
+														p.spendTier4(100);
+														p.getPC().get(num - 1).addT4PointsInvested(100);
+														op = p.getPC().get(num - 1);
+														p.getPC().remove(num - 1);
+														p.catchPokemon(new OwnedPokemon(op, poke));
+														done = true;
+														finished = true;
+													} else {
+														System.out.println();
+														System.out.println("Greninja is already this forme.");
+														System.out.println();
+													}
+													break;
+												case "0":
+													System.out.println();
+													done = true;
+													finished = true;
+													break;
+												default:
+													System.out.println();
+													System.out.println("Input does not match an available choice.");
+													System.out.println();
+												}
+											}
+									} else {
+										System.out.println();
+										System.out.println("Changing this Pokemon's Forme costs 100 Tier 4 Points");
+										System.out.println("You do not have enough Tier 4 Points to change this Pokemon's forme");
+										System.out.println();
+										done = true;
+									}
+								} else if (p.getPC().get(num - 1).getName().equals("AegislashSh") || p.getPC().get(num - 1).getName().equals("AegislashSw")) {
+									num = p.getIndex(opArr.get(num - 1)) + 1;
+									boolean enough = true;
+									if (p.getTier4() < 100)
+										enough = false;
+									if (enough) {
+										System.out.println();
+										System.out.println("Changing Aegislash's forme costs 100 Tier 5 Points");
+										System.out.println("Which forme would you like this Pokemon to have?");
+										System.out.println("1) AegislashSh");
+										System.out.println("2) AegislashSw");
+										System.out.println("Enter \"0\" to go back to the main menu.");
+										System.out.println();
+										boolean finished = false;
+										OwnedPokemon op = p.getPC().get(num - 1);
+										Pokemon poke;
+										while (!finished)
+											if (input.hasNext()) {
+												switch(temp) {
+												case "1":
+													if (!op.getName().equals("AegislashSh")) {
+														poke = pokedex.get(700);
+														p.spendTier4(100);
+														p.getPC().get(num - 1).addT4PointsInvested(100);
+														op = p.getPC().get(num - 1);
+														p.getPC().remove(num - 1);
+														p.catchPokemon(new OwnedPokemon(op, poke));
+														done = true;
+														finished = true;
+													} else {
+														System.out.println();
+														System.out.println("Aegislash is already this forme.");
+														System.out.println();
+													}
+													break;
+												case "2":
+													if (!op.getName().equals("AegislashSw")) {
+														poke = pokedex.get(701);
+														p.spendTier4(100);
+														p.getPC().get(num - 1).addT4PointsInvested(100);
+														op = p.getPC().get(num - 1);
+														p.getPC().remove(num - 1);
+														p.catchPokemon(new OwnedPokemon(op, poke));
+														done = true;
+														finished = true;
+													} else {
+														System.out.println();
+														System.out.println("Aegislash is already this forme.");
+														System.out.println();
+													}
+													break;
+												case "0":
+													System.out.println();
+													done = true;
+													finished = true;
+													break;
+												default:
+													System.out.println();
+													System.out.println("Input does not match an available choice.");
+													System.out.println();
+												}
+											}
+									} else {
+										System.out.println();
+										System.out.println("Changing this Pokemon's Forme costs 100 Tier 4 Points");
+										System.out.println("You do not have enough Tier 4 Points to change this Pokemon's forme");
 										System.out.println();
 										done = true;
 									}
