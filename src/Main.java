@@ -950,27 +950,30 @@ public class Main {
 		pokedex.add(new Pokemon("Tapu Lele", "Psychic", "Fairy", 70, 85, 75, 130, 115, 95, 32, new String[] {"Undiscovered"}, -1, new String[] {"Tapu Lele"}, 0, 0));
 		pokedex.add(new Pokemon("Tapu Bulu", "Grass", "Fairy", 70, 130, 115, 85, 95, 75, 32, new String[] {"Undiscovered"}, -1, new String[] {"Tapu Bulu"}, 0, 0));
 		pokedex.add(new Pokemon("Tapu Fini", "Water", "Fairy", 70, 75, 115, 95, 130, 85, 32, new String[] {"Undiscovered"}, -1, new String[] {"Tapu Fini"}, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
-		pokedex.add(new Pokemon(null, null, null, 0, 0, 0, 0, 0, 0, 0, null, 0, null, 0, 0));
+		pokedex.add(new Pokemon("Cosmog", "Psychic", null, 43, 29, 31, 29, 31, 37, 27, new String[] {"Undiscovered"}, -1, new String[] {"Cosmog", "Cosmoem", "Solgaleo", "Lunala"}, 0, 43));
+		pokedex.add(new Pokemon("Cosmoem", "Psychic", null, 43, 29, 131, 29, 131, 27, 27, new String[] {"Undiscovered"}, -1, new String[] {"Cosmog", "Cosmoem", "Solgaleo", "Lunala"}, 1, 53));
+		pokedex.add(new Pokemon("Solgaleo", "Psychic", "Steel", 137, 137, 107, 113, 89, 97, 27, new String[] {"Undiscovered"}, -1, new String[] {"Cosmog", "Cosmoem", "Solgaleo"}, 2, 0));
+		pokedex.add(new Pokemon("Lunala", "Psychic", "Ghost", 137, 113, 89, 137, 107, 97, 27, new String[] {"Undiscovered"}, -1, new String[] {"Cosmog", "Cosmoem", "Solgaleo"}, 2, 0));
+		pokedex.add(new Pokemon("Nihilego", "Rock", "Poison", 109, 53, 47, 127, 131, 103, 27, new String[] {"Undiscovered"}, -1, new String[] {"Nihilego"}, 0, 0));
+		pokedex.add(new Pokemon("Buzzwole", "Bug", "Fighting", 107, 139, 139, 53, 53, 79, 27, new String[] {"Undiscovered"}, -1, new String[] {"Buzzwole"}, 0, 0));
+		pokedex.add(new Pokemon("Pheromosa", "Bug", "Fighting", 71, 137, 37, 137, 37, 151, 27, new String[] {"Undiscovered"}, -1, new String[] {"Pheromosa"}, 0, 0));
+		pokedex.add(new Pokemon("Xurkitree", "Electric", null, 83, 89, 71, 173, 71, 83, 27, new String[] {"Undiscovered"}, -1, new String[] {"Xurkitree"}, 0, 0));
+		pokedex.add(new Pokemon("Celesteela", "Steel", "Flying", 97, 101, 103, 107, 101, 61, 27, new String[] {"Undiscovered"}, -1, new String[] {"Celesteela"}, 0, 0));
+		pokedex.add(new Pokemon("Kartana", "Grass", "Steel", 59, 181, 131, 59, 31, 109, 27, new String[] {"Undiscovered"}, -1, new String[] {"Kartana"}, 0, 0));
+		pokedex.add(new Pokemon("Guzzlord", "Dark", "Dragon", 223, 101, 53, 97, 53, 43, 27, new String[] {"Undiscovered"}, -1, new String[] {"Guzzlord"}, 0, 0));
+		pokedex.add(new Pokemon("Necrozma", "Psychic", null, 97, 107, 101, 127, 89, 79, 32, new String[] {"Undiscovered"}, -1, new String[] {"Necrozma"}, 0, 0)); // 835:800
+		pokedex.add(new Pokemon("NecrozmaDM", "Psychic", "Steel", 97, 157, 127, 113, 109, 77, 32, new String[] {"Undiscovered"}, -1, new String[] {"NecrozmaDM"}, 0, 0)); // 836:800
+		pokedex.add(new Pokemon("NecrozmaDW", "Psychic", "Ghost", 97, 113, 109, 157, 127, 77, 32, new String[] {"Undiscovered"}, -1, new String[] {"NecrozmaDW"}, 0, 0)); // 837:800
+		pokedex.add(new Pokemon("NecrozmaU", "Psychic", "Dragon", 97, 167, 97, 167, 97, 129, 32, new String[] {"Undiscovered"}, -1, new String[] {"NecrozmaU"}, 0, 0)); // 838:800
+		pokedex.add(new Pokemon("Magearna", "Steel", "Fairy", 80, 95, 115, 130, 115, 65, 32, new String[] {"Undiscovered"}, -1, new String[] {"Magearna"}, 0, 0));
+		pokedex.add(new Pokemon("Marshadow", "Fighting", "Ghost", 90, 125, 80, 90, 90, 125, 32, new String[] {"Undiscovered"}, -1, new String[] {"Marshadow"}, 0, 0));
+		pokedex.add(new Pokemon("Poipole", "Poison", null, 67, 73, 67, 73, 67, 73, 27, new String[] {"Undiscovered"}, -1, new String[] {"Poipole", "Naganadel"}, 0, -1));
+		pokedex.add(new Pokemon("Naganadel", "Poison", "Dragon", 73, 73, 73, 127, 73, 121, 27, new String[] {"Undiscovered"}, -1, new String[] {"Poipole", "Naganadel"}, 1, 0));
+		pokedex.add(new Pokemon("Stakataka", "Rock", "Steel", 61, 131, 211, 53, 101, 13, 29, new String[] {"Undiscovered"}, -1, new String[] {"Stakataka"}, 0, 0));
+		pokedex.add(new Pokemon("Blacephalon", "Fire", "Ghost", 53, 127, 53, 151, 79, 107, 29, new String[] {"Undiscovered"}, -1, new String[] {"Blacephalon"}, 0, 0));
+		pokedex.add(new Pokemon("Zeraora", "Electric", null, 88, 112, 75, 102, 80, 143, 32, new String[] {"Undiscovered"}, -1, new String[] {"Zeraora"}, 0, 0));
+		pokedex.add(new Pokemon("Meltan", "Steel", null, 46, 65, 65, 55, 35, 34, 32, new String[] {"Undiscovered"}, -1, new String[] {"Meltan", "Melmetal"}, 0, -1));
+		pokedex.add(new Pokemon("Melmetal", "Steel", null, 135, 143, 143, 80, 65, 34, 32, new String[] {"Undiscovered"}, -1, new String[] {"Meltan", "Melmetal"}, 1, 0));
 	}
 
 	private static void sortPC(Player p, Scanner input) {
@@ -2862,6 +2865,54 @@ public class Main {
 											p.catchPokemon(op);
 											System.out.println("Congratulations, your Clamperl has evolved into a Gorebyss!");
 											p.getPC().get(p.getIndex(op)).addT1PointsInvested(100);
+											finished = true;
+											repeat = true;
+											break;
+										case "0":
+											finished = true;
+											repeat = true;
+											break;
+										default:
+											System.out.println();
+											System.out.println("Input does not match an available choice.");
+											System.out.println();
+										}
+									System.out.println();
+								}
+							} else if (p.getPC().get(num - 1).getName().equals("Cosmoem")) {
+								// Cosmoem is another special case in special condition evolutions because it can evolve into 2 different Pokemon
+								System.out.println();
+								boolean repeat = false;
+								while (!repeat) {
+									System.out.println("What would you like to evolve you Cosmoem into?");
+									System.out.println("1) Solgaleo");
+									System.out.println("2) Lunala");
+									System.out.println("Enter \"0\" to go back to the main menu.");
+									System.out.println();
+									poke = p.getPC().get(num - 1).getPokemon();
+									if (input.hasNext())
+										switch (input.nextLine()) {
+										case "1":
+											System.out.println();
+											p.spendTier5(100);
+											poke = pokedex.get(827);
+											op = new OwnedPokemon(p.getPC().get(num - 1), poke);
+											p.getPC().remove(num - 1);
+											p.catchPokemon(op);
+											System.out.println("Congratulations, your Cosmoem has evolved into a Solgaleo!");
+											p.getPC().get(p.getIndex(op)).addT5PointsInvested(100);
+											finished = true;
+											repeat = true;
+											break;
+										case "2":
+											System.out.println();
+											p.spendTier5(100);
+											poke = pokedex.get(828);
+											op = new OwnedPokemon(p.getPC().get(num - 1), poke);
+											p.getPC().remove(num - 1);
+											p.catchPokemon(op);
+											System.out.println("Congratulations, your Cosmoem has evolved into a Lunala!");
+											p.getPC().get(p.getIndex(op)).addT5PointsInvested(100);
 											finished = true;
 											repeat = true;
 											break;
