@@ -1,0 +1,25 @@
+{
+  "name": "ponkemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "bin": {
+    "ponkemo": "app.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myarmolinsky/Ponkemo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/myarmolinsky/Ponkemo/issues"
+  },
+  "homepage": "https://github.com/myarmolinsky/Ponkemo#readme",
+  "dependencies": {
+    "requirejs": "^2.3.6"
+  }
+}
