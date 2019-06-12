@@ -870,7 +870,7 @@ makePokemon("Meltan", "Steel", null, 46, 65, 65, 55, 35, 34, 32, ["Undiscovered"
 makePokemon("Melmetal", "Steel", null, 135, 143, 143, 80, 65, 34, 32, ["Undiscovered"], -1, ["Meltan", "Melmetal"], 1, 0)];
 
 function makeOwnedPokemon(pokemon) {
-    var shiny, gender, nature, t1PointsInvested, t2PointsInvested, t3PointsInvested, t4PointsInvested, t5PointsInvested;
+    var shiny, gender, natureArr;
     if (Math.round(Math.random() * 4096) == 0)
         shiny = true;
     else
@@ -883,89 +883,14 @@ function makeOwnedPokemon(pokemon) {
         else
             gender = "Female";
     }
-    switch (Math.round(Math.random() * 25)) {
-        case 0:
-            nature = "Hardy";
-            break;
-        case 1:
-            nature = "Lonely";
-            break;
-        case 2:
-            nature = "Brave";
-            break;
-        case 3:
-            nature = "Adamant";
-            break;
-        case 4:
-            nature = "Naughty";
-            break;
-        case 5:
-            nature = "Bold";
-            break;
-        case 6:
-            nature = "Docile";
-            break;
-        case 7:
-            nature = "Relaxed";
-            break;
-        case 8:
-            nature = "Impish";
-            break;
-        case 9:
-            nature = "Lax";
-            break;
-        case 10:
-            nature = "Timid";
-            break;
-        case 11:
-            nature = "Hasty";
-            break;
-        case 12:
-            nature = "Serious";
-            break;
-        case 13:
-            nature = "Jolly";
-            break;
-        case 14:
-            nature = "Naive";
-            break;
-        case 15:
-            nature = "Modest";
-            break;
-        case 16:
-            nature = "Mild";
-            break;
-        case 17:
-            nature = "Quiet";
-            break;
-        case 18:
-            nature = "Bashful";
-            break;
-        case 19:
-            nature = "Rash";
-            break;
-        case 20:
-            nature = "Calm";
-            break;
-        case 21:
-            nature = "Gentle";
-            break;
-        case 22:
-            nature = "Sassy";
-            break;
-        case 23:
-            nature = "Careful";
-            break;
-        case 24:
-            nature = "Quirky";
-            break;
-    }
+    natureArr = ["Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky"];
+
     var ownedPokemon = {
-        pokemon,
+        pokemon: pokemon,
         nickname: pokemon.name,
         level: Math.round(Math.random() * 20) + 1,
-        shiny,
-        gender,
+        shiny: shiny,
+        gender: gender,
         healthIV: Math.round(Math.random() * 32),
         attackIV: Math.round(Math.random() * 32),
         defenseIV: Math.round(Math.random() * 32),
@@ -984,7 +909,7 @@ function makeOwnedPokemon(pokemon) {
         specialAttackStat: 0,
         specialDefenseStat: 0,
         speedStat: 0,
-        nature,
+        nature: natureArr[Math.floor(Math.random() * 25)],
         favorite: false,
         evoLock: false,
         t1PointsInvested: 0,
@@ -998,7 +923,7 @@ function makeOwnedPokemon(pokemon) {
             } else {
                 this.healthStat = Math.round(((2 * this.pokemon.baseHealth + this.healthIV + (this.healthEV / 4)) * this.level) / 100) + this.level + 10;
             }
-            switch (nature) {
+            switch (this.nature) {
                 case "Hardy":
                 case "Docile":
                 case "Serious":
@@ -1342,14 +1267,20 @@ var spawnRateCounter = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 var playerDex = [];
 
 function search() {
-
-    let num = Math.random() * pokedex.length;
-    playerDex.push(makeOwnedPokemon(pokedex[Math.round(num)]));
+    let num = Math.floor(Math.random() * pokedex.length);
+    while (spawnRateCounter[pokedex[num].spawnRate] != pokedex[num].spawnRate) {
+        console.log(pokedex[num].spawnRate + ": " + spawnRateCounter[pokedex[num].spawnRate]);
+        spawnRateCounter[pokedex[num].spawnRate] = spawnRateCounter[pokedex[num].spawnRate] + 1;
+        num = Math.floor(Math.random() * pokedex.length);
+    }
+    spawnRateCounter[pokedex[num].spawnRate] = 0;
+    playerDex.push(makeOwnedPokemon(pokedex[num]));
     playerDex[playerDex.length - 1].calculateStats();
 
     let str = "";
 
-    const aplle = playerDex.sort((o1, o2) => (o1.attackStat - o2.attackStat));
+    let aplle = playerDex.slice();
+    aplle = aplle.sort((o1, o2) => (o1.attackStat - o2.attackStat));
 
     aplle.forEach(
         function (element) {
